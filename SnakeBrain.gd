@@ -2,18 +2,20 @@ extends CharacterBody2D
 
 signal onStateChanged(state);
 enum state {WANDER, CHASE, DEAD};
-var WanderSpeed : int = 60;
-var ChaseSpeed : int = 90;
+const WanderSpeed : int = 40;
+const ChaseSpeed : int = 60;
 var isonfloor = true;
+var isdying = false;
 @export var IgnorePlayer = false;
 @export var DrawRaycasts : bool = false;
-@export var CurrentSpeed = 60;
+@export var CurrentSpeed = 40;
 @export var gravityprone : bool = true;
 @export var gravity : int = 300;
 @export var CurrentState : state = state.WANDER;
-@export var direction : int = 1; #1 represents right, -1 is left
+@export var direction : int = 1; 
+
 @onready var player: CharacterBody2D = get_tree().get_first_node_in_group("Player");
-@onready var SightRay : RayCast2D = $SightRay;
+@onready var SightRay : RayCast2D = $SightRay; 
 @onready var GroundRay : RayCast2D = $GroundRay;
 @onready var Model : Sprite2D = $Model;
 @onready var Animator : AnimationPlayer = $Animator;
@@ -22,16 +24,21 @@ var isonfloor = true;
 @onready var snakeHiss : AudioStreamWAV = preload("res://assets/sounds/snake-hiss.wav");
 @onready var Mouth : AudioStreamPlayer2D = $Mouth;
 # target_position (x,y)/position (x,y) 
-const GROUND_RIGHT_FLIP_VEC_POS = [45.0, 22.0, 115.0, 0.0];
-const GROUND_LEFT_FLIP_VEC_POS = [-45.0, 22.0, 0.0, 0.0];
-const SIGHT_LEFT_FLIP_VEC_POS = [-100, 0.0, 0.0, 0.0];
-const SIGHT_RIGHT_FLIP_VEC_POS = [100.0, 0.0, 115.0, 0.0];
-const KNOCKBACK_VECTOR = Vector2(1.0, 1.0);
+const GROUND_RIGHT_FLIP_VEC_POS = [30.0, 22.0, 67.0, 0.0];
+const GROUND_LEFT_FLIP_VEC_POS = [-30.0, 22.0, 0.0, 0.0];
+const SIGHT_LEFT_FLIP_VEC_POS = [-60.0, 0.0, 0.0, 0.0];
+const SIGHT_RIGHT_FLIP_VEC_POS = [60.0, 0.0, 67.0, 0.0];
+const KNOCKBACK_VECTOR = Vector2(1.0, 1.0); # Base vector for knockback which is muled by a scalar.
+
 
 func onPlayerJumpedOn() -> void:
+	# Stop the fucker first
+	CurrentSpeed = 0;
+	isdying = true;
 	if Animator.is_playing():
 		Animator.stop();
-		Animator.play("Dying");
+		Animator.play(&"Dying");
+		
 		
 func onHeadEntered(area : Area2D) -> void:
 	if area.name == "PlayerStomp":
@@ -39,29 +46,35 @@ func onHeadEntered(area : Area2D) -> void:
 		onPlayerJumpedOn(); 
 	elif area.name == "Hurtbox":
 		player.takeDamage(1, true, 1.0);
-		print("player took damage supposedly");
+		print("player took damage supposedly from head");
 		
 func onHitboxEntered(body : PhysicsBody2D) -> void:
 	if body.name == "Player":
+		print("player took damage supposedly");
 		player.takeDamage(1, true, 1.0);
-		player.applyKnockback(KNOCKBACK_VECTOR, 2.0);
-	
+		match self.direction:
+			1:
+				player.applyKnockback(KNOCKBACK_VECTOR, -600.0);
+			-1:
+				player.applyKnockback(KNOCKBACK_VECTOR, 600.0);
+				
 # Signal clbk
 func onstateChanged(newstate : state) -> void:
 	match newstate:
 		state.CHASE:
-			print("starting chase");
 			Mouth.play()
 			self.CurrentSpeed = ChaseSpeed;
 		state.WANDER:
 			self.CurrentSpeed = WanderSpeed;
 		state.DEAD:
+			print("freeing object");
 			self.queue_free();
 			
 # Changes the state of the snake and returns the old state.
 func changeState(newstate) -> state:
 	var oldState = CurrentState;
 	self.CurrentState = newstate;
+	onStateChanged.emit(newstate);
 	return oldState;
 	
 func flipRays(lr : int) -> void:
@@ -94,24 +107,26 @@ func flipRays(lr : int) -> void:
 			GroundRay.position = Vector2(comp7, comp8);
 			
 func drawRays() -> void:
-	Global.visualizeRays(self, SightRay, GroundRay);DrawRaycasts = true;
+	Global.visualizeRays(self, SightRay, GroundRay);
 	
 func chase() -> void:
 	velocity.x = CurrentSpeed * -direction;
 
+# Use StringName for performance reasonsa
 func wander() -> void:
-	if Animator.current_animation != "Crawling":
-		Animator.play("Crawling");
+	if Animator.current_animation != &"Crawling" and isdying == false:
+		Animator.play(&"Crawling");
+		print("we WILL play: " + Animator.current_animation);
+	elif isdying == true:
+		Animator.play(&"Dying");
 	var SeesPlayer = lookforPlayer(); 
 	var SeesCliffOnWander = lookforCliff();
-	# Global.concatPrint(SeesPlayer, SeesCliffOnWander); 
 	# Ignore player, the cliff is lowkey more important anyway
 	if SeesPlayer == true and SeesCliffOnWander == true:
 		flip();
 	elif SeesPlayer == true and SeesCliffOnWander == false:
 		if CurrentState != state.CHASE and IgnorePlayer == false: 
 			changeState(state.CHASE);
-			onStateChanged.emit(state.CHASE);
 	elif SeesPlayer == false and SeesCliffOnWander == true:
 		flip();
 	else:
@@ -148,23 +163,27 @@ func lookforCliff() -> bool:
 func _ready() -> void:
 	DrawRaycasts = true;
 	SightRay.collision_mask = 1;
-	CurrentSpeed = 60; # Var keeps nulling for some reason.
+	CurrentSpeed = 40; # Var keeps nulling for some reason.
 	HeadArea.area_entered.connect(onHeadEntered);
 	HitboxArea.body_entered.connect(onHitboxEntered);
 	Animator.animation_finished.connect(func(anim_name):
-		if anim_name == "Dying":
+		if anim_name == &"Dying":
+			print("dying finished");
 			onStateChanged.emit(state.DEAD)
+	)
+	# Wire signal for state machine
+	onStateChanged.connect(func(newState): 
+		onstateChanged(newState);
 	)
 
 func _physics_process(delta: float) -> void:
-	if DrawRaycasts == true:
+	if DrawRaycasts == true and is_instance_valid(self):
 		drawRays();
 	isonfloor = self.is_on_floor();
-	if self.CurrentState != state.CHASE:
+	if self.CurrentState == state.WANDER:
 		wander();
 	elif self.CurrentState == state.CHASE:
-		print("AAA CHASING")
-		chase();print("found player");
+		chase();
 			
 	if not is_on_floor():
 		velocity.y += gravity * delta;

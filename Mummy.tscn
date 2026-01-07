@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://inednby1yotr"]
+
+[ext_resource type="Script" uid="uid://djbwuhtgbcf0n" path="res://MummyBrain.gd" id="1_105sr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vaaym"]
+size = Vector2(17, 20)
+
+[sub_resource type="Animation" id="Animation_72wxb"]
+resource_name = "Dying"
+
+[sub_resource type="Animation" id="Animation_nxij1"]
+resource_name = "Punching"
+
+[sub_resource type="Animation" id="Animation_vaaym"]
+resource_name = "Walking"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nxij1"]
+_data = {
+&"Dying": SubResource("Animation_72wxb"),
+&"Punching": SubResource("Animation_nxij1"),
+&"Walking": SubResource("Animation_vaaym")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_105sr"]
+size = Vector2(2, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m0wpy"]
+size = Vector2(17, 20)
+
+[node name="Mummy" type="CharacterBody2D"]
+script = ExtResource("1_105sr")
+
+[node name="Model" type="Sprite2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 0)
+shape = SubResource("RectangleShape2D_vaaym")
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_nxij1")
+}
+
+[node name="SightRay" type="RayCast2D" parent="."]
+target_position = Vector2(-60, 0)
+
+[node name="GroundRay" type="RayCast2D" parent="."]
+target_position = Vector2(-45, 22)
+
+[node name="Mouth" type="AudioStreamPlayer2D" parent="."]
+
+[node name="CD" type="Timer" parent="."]
+
+[node name="BackArea" type="Area2D" parent="."]
+
+[node name="Back" type="CollisionShape2D" parent="BackArea"]
+position = Vector2(8, 0)
+shape = SubResource("RectangleShape2D_105sr")
+
+[node name="HitboxArea" type="Area2D" parent="."]
+
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxArea"]
+position = Vector2(-1.5, 0)
+shape = SubResource("RectangleShape2D_m0wpy")

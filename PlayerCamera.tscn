@@ -1,0 +1,150 @@
+[gd_scene load_steps=10 format=3 uid="uid://wngjkw8mu783"]
+
+[ext_resource type="Script" uid="uid://d1sdbpv8el428" path="res://Camera.gd" id="1_brkmr"]
+[ext_resource type="Script" uid="uid://dwsdu2osqx0mi" path="res://FadeTransition.gd" id="2_ibo1c"]
+[ext_resource type="Script" uid="uid://csfvj4qc00613" path="res://UIRenderer.gd" id="3_ri33b"]
+[ext_resource type="Texture2D" uid="uid://dcyq5naplofan" path="res://assets/images/fullHeartFinal.png" id="4_3y4og"]
+[ext_resource type="Texture2D" uid="uid://da4x2ncotxq24" path="res://assets/images/EmptyCoin.png" id="5_qqtj1"]
+
+[sub_resource type="Animation" id="Animation_kek77"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FadeRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5vw27"]
+resource_name = "fade_to_black"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FadeRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4c57u"]
+resource_name = "fade_to_normal"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_efxa6"]
+_data = {
+&"RESET": SubResource("Animation_kek77"),
+&"fade_to_black": SubResource("Animation_5vw27"),
+&"fade_to_normal": SubResource("Animation_4c57u")
+}
+
+[node name="Camera2D" type="Camera2D"]
+zoom = Vector2(4, 4)
+script = ExtResource("1_brkmr")
+
+[node name="FadeOutLayer" type="CanvasLayer" parent="."]
+scale = Vector2(5, 5)
+transform = Transform2D(5, 0, 0, 5, 0, 0)
+script = ExtResource("2_ibo1c")
+
+[node name="FadeRect" type="ColorRect" parent="FadeOutLayer"]
+z_index = 1000
+offset_right = 230.4
+offset_bottom = 130.79999
+color = Color(1, 1, 1, 0)
+
+[node name="FadePlayer" type="AnimationPlayer" parent="FadeOutLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_efxa6")
+}
+
+[node name="UIRenderer" type="CanvasLayer" parent="."]
+script = ExtResource("3_ri33b")
+
+[node name="Heart1" type="TextureRect" parent="UIRenderer"]
+offset_top = -13.0
+offset_right = 90.0
+offset_bottom = 77.0
+texture = ExtResource("4_3y4og")
+expand_mode = 1
+
+[node name="Heart2" type="TextureRect" parent="UIRenderer"]
+offset_left = 77.0
+offset_top = -13.0
+offset_right = 167.0
+offset_bottom = 77.0
+texture = ExtResource("4_3y4og")
+expand_mode = 1
+
+[node name="Heart3" type="TextureRect" parent="UIRenderer"]
+offset_left = 153.0
+offset_top = -13.0
+offset_right = 243.0
+offset_bottom = 77.0
+texture = ExtResource("4_3y4og")
+expand_mode = 1
+
+[node name="CoinImage" type="TextureRect" parent="UIRenderer"]
+offset_left = 1064.0
+offset_top = 3.0
+offset_right = 1153.0
+offset_bottom = 85.0
+texture = ExtResource("5_qqtj1")
+expand_mode = 1
+
+[node name="Counter" type="RichTextLabel" parent="UIRenderer"]
+texture_filter = 1
+offset_left = 1004.0
+offset_top = 1.0
+offset_right = 1044.0
+offset_bottom = 41.0
+scale = Vector2(2, 2)
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
