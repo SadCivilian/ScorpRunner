@@ -1,6 +1,7 @@
-[gd_scene load_steps=29 format=4 uid="uid://c3d8mj7k57ose"]
+[gd_scene load_steps=25 format=4 uid="uid://c3d8mj7k57ose"]
 
 [ext_resource type="Texture2D" uid="uid://cmqvgo12irw6c" path="res://New/Solaria Demo Tiles.png" id="1_6yb6q"]
+[ext_resource type="Script" uid="uid://qoxurnncpy1s" path="res://Init.gd" id="1_vjvnk"]
 [ext_resource type="Texture2D" uid="uid://0p5wh7ie4m47" path="res://assets/tiles/Blank.png" id="2_vjvnk"]
 [ext_resource type="Texture2D" uid="uid://cry3sepcku3gv" path="res://assets/tiles/Rock.jpg" id="3_08e0c"]
 [ext_resource type="Texture2D" uid="uid://duacpaiv1kjgu" path="res://assets/tiles/Sand2.jpeg" id="4_qodft"]
@@ -10,10 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://didoyefsv3px4" path="res://assets/tiles/Toprak.jpg" id="7_vjvnk"]
 [ext_resource type="Texture2D" uid="uid://cv2iv0ggix877" path="res://assets/tiles/cactus.png" id="8_08e0c"]
 [ext_resource type="PackedScene" uid="uid://3d6danocgmgj" path="res://Player.tscn" id="8_ft66h"]
-[ext_resource type="Script" uid="uid://d1sdbpv8el428" path="res://Camera.gd" id="9_sekqp"]
-[ext_resource type="Script" uid="uid://dwsdu2osqx0mi" path="res://FadeTransition.gd" id="10_t0id6"]
-[ext_resource type="AudioStream" uid="uid://dfvjf5s50ejun" path="res://assets/sounds/save.mp3" id="11_n2vv5"]
-[ext_resource type="Script" uid="uid://bxqbqktfoj2bd" path="res://Modules/MusicHandler.gd" id="12_mal1w"]
+[ext_resource type="PackedScene" uid="uid://d3v672i3o8v2k" path="res://BG_Music_Player.tscn" id="12_6yb6q"]
+[ext_resource type="PackedScene" uid="uid://wngjkw8mu783" path="res://PlayerCamera.tscn" id="13_vjvnk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dis8u"]
 texture = ExtResource("1_6yb6q")
@@ -435,88 +434,14 @@ sources/5 = SubResource("TileSetAtlasSource_y4hso")
 sources/6 = SubResource("TileSetAtlasSource_08e0c")
 sources/7 = SubResource("TileSetAtlasSource_qodft")
 
-[sub_resource type="Animation" id="Animation_kek77"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("FadeRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("FadeRect:color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_5vw27"]
-resource_name = "fade_to_black"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("FadeRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("FadeRect:color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_4c57u"]
-resource_name = "fade_to_normal"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("FadeRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_efxa6"]
-_data = {
-&"RESET": SubResource("Animation_kek77"),
-&"fade_to_black": SubResource("Animation_5vw27"),
-&"fade_to_normal": SubResource("Animation_4c57u")
-}
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0pyyb"]
 size = Vector2(7711, 172.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_08e0c"]
+size = Vector2(75.5, 42)
+
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_vjvnk")
 
 [node name="MainLayer" type="TileMapLayer" parent="."]
 texture_filter = 1
@@ -536,28 +461,6 @@ position = Vector2(118, 334)
 collision_mask = 1
 floor_block_on_wall = false
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
-script = ExtResource("9_sekqp")
-
-[node name="FadeOutLayer" type="CanvasLayer" parent="Camera2D"]
-scale = Vector2(5, 5)
-transform = Transform2D(5, 0, 0, 5, 0, 0)
-script = ExtResource("10_t0id6")
-
-[node name="FadeRect" type="ColorRect" parent="Camera2D/FadeOutLayer"]
-z_index = 1000
-offset_left = -0.19999993
-offset_top = -130.4
-offset_right = 230.2
-offset_bottom = 0.3999939
-color = Color(1, 1, 1, 0)
-
-[node name="FadePlayer" type="AnimationPlayer" parent="Camera2D/FadeOutLayer"]
-libraries = {
-&"": SubResource("AnimationLibrary_efxa6")
-}
-
 [node name="Placeholder" type="Sprite2D" parent="."]
 position = Vector2(148, 33)
 
@@ -567,7 +470,13 @@ position = Vector2(148, 33)
 position = Vector2(651.5, 568.75)
 shape = SubResource("RectangleShape2D_0pyyb")
 
-[node name="BGMusicPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("11_n2vv5")
-max_distance = 4096.0
-script = ExtResource("12_mal1w")
+[node name="PlayerCamera" parent="." instance=ExtResource("13_vjvnk")]
+
+[node name="BGMusicPlayer" parent="." instance=ExtResource("12_6yb6q")]
+
+[node name="LevelEnd" type="Area2D" parent="."]
+position = Vector2(4067.0466, 296.54602)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelEnd"]
+position = Vector2(-3823.7966, 28.45398)
+shape = SubResource("RectangleShape2D_08e0c")

@@ -8,8 +8,6 @@ const FADE_OUT_TIME = 0.5;
 const FADE_IN_TIME = 0.5;
 @onready var BGMusicPlayer : AudioStreamPlayer2D = $".";
 
-
-
 func _ready() -> void:
 	BGMusicPlayer.finished.connect(FadeOutTrack);
 	CurrentTrackLength = BGMusicPlayer.stream.get_length();

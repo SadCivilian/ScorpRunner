@@ -62,9 +62,11 @@ func clearActivated() -> void:
 func clearDeactivated() -> void:
 	onDeactivatedArray.clear();
 
+# The order is somehow not guaranteed, blame godot.
 func popActivated() -> void:
 	onActivatedArray.pop_front();
 	
+# The order is somehow not guaranteed, blame godot.
 func popDeactivated() -> void:
 	onDeactivatedArray.pop_front();
 	
@@ -122,6 +124,13 @@ func activate() -> void:
 		CD.start(cd);
 		activatable = false;
 		return
+	elif activatable == true:
+		activated.emit();
+		changeState(LeverState.ACTIVATED);
+		updateRot(self.CurrentState);
+		CD.start(cd);
+		activatable = false;
+		return
 
 # Deactivates the lever.
 func deactivate() -> void:
@@ -134,7 +143,7 @@ func deactivate() -> void:
 		return
 		
 func reset() -> void:
-	self.CurrentState = LeverState.IDLE;
+	changeState(LeverState.IDLE);
 	updateRot(self.CurrentState);
 	
 	

@@ -6,7 +6,7 @@ signal CutsceneShifted;
 @export var debugMode : bool = false;
 @onready var bg = $"../Background";
 var currentClbk : Callable;
-var null_voidClbk : Callable = Callable.create(func(): pass, StringName("null_void"));
+var null_voidClbk : Callable = Callable();
 var cutsceneActive : bool = false;
 
 func _ready() -> void:

@@ -2,6 +2,14 @@ extends Node
 
 var LineCache : Array[Line2D] = [];
 
+var SceneTransitions = {
+	&"shn1" : &"shn2",
+	&"shn2" : &"shn3",
+}
+
+signal PlayerCoinsChanged(newCoins);
+signal PlayerHealthChanged(newHealth);
+
 static func concatPrint(... args : Array):
 	var message: String = ", ".join(args.map(str));
 	print(message);
@@ -38,8 +46,39 @@ func visualizeRays(caller : Node, ... rays: Array) -> void:
 			LineCache.append(newline);
 		else: 
 			push_error("Arguments given were not raycasts.");
+			
+# Returns the type of the variable "variable" as a human readable string. 
+func TypeString(variable : Variant) -> Variant:
+	if variable.has_method(&"get_class"):
+		return variable.get_class();
+	var string = type_string(typeof(variable));
+	if string != null:
+		return string
+	else:
+		return null
+		
 
+
+## This function will only work if the given Area2D has a CollisionShape2D child that posseses a .get_rect() method.
+func visualizeArea(Area : Area2D, color : Color = Color(1.0,0.0,0.3)) -> ColorRect:
+	var visualizer = ColorRect.new();
+	if not Area.get_child(0):
+		print("what the hell we're missing box");
+		return 
+	var collision = Area.get_child(0) as CollisionShape2D;
+	var ColRect = collision.shape.get_rect();
 	
+	visualizer.color = color; 
+	visualizer.position = ColRect.position;
+	visualizer.size = ColRect.size;
+	Area.add_child(visualizer);
+			
+	return visualizer
 	
-	
-	
+func GetCurrentScene() -> String:
+	var scenename = get_tree().current_scene.scene_file_path.get_basename().substr(6);
+	return scenename
+
+func GetSceneFromString(string : String) -> PackedScene:
+	var scene = load("res://" + string + ".tscn") as PackedScene; 
+	return scene

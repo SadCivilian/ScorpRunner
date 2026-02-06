@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dxu50grlog0dv"]
+
+[ext_resource type="Texture2D" uid="uid://by2ewcn2krmri" path="res://assets/images/1coin.png" id="1_h5dih"]
+[ext_resource type="Script" uid="uid://bj1fpqbmpt0jq" path="res://coin.gd" id="1_ou7jl"]
+[ext_resource type="AudioStream" uid="uid://yetgljluy6e7" path="res://assets/sounds/coin.mp3" id="3_ufda5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ou7jl"]
+
+[sub_resource type="Animation" id="Animation_ou7jl"]
+resource_name = "Spin"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ufda5"]
+_data = {
+&"Spin": SubResource("Animation_ou7jl")
+}
+
+[node name="Root" type="Area2D" unique_id=1018544288]
+script = ExtResource("1_ou7jl")
+
+[node name="Model" type="Sprite2D" parent="." unique_id=772865180]
+position = Vector2(0.5000002, 1)
+scale = Vector2(0.042000003, 0.04)
+texture = ExtResource("1_h5dih")
+
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=197681937]
+shape = SubResource("RectangleShape2D_ou7jl")
+
+[node name="Animator" type="AnimationPlayer" parent="." unique_id=204741611]
+libraries/ = SubResource("AnimationLibrary_ufda5")
+
+[node name="SoundPlayer" type="AudioStreamPlayer2D" parent="." unique_id=1179635995]
+stream = ExtResource("3_ufda5")
+pitch_scale = 0.95

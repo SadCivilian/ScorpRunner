@@ -1,22 +1,20 @@
-[gd_scene load_steps=29 format=4 uid="uid://brkfmn1ol6hdc"]
+[gd_scene load_steps=23 format=4 uid="uid://brkfmn1ol6hdc"]
 
-[ext_resource type="PackedScene" uid="uid://3d6danocgmgj" path="res://Player.tscn" id="1_847y5"]
-[ext_resource type="Texture2D" uid="uid://cmqvgo12irw6c" path="res://New/Solaria Demo Tiles.png" id="2_mpq1l"]
-[ext_resource type="Texture2D" uid="uid://0p5wh7ie4m47" path="res://assets/tiles/Blank.png" id="3_25gmk"]
-[ext_resource type="Texture2D" uid="uid://cry3sepcku3gv" path="res://assets/tiles/Rock.jpg" id="4_ox18d"]
-[ext_resource type="Texture2D" uid="uid://duacpaiv1kjgu" path="res://assets/tiles/Sand2.jpeg" id="5_ve2ww"]
-[ext_resource type="Texture2D" uid="uid://bkb2ahu0pl844" path="res://assets/tiles/Sand.jpg" id="6_yasrw"]
-[ext_resource type="Texture2D" uid="uid://didoyefsv3px4" path="res://assets/tiles/Toprak.jpg" id="7_847y5"]
-[ext_resource type="Texture2D" uid="uid://ccuvpfehpyav2" path="res://assets/tiles/SandRock.jpg" id="7_pnthu"]
-[ext_resource type="Texture2D" uid="uid://cv2iv0ggix877" path="res://assets/tiles/cactus.png" id="8_mpq1l"]
-[ext_resource type="Texture2D" uid="uid://b7cqeendc15gk" path="res://assets/sprites/ismetbackground.jpg" id="9_8t0tj"]
-[ext_resource type="Script" uid="uid://d1sdbpv8el428" path="res://Camera.gd" id="10_ti6fu"]
-[ext_resource type="Script" uid="uid://dwsdu2osqx0mi" path="res://FadeTransition.gd" id="11_ljylm"]
-[ext_resource type="AudioStream" uid="uid://dfvjf5s50ejun" path="res://assets/sounds/save.mp3" id="12_yrchk"]
-[ext_resource type="Script" uid="uid://bxqbqktfoj2bd" path="res://Modules/MusicHandler.gd" id="13_dqn3o"]
+[ext_resource type="Texture2D" uid="uid://cmqvgo12irw6c" path="res://New/Solaria Demo Tiles.png" id="1_lhhj0"]
+[ext_resource type="Texture2D" uid="uid://0p5wh7ie4m47" path="res://assets/tiles/Blank.png" id="2_myjm8"]
+[ext_resource type="Texture2D" uid="uid://cry3sepcku3gv" path="res://assets/tiles/Rock.jpg" id="3_b2e4e"]
+[ext_resource type="Texture2D" uid="uid://duacpaiv1kjgu" path="res://assets/tiles/Sand2.jpeg" id="4_2jyou"]
+[ext_resource type="Texture2D" uid="uid://bkb2ahu0pl844" path="res://assets/tiles/Sand.jpg" id="5_524xv"]
+[ext_resource type="Texture2D" uid="uid://ccuvpfehpyav2" path="res://assets/tiles/SandRock.jpg" id="6_ufnmg"]
+[ext_resource type="Texture2D" uid="uid://didoyefsv3px4" path="res://assets/tiles/Toprak.jpg" id="7_ayvjx"]
+[ext_resource type="Texture2D" uid="uid://cv2iv0ggix877" path="res://assets/tiles/cactus.png" id="8_uo2fg"]
+[ext_resource type="Texture2D" uid="uid://b7cqeendc15gk" path="res://assets/sprites/ismetbackground.jpg" id="9_0gste"]
+[ext_resource type="PackedScene" uid="uid://3d6danocgmgj" path="res://Player.tscn" id="10_jyw4i"]
+[ext_resource type="PackedScene" uid="uid://wngjkw8mu783" path="res://PlayerCamera.tscn" id="11_v4c44"]
+[ext_resource type="PackedScene" uid="uid://d3v672i3o8v2k" path="res://BG_Music_Player.tscn" id="12_nft1n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_83cel"]
-texture = ExtResource("2_mpq1l")
+texture = ExtResource("1_lhhj0")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -388,35 +386,35 @@ texture = ExtResource("2_mpq1l")
 12:14/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_847y5"]
-texture = ExtResource("3_25gmk")
+texture = ExtResource("2_myjm8")
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mpq1l"]
-texture = ExtResource("4_ox18d")
+texture = ExtResource("3_b2e4e")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_25gmk"]
-texture = ExtResource("5_ve2ww")
+texture = ExtResource("4_2jyou")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ox18d"]
-texture = ExtResource("6_yasrw")
+texture = ExtResource("5_524xv")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ve2ww"]
-texture = ExtResource("7_pnthu")
+texture = ExtResource("6_ufnmg")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yasrw"]
-texture = ExtResource("7_847y5")
+texture = ExtResource("7_ayvjx")
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pnthu"]
-texture = ExtResource("8_mpq1l")
+texture = ExtResource("8_uo2fg")
 0:0/0 = 0
 0:1/0 = 0
 
@@ -435,84 +433,6 @@ sources/5 = SubResource("TileSetAtlasSource_ve2ww")
 sources/6 = SubResource("TileSetAtlasSource_yasrw")
 sources/7 = SubResource("TileSetAtlasSource_pnthu")
 
-[sub_resource type="Animation" id="Animation_kek77"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("FadeRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("FadeRect:color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_5vw27"]
-resource_name = "fade_to_black"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("FadeRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("FadeRect:color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_4c57u"]
-resource_name = "fade_to_normal"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("FadeRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_efxa6"]
-_data = {
-&"RESET": SubResource("Animation_kek77"),
-&"fade_to_black": SubResource("Animation_5vw27"),
-&"fade_to_normal": SubResource("Animation_4c57u")
-}
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pnthu"]
 size = Vector2(7711, 172.5)
 
@@ -529,34 +449,12 @@ z_index = -1
 position = Vector2(3.0517578e-05, 1.9999847)
 rotation = -1.5707964
 scale = Vector2(0.20252712, 0.24997805)
-texture = ExtResource("9_8t0tj")
+texture = ExtResource("9_0gste")
 
-[node name="Player" parent="." instance=ExtResource("1_847y5")]
+[node name="Player" parent="." instance=ExtResource("10_jyw4i")]
 position = Vector2(123, 336)
 collision_mask = 1
 floor_block_on_wall = false
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
-script = ExtResource("10_ti6fu")
-
-[node name="FadeOutLayer" type="CanvasLayer" parent="Camera2D"]
-scale = Vector2(5, 5)
-transform = Transform2D(5, 0, 0, 5, 0, 0)
-script = ExtResource("11_ljylm")
-
-[node name="FadeRect" type="ColorRect" parent="Camera2D/FadeOutLayer"]
-z_index = 1000
-offset_left = -0.19999993
-offset_top = -130.4
-offset_right = 230.2
-offset_bottom = 0.3999939
-color = Color(1, 1, 1, 0)
-
-[node name="FadePlayer" type="AnimationPlayer" parent="Camera2D/FadeOutLayer"]
-libraries = {
-&"": SubResource("AnimationLibrary_efxa6")
-}
 
 [node name="Placeholder" type="Sprite2D" parent="."]
 position = Vector2(148, 33)
@@ -567,7 +465,6 @@ position = Vector2(148, 33)
 position = Vector2(651.5, 568.75)
 shape = SubResource("RectangleShape2D_pnthu")
 
-[node name="BGMusicPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("12_yrchk")
-max_distance = 4096.0
-script = ExtResource("13_dqn3o")
+[node name="PlayerCamera" parent="." instance=ExtResource("11_v4c44")]
+
+[node name="BGMusicPlayer" parent="." instance=ExtResource("12_nft1n")]

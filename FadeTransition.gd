@@ -7,6 +7,7 @@ var OtherClbk : Callable;
 enum TransitionType {ROOM_TRANSITION, OTHER};
 	
 func supply(rect : ColorRect, player : AnimationPlayer) -> void:
+	Global.concatPrint(rect, player);
 	faderect = rect;
 	fadeplayer = player;
 	fadeplayer.animation_finished.connect(on_anim_finished);
@@ -36,7 +37,6 @@ func transition(type : TransitionType = TransitionType.ROOM_TRANSITION, Scene : 
 					TransitionClbk.call();
 				if Scene:
 					get_tree().change_scene_to_packed(Scene);
-					
 			TransitionType.OTHER:
 				fadeplayer.play("fade_to_black");
 				if OtherClbk.is_valid():
