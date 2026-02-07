@@ -10,9 +10,9 @@
 [node name="Shockwave" type="CharacterBody2D" unique_id=1460694575]
 script = ExtResource("1_mlr21")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1225810102]
+[node name="Collision" type="Area2D" parent="." unique_id=1225810102]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1775882838]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision" unique_id=1775882838]
 shape = SubResource("RectangleShape2D_mlr21")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=1447911673]

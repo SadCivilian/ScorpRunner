@@ -4,9 +4,6 @@ extends Node2D
 @export var move = true;
 @export var speed = 400;
 @onready var Player = get_tree().get_first_node_in_group(&"Player");
-
-func _init(direction : int):
-	self.direct = direction;
 	
 func _ready():
 	print("ready")

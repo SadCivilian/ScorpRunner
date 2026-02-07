@@ -16,6 +16,12 @@ _data = {
 &"Spin": SubResource("Animation_ou7jl")
 }
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fj540"]
+particle_flag_disable_z = true
+gravity = Vector3(0, -98, 0)
+scale_min = 0.04
+scale_max = 0.04
+
 [node name="Root" type="Area2D" unique_id=1018544288]
 script = ExtResource("1_ou7jl")
 
@@ -34,7 +40,13 @@ libraries/ = SubResource("AnimationLibrary_ufda5")
 stream = ExtResource("3_ufda5")
 pitch_scale = 0.95
 
-[node name="ParticleEmitter" type="CPUParticles2D" parent="." unique_id=1840502809]
+[node name="ParticleEmitter" type="GPUParticles2D" parent="." unique_id=206882643]
+modulate = Color(0.98880583, 0.9888055, 9.241105e-06, 1)
+texture_filter = 1
 emitting = false
+amount = 1
 texture = ExtResource("4_fj540")
+lifetime = 0.5
 one_shot = true
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_fj540")
