@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bk5g2obvvgegr"]
+
+[ext_resource type="Script" uid="uid://ch2ij6rtsmc87" path="res://Shockwave.gd" id="1_mlr21"]
+[ext_resource type="Texture2D" uid="uid://cfrbka3yuvmvi" path="res://New/PNG (Transparent)/twirl_03.png" id="2_it2sb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mlr21"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_it2sb"]
+
+[node name="Shockwave" type="CharacterBody2D" unique_id=1460694575]
+script = ExtResource("1_mlr21")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1225810102]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1775882838]
+shape = SubResource("RectangleShape2D_mlr21")
+
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=1447911673]
+shape = SubResource("RectangleShape2D_it2sb")
+
+[node name="Model" type="Sprite2D" parent="." unique_id=1197703824]
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("2_it2sb")

@@ -3,11 +3,13 @@
 [ext_resource type="Texture2D" uid="uid://by2ewcn2krmri" path="res://assets/images/1coin.png" id="1_h5dih"]
 [ext_resource type="Script" uid="uid://bj1fpqbmpt0jq" path="res://coin.gd" id="1_ou7jl"]
 [ext_resource type="AudioStream" uid="uid://yetgljluy6e7" path="res://assets/sounds/coin.mp3" id="3_ufda5"]
+[ext_resource type="Texture2D" uid="uid://vjah3tslf4a2" path="res://New/PNG (Transparent)/smoke_03.png" id="4_fj540"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ou7jl"]
 
 [sub_resource type="Animation" id="Animation_ou7jl"]
 resource_name = "Spin"
+loop_mode = 1
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ufda5"]
 _data = {
@@ -31,3 +33,8 @@ libraries/ = SubResource("AnimationLibrary_ufda5")
 [node name="SoundPlayer" type="AudioStreamPlayer2D" parent="." unique_id=1179635995]
 stream = ExtResource("3_ufda5")
 pitch_scale = 0.95
+
+[node name="ParticleEmitter" type="CPUParticles2D" parent="." unique_id=1840502809]
+emitting = false
+texture = ExtResource("4_fj540")
+one_shot = true

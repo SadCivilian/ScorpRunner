@@ -9,7 +9,9 @@ signal collected(value : int);
 @onready var Area : Area2D = $".";
 @onready var Animator : AnimationPlayer = $Animator;
 @onready var SoundPlayer : AudioStreamPlayer2D = $SoundPlayer;
+@onready var ParticleEmitter : GPUParticles2D = $ParticleEmitter;
 @onready var Player : CharacterBody2D = get_tree().get_first_node_in_group("Player");
+
 
 func _ready() -> void:
 	Animator.play(&"Spin");

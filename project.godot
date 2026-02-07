@@ -22,8 +22,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*res://Modules/Global.gd"
-Enemy="*res://Modules/Enemy.gd"
 FadeTransition="*res://FadeTransition.gd"
+ShockwaveHandler="*uid://cxubkgdcgo41j"
 
 [debug]
 

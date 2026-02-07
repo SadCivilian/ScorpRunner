@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
-const attackCD : int = 2;
+@export var attackCD : int = 2;
+@export var attackDMG : int = 20;
 @export var canAttack : bool = true;
 @export var isAttacking : bool = false;
 @export var speed : int = 85;

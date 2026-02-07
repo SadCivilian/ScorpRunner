@@ -449,7 +449,7 @@ sources/3 = SubResource("TileSetAtlasSource_ryguw")
 size = Vector2(7711, 172.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w3cr1"]
-size = Vector2(45, 30)
+size = Vector2(46.4375, 30)
 
 [node name="Node2D" type="Node2D" unique_id=1790786136]
 script = ExtResource("1_h3rxv")
@@ -495,5 +495,5 @@ position = Vector2(20200, 893)
 position = Vector2(25088.611, 931.5922)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelEnd" unique_id=945549586]
-position = Vector2(-4960.6113, -50.592224)
+position = Vector2(0.38867188, 0.40777588)
 shape = SubResource("RectangleShape2D_w3cr1")

@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://b70i3ufijrnc5"]
+
+[ext_resource type="Script" uid="uid://dqnlh3vjb5y18" path="res://Anubis.gd" id="1_ebgrx"]
+[ext_resource type="Texture2D" uid="uid://vjah3tslf4a2" path="res://New/PNG (Transparent)/smoke_03.png" id="2_4l6wv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4l6wv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ebgrx"]
+
+[node name="Anubis" type="CharacterBody2D" unique_id=1508226872]
+script = ExtResource("1_ebgrx")
+
+[node name="Anubis_Hitbox" type="CollisionShape2D" parent="." unique_id=709217228]
+shape = SubResource("RectangleShape2D_4l6wv")
+
+[node name="Anubis_HitboxArea" type="Area2D" parent="." unique_id=577648181]
+
+[node name="Area" type="CollisionShape2D" parent="Anubis_HitboxArea" unique_id=297710812]
+shape = SubResource("RectangleShape2D_ebgrx")
+
+[node name="Animator" type="AnimationPlayer" parent="." unique_id=1724057311]
+
+[node name="Mouth" type="AudioStreamPlayer2D" parent="." unique_id=1572647217]
+
+[node name="Model" type="Sprite2D" parent="." unique_id=1526796508]
+
+[node name="ParticleEmitter" type="CPUParticles2D" parent="." unique_id=1983061953]
+emitting = false
+texture = ExtResource("2_4l6wv")
+one_shot = true
