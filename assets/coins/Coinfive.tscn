@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://fvgbkxswaebg"]
+
+[ext_resource type="Script" uid="uid://byt1yk6bet0ro" path="res://assets/coins/coinfive.gd" id="1_elsc8"]
+[ext_resource type="Texture2D" uid="uid://dcwu0lefe76sv" path="res://assets/images/5coin.png" id="2_y4tr3"]
+[ext_resource type="AudioStream" uid="uid://yetgljluy6e7" path="res://assets/sounds/coin.mp3" id="3_mv0na"]
+[ext_resource type="Texture2D" uid="uid://vjah3tslf4a2" path="res://New/PNG (Transparent)/smoke_03.png" id="4_3mgqm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ou7jl"]
+
+[sub_resource type="Animation" id="Animation_ou7jl"]
+resource_name = "Spin"
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ufda5"]
+_data = {
+&"Spin": SubResource("Animation_ou7jl")
+}
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fj540"]
+particle_flag_disable_z = true
+gravity = Vector3(0, -98, 0)
+scale_min = 0.04
+scale_max = 0.04
+
+[node name="Root" type="Area2D" unique_id=1018544288]
+script = ExtResource("1_elsc8")
+value = null
+
+[node name="Model" type="Sprite2D" parent="." unique_id=772865180]
+position = Vector2(0.50000083, 1)
+scale = Vector2(0.042000003, 0.04)
+texture = ExtResource("2_y4tr3")
+
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=197681937]
+shape = SubResource("RectangleShape2D_ou7jl")
+
+[node name="Animator" type="AnimationPlayer" parent="." unique_id=204741611]
+libraries/ = SubResource("AnimationLibrary_ufda5")
+
+[node name="SoundPlayer" type="AudioStreamPlayer2D" parent="." unique_id=1179635995]
+stream = ExtResource("3_mv0na")
+pitch_scale = 0.95
+
+[node name="ParticleEmitter" type="GPUParticles2D" parent="." unique_id=206882643]
+modulate = Color(0.98880583, 0.9888055, 9.241105e-06, 1)
+texture_filter = 1
+emitting = false
+amount = 1
+texture = ExtResource("4_3mgqm")
+lifetime = 0.5
+one_shot = true
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_fj540")

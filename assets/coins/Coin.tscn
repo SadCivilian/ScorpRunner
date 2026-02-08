@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://dxu50grlog0dv"]
 
-[ext_resource type="Texture2D" uid="uid://by2ewcn2krmri" path="res://assets/images/1coin.png" id="1_h5dih"]
-[ext_resource type="Script" uid="uid://bj1fpqbmpt0jq" path="res://coin.gd" id="1_ou7jl"]
-[ext_resource type="AudioStream" uid="uid://yetgljluy6e7" path="res://assets/sounds/coin.mp3" id="3_ufda5"]
-[ext_resource type="Texture2D" uid="uid://vjah3tslf4a2" path="res://New/PNG (Transparent)/smoke_03.png" id="4_fj540"]
+[ext_resource type="Script" uid="uid://bj1fpqbmpt0jq" path="res://assets/coins/coin.gd" id="1_io0pg"]
+[ext_resource type="Texture2D" uid="uid://by2ewcn2krmri" path="res://assets/images/1coin.png" id="2_o0ics"]
+[ext_resource type="AudioStream" uid="uid://yetgljluy6e7" path="res://assets/sounds/coin.mp3" id="3_57yfk"]
+[ext_resource type="Texture2D" uid="uid://vjah3tslf4a2" path="res://New/PNG (Transparent)/smoke_03.png" id="4_3mocm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ou7jl"]
 
@@ -23,12 +23,12 @@ scale_min = 0.04
 scale_max = 0.04
 
 [node name="Root" type="Area2D" unique_id=1018544288]
-script = ExtResource("1_ou7jl")
+script = ExtResource("1_io0pg")
 
 [node name="Model" type="Sprite2D" parent="." unique_id=772865180]
 position = Vector2(0.5000002, 1)
 scale = Vector2(0.042000003, 0.04)
-texture = ExtResource("1_h5dih")
+texture = ExtResource("2_o0ics")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=197681937]
 shape = SubResource("RectangleShape2D_ou7jl")
@@ -37,7 +37,7 @@ shape = SubResource("RectangleShape2D_ou7jl")
 libraries/ = SubResource("AnimationLibrary_ufda5")
 
 [node name="SoundPlayer" type="AudioStreamPlayer2D" parent="." unique_id=1179635995]
-stream = ExtResource("3_ufda5")
+stream = ExtResource("3_57yfk")
 pitch_scale = 0.95
 
 [node name="ParticleEmitter" type="GPUParticles2D" parent="." unique_id=206882643]
@@ -45,7 +45,7 @@ modulate = Color(0.98880583, 0.9888055, 9.241105e-06, 1)
 texture_filter = 1
 emitting = false
 amount = 1
-texture = ExtResource("4_fj540")
+texture = ExtResource("4_3mocm")
 lifetime = 0.5
 one_shot = true
 fixed_fps = 60

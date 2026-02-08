@@ -5,10 +5,16 @@ extends Node
 @onready var FadePlayer = $PlayerCamera/FadeOutLayer/FadePlayer;
 @onready var Background = $Background;
 @onready var LevelEnd : Area2D = $LevelEnd;
+@onready var Player = get_tree().get_first_node_in_group(&"Player");
+@onready var pos = $Node2D;
 
 func _ready() -> void:
-	# var new = load("res://archeon.tscn").instantiate();
-	# print(new);
+	await Global.wait(1.0);
+	var new = load("res://archeon.tscn").instantiate();
+	new.global_position = pos.global_position;
+	new.direct = -1;
+	Player.takeDamage(3);
+	
 	LevelEnd.body_entered.connect(func(body):
 		if body.name == "Player":
 			var curr = Global.GetCurrentScene();
@@ -30,4 +36,5 @@ func _ready() -> void:
 	FadeTransition.changeclbk(FadeTransition.TransitionType.OTHER, clbk1);
 	FadeTransition.changeclbk(FadeTransition.TransitionType.ROOM_TRANSITION, clbk2);
 		
+
 	

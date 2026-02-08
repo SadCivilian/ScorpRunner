@@ -25,14 +25,13 @@ var RNG : RandomNumberGenerator = RandomNumberGenerator.new();
 @onready var Mouth : AudioStreamPlayer2D = $Mouth;
 @onready var CD : Timer = $CD;
 @onready var ParticleEmitter : CPUParticles2D = $ParticleEmitter;
-
+@onready var HP : ProgressBar = $Model/ProgressBar;
 
 # Changes the state to some state "newstate", returns the old state.
 func changeState(newstate : state) -> state:
 	var oldstate = self.CurrentState
 	self.CurrentState = newstate
 	onStateChanged.emit(newstate);
-
 	return oldstate
 
 # Returns previous state as usual.
@@ -42,11 +41,23 @@ func onstateChanged(newstate : state) -> void:
 			print("freeing object")
 			queue_free();
 
+func takeDamage(amount : int) -> void:
+	Health -= amount;
+	"""
+	Global.delay(1.5, func():
+		changeState(state.IDLE);
+	)
+	"""
+	updateHealthBar(Health);
+
+func updateHealthBar(hp : int) -> void:
+	var final = Health - hp;
+	create_tween().tween_property(HP, "value", final, 0.2).set_ease(Tween.EASE_IN);
+	
+
 func activate() -> void:
 	self.Model.visible = true;
 	
-
-
 func _ready() -> void:
 	add_to_group(&"AnubisBoss");
 	

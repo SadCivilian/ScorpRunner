@@ -1,9 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://d3v672i3o8v2k"]
+[gd_scene format=3 uid="uid://d3v672i3o8v2k"]
 
 [ext_resource type="AudioStream" uid="uid://b7b4lc14o4kn8" path="res://assets/songs/Zamansız Kumlar (1).mp3" id="1_3p1t4"]
 [ext_resource type="Script" uid="uid://bxqbqktfoj2bd" path="res://Modules/MusicHandler.gd" id="2_5o1is"]
 
-[node name="BGMusicPlayer" type="AudioStreamPlayer2D"]
+[node name="BGMusicPlayer" type="AudioStreamPlayer" unique_id=1700569638]
 stream = ExtResource("1_3p1t4")
-max_distance = 4096.0
 script = ExtResource("2_5o1is")

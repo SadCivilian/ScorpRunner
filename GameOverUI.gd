@@ -21,11 +21,13 @@ func WireFunctionality() -> void:
 	
 
 func _ready() -> void:
-	add_to_group(&"GameOverUIRenderer");
+	self.add_to_group(&"GameOverUIRenderer");
 	WireFunctionality();
 
 	# Styling
-	var retrystyle : StyleBox = RetryLevel.get_theme_stylebox(&"normal")
-	retrystyle.bg_color = ""
-	var quitstyle : StyleBox = QuitGame.get_theme_stylebox(&"normal")
-	quitstyle.bg_color = ""
+	"""
+	var retrystyle : StyleBox = RetryLevel.get_theme_stylebox(&"normal");
+	retrystyle.bg_color = "#00FF00";
+	var quitstyle : StyleBox = QuitGame.get_theme_stylebox(&"normal");
+	quitstyle.bg_color = "#FF0000";
+	"""

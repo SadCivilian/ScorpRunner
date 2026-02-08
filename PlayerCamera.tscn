@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dcyq5naplofan" path="res://assets/images/fullHeartFinal.png" id="4_3y4og"]
 [ext_resource type="Texture2D" uid="uid://da4x2ncotxq24" path="res://assets/images/EmptyCoin.png" id="5_qqtj1"]
 [ext_resource type="Script" uid="uid://dbhyqhc8n3oxg" path="res://GameOverUI.gd" id="6_ibo1c"]
+[ext_resource type="Texture2D" uid="uid://w3j0iql20sp" path="res://assets/images/GameOver.png" id="7_ri33b"]
 
 [sub_resource type="Animation" id="Animation_kek77"]
 length = 0.001
@@ -96,8 +97,10 @@ script = ExtResource("2_ibo1c")
 
 [node name="FadeRect" type="ColorRect" parent="FadeOutLayer" unique_id=1456598615]
 z_index = 1000
-offset_right = 230.4
-offset_bottom = 130.79999
+offset_left = 0.19999993
+offset_top = -0.39999998
+offset_right = 230.59999
+offset_bottom = 130.4
 color = Color(1, 1, 1, 0)
 
 [node name="FadePlayer" type="AnimationPlayer" parent="FadeOutLayer" unique_id=382422208]
@@ -153,28 +156,29 @@ visible = false
 script = ExtResource("6_ibo1c")
 
 [node name="RetryLevel" type="Button" parent="GameOverUI" unique_id=1664878932]
-offset_left = 505.0
-offset_top = 338.0
-offset_right = 599.0
-offset_bottom = 369.0
+offset_left = 660.0
+offset_top = 339.0
+offset_right = 754.0
+offset_bottom = 370.0
 text = "Retry Level"
 
 [node name="QuitGame" type="Button" parent="GameOverUI" unique_id=1536263054]
-offset_left = 337.0
-offset_top = 340.0
-offset_right = 379.0
-offset_bottom = 371.0
+offset_left = 449.0
+offset_top = 339.0
+offset_right = 541.0
+offset_bottom = 370.0
 text = "Quit Game"
 
 [node name="ContinueText" type="RichTextLabel" parent="GameOverUI" unique_id=1799761735]
-offset_left = 342.0
-offset_top = 266.0
-offset_right = 597.0
-offset_bottom = 308.0
+offset_left = 472.0
+offset_top = 294.0
+offset_right = 727.0
+offset_bottom = 336.0
 bbcode_enabled = true
 text = "[center][b][i]Continue?[/i][/b][/center]"
 
 [node name="GameOver" type="RichTextLabel" parent="GameOverUI" unique_id=551109737]
+visible = false
 modulate = Color(1, 0, 0, 0.78431374)
 offset_left = 211.0
 offset_top = 190.0
@@ -183,3 +187,9 @@ offset_bottom = 232.0
 scale = Vector2(2, 2)
 bbcode_enabled = true
 text = "[center][b][i]Game Over![/i][/b][/center]"
+
+[node name="GameOverSprite" type="Sprite2D" parent="GameOverUI" unique_id=1739243788]
+texture_filter = 1
+position = Vector2(609, 244)
+scale = Vector2(3.1599998, 2.7200003)
+texture = ExtResource("7_ri33b")

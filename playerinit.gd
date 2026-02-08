@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var attackCD : int = 2;
+@export var attackCD : float = 0.5;
 @export var attackDMG : int = 20;
 @export var canAttack : bool = true;
 @export var isAttacking : bool = false;
@@ -16,12 +16,15 @@ extends CharacterBody2D
 @onready var sprite : Sprite2D = $Model;
 @onready var HurtBox = $Model/HurtArea/Hurtbox;
 @onready var HurtArea = $Model/HurtArea;
+@onready var PlayerStomp = $Model/PlayerStomp;
 @onready var PlayerCamera =  $"../PlayerCamera";
 @onready var DeathZone : Area2D = $"../DeathZone";
 @onready var Animator : AnimationPlayer = $Animator;
+@onready var DamagedAnimator : AnimationPlayer = $DamagedAnimator;
 @onready var tilemap : TileMapLayer = $"../MainLayer";
 @onready var CD : Timer = $CD;
 @onready var GameOverUIRenderer : CanvasLayer = get_tree().get_first_node_in_group(&"GameOverUIRenderer");
+@onready var Flasher = $Model/Flash;
 
 var TimesJumped : int = 0;
 var onfloor : bool;
@@ -33,6 +36,9 @@ var facing : int = 1 # An alternative to direction which is statically changed i
 
 func connectListeners() -> void:
 	DeathZone.area_entered.connect(area_entered_clbk);
+	DamagedAnimator.animation_finished.connect(func(anim_name):
+		Flasher.visible = false;	
+	)
 	Animator.animation_finished.connect(func(anim_name):
 		if anim_name == &"Stinger":
 			onAttackFinished();
@@ -42,6 +48,7 @@ func connectListeners() -> void:
 	
 func GameOver() -> void:
 	dead = true;
+	GameOverUIRenderer.show();
 	
 func area_entered_clbk(area : Area2D) -> void:
 	if area.name == "HurtArea":
@@ -78,7 +85,7 @@ func bundleChecks(area : Area2D) -> Variant:
 		await get_tree().physics_frame;
 		var areas = area.get_overlapping_areas();
 		for v in areas:
-			if v != area and area.is_ancestor_of(v):
+			if v != area or area.is_ancestor_of(self):
 				continue
 			elif results.has(v):
 				continue
@@ -99,7 +106,7 @@ func attack() -> Variant:
 				areaPos = Vector2(currentPos.x + 40.0, currentPos.y + 2.5);	
 			-1:
 				areaPos = Vector2(currentPos.x - 40.0, currentPos.y + 2.5);
-				
+		
 		Animator.stop();
 		# Animator.play(&"Stinger");
 		isAttacking = true;
@@ -137,7 +144,8 @@ func _input(keyevent : InputEvent) -> void:
 func takeDamage(amount : int, triggeriframes : bool = true, iframetime : float = 1.0) -> void:
 	if iframes == false:
 		self.Health -= amount;
-		Animator.play(&"Damaged");
+		Flasher.visible = true
+		DamagedAnimator.play(&"Damaged");
 		Global.emit_signal(&"PlayerHealthChanged");	
 		if self.Health <= 0:
 			GameOver();

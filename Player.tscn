@@ -15,6 +15,18 @@ size = Vector2(74, 34)
 
 [sub_resource type="Animation" id="Animation_e80uo"]
 resource_name = "Damaged"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model/Flash:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.78431374, 0, 0, 1), Color(0.78431374, 0, 0, 0), Color(0.78431374, 0, 0, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_cxr5p"]
 length = 0.001
@@ -29,6 +41,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("2_kpjcp")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Model/Flash:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.78431374, 0, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_kne1u"]
@@ -54,11 +78,50 @@ _data = {
 &"Walk": SubResource("Animation_kne1u")
 }
 
+[sub_resource type="GDScript" id="GDScript_kne1u"]
+
+[sub_resource type="Animation" id="Animation_tdg3f"]
+resource_name = "Damaged"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model/Flash:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.78431374, 0, 0, 1), Color(0.78431374, 0, 0, 0), Color(0.78431374, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_dtqjt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model/Flash:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.78431374, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5ncpa"]
+_data = {
+&"Damaged": SubResource("Animation_tdg3f"),
+&"RESET": SubResource("Animation_dtqjt")
+}
+
 [node name="Player" type="CharacterBody2D" unique_id=1041797437]
 collision_mask = 0
 script = ExtResource("1_kpjcp")
 
 [node name="Model" type="Sprite2D" parent="." unique_id=1946451531]
+clip_children = 2
 position = Vector2(6.677834, -0.42106915)
 scale = Vector2(-0.10887218, 0.046938535)
 texture = ExtResource("2_kpjcp")
@@ -79,6 +142,14 @@ debug_color = Color(1, 1, 1, 0.41960785)
 position = Vector2(-25.921822, 227.66745)
 shape = SubResource("RectangleShape2D_kpjcp")
 
+[node name="Flash" type="ColorRect" parent="Model" unique_id=7926122]
+visible = false
+modulate = Color(0.78431374, 0, 0, 1)
+offset_left = -195.84586
+offset_top = -182.76947
+offset_right = 194.94266
+offset_bottom = 240.7016
+
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=234536885]
 position = Vector2(9.5, 2.5)
 scale = Vector2(0.5, 0.5)
@@ -86,12 +157,9 @@ shape = SubResource("RectangleShape2D_cxr5p")
 
 [node name="Animator" type="AnimationPlayer" parent="." unique_id=884843175]
 libraries/ = SubResource("AnimationLibrary_cxr5p")
+script = SubResource("GDScript_kne1u")
 
 [node name="CD" type="Timer" parent="." unique_id=1744472616]
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=7926122]
-modulate = Color(0.78431374, 0, 0, 0)
-offset_left = -9.0
-offset_top = -6.0
-offset_right = 28.0
-offset_bottom = 11.0
+[node name="DamagedAnimator" type="AnimationPlayer" parent="." unique_id=438821952]
+libraries/ = SubResource("AnimationLibrary_5ncpa")

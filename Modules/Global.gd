@@ -5,6 +5,7 @@ var LineCache : Array[Line2D] = [];
 var SceneTransitions = {
 	&"shn1" : &"shn2",
 	&"shn2" : &"shn3",
+	&"shn3" : &"shn4"
 }
 
 signal PlayerCoinsChanged(newCoins);
@@ -13,6 +14,21 @@ signal PlayerHealthChanged(newHealth);
 static func concatPrint(... args : Array):
 	var message: String = ", ".join(args.map(str));
 	print(message);
+
+func delay(seconds : float, function : Callable) -> Variant:
+	await get_tree().create_timer(seconds).timeout;
+	var ret = function.call();
+	return ret;
+	
+func boolfromint(integer : int) -> bool:
+	match integer:
+		-1:
+			return false
+		1:
+			return true
+		_: 
+			push_error("invalid integer");
+	return false;
 	
 func wait(time : float) -> void:
 	await get_tree().create_timer(time).timeout
