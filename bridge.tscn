@@ -1,27 +1,27 @@
 [gd_scene format=3 uid="uid://0irbyaoubumg"]
 
-[ext_resource type="Texture2D" uid="uid://ci1e27bgoctmi" path="res://assets/sprites/bridge.png" id="1_jvmcf"]
+[ext_resource type="Texture2D" uid="uid://b5rmc7o00qxvv" path="res://assets/sprites/bridge.png" id="1_jvmcf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xy2vu"]
 size = Vector2(1414.0005, 167.81396)
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" unique_id=767962273]
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." unique_id=405668995]
 layout_mode = 3
 anchors_preset = 0
 offset_top = -1.0
 offset_right = 1413.9998
 offset_bottom = 183.18605
 
-[node name="Bridge" type="Sprite2D" parent="Control" groups=["bridge"]]
+[node name="Bridge" type="Sprite2D" parent="Control" unique_id=328417546 groups=["bridge"]]
 position = Vector2(134.99998, 22.5)
 scale = Vector2(0.19094768, 0.24431817)
 texture = ExtResource("1_jvmcf")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Control/Bridge"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Control/Bridge" unique_id=1218041377]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/Bridge/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/Bridge/StaticBody2D" unique_id=1987000420]
 position = Vector2(0, 8.186035)
 scale = Vector2(0.9999993, 1)
 shape = SubResource("RectangleShape2D_xy2vu")

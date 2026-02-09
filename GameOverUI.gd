@@ -11,6 +11,7 @@ func getUILayer() -> CanvasLayer:
 
 func WireFunctionality() -> void:
 	RetryLevel.pressed.connect(func():
+		print("pressed retry");
 		FadeTransition.transition(FadeTransition.TransitionType.OTHER)
 		hide();
 		get_tree().reload_current_scene();
@@ -21,7 +22,7 @@ func WireFunctionality() -> void:
 	
 
 func _ready() -> void:
-	self.add_to_group(&"GameOverUIRenderer");
+	add_to_group(&"GameOverUIRenderer");
 	WireFunctionality();
 
 	# Styling

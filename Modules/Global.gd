@@ -72,8 +72,16 @@ func TypeString(variable : Variant) -> Variant:
 		return string
 	else:
 		return null
-		
 
+# TODO
+func MakeHitbox(x : float, y : float) -> Area2D:
+	var newBox = Area2D.new();
+	var newCollisionShape = CollisionShape2D.new();
+	var rect = RectangleShape2D.new();
+	rect.size = Vector2(x, y);
+	newCollisionShape.add_child(rect);
+	newBox.add_child(newCollisionShape);
+	return newBox
 
 ## This function will only work if the given Area2D has a CollisionShape2D child that posseses a .get_rect() method.
 func visualizeArea(Area : Area2D, color : Color = Color(1.0,0.0,0.3)) -> ColorRect:

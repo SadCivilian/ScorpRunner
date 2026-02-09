@@ -3,21 +3,20 @@
 [ext_resource type="Script" uid="uid://ch2ij6rtsmc87" path="res://Shockwave.gd" id="1_mlr21"]
 [ext_resource type="Texture2D" uid="uid://cfrbka3yuvmvi" path="res://New/PNG (Transparent)/twirl_03.png" id="2_it2sb"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mlr21"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_it2sb"]
+size = Vector2(16, 15)
 
-[node name="Shockwave" type="CharacterBody2D" unique_id=1460694575]
+[node name="Node2D" type="Node2D" unique_id=1514391855]
 script = ExtResource("1_mlr21")
 
 [node name="Collision" type="Area2D" parent="." unique_id=1225810102]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision" unique_id=1775882838]
-shape = SubResource("RectangleShape2D_mlr21")
-
-[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=1447911673]
+[node name="Hitbox" type="CollisionShape2D" parent="Collision" unique_id=1447911673]
+position = Vector2(-2, 2.5)
 shape = SubResource("RectangleShape2D_it2sb")
 
 [node name="Model" type="Sprite2D" parent="." unique_id=1197703824]
-scale = Vector2(0.04, 0.04)
+modulate = Color(5.912981, 5.912981, 5.912981, 1)
+position = Vector2(-2.1199994, 2.6199996)
+scale = Vector2(0.03171875, 0.029765626)
 texture = ExtResource("2_it2sb")

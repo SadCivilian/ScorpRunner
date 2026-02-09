@@ -9,6 +9,26 @@ size = Vector2(20, 48)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ebgrx"]
 size = Vector2(20, 48)
 
+[sub_resource type="Animation" id="Animation_4l6wv"]
+resource_name = "Overhead"
+
+[sub_resource type="Animation" id="Animation_1rcsa"]
+resource_name = "Stomp"
+
+[sub_resource type="Animation" id="Animation_6l8ur"]
+resource_name = "Summoning"
+
+[sub_resource type="Animation" id="Animation_xqreg"]
+resource_name = "Walk"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ypou6"]
+_data = {
+&"Overhead": SubResource("Animation_4l6wv"),
+&"Stomp": SubResource("Animation_1rcsa"),
+&"Summoning": SubResource("Animation_6l8ur"),
+&"Walk": SubResource("Animation_xqreg")
+}
+
 [node name="Anubis" type="CharacterBody2D" unique_id=1508226872]
 script = ExtResource("1_ebgrx")
 
@@ -23,6 +43,7 @@ position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_ebgrx")
 
 [node name="Animator" type="AnimationPlayer" parent="." unique_id=1724057311]
+libraries/ = SubResource("AnimationLibrary_ypou6")
 
 [node name="Mouth" type="AudioStreamPlayer2D" parent="." unique_id=1572647217]
 

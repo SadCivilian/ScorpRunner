@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://wngjkw8mu783" path="res://PlayerCamera.tscn" id="14_qytd6"]
 [ext_resource type="PackedScene" uid="uid://d3v672i3o8v2k" path="res://BG_Music_Player.tscn" id="15_7qw2m"]
 [ext_resource type="PackedScene" uid="uid://piujtwli0wtf" path="res://lever.tscn" id="16_w3cr1"]
+[ext_resource type="PackedScene" uid="uid://0irbyaoubumg" path="res://bridge.tscn" id="17_38gbn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_272bh"]
 texture = ExtResource("2_w3cr1")
@@ -468,7 +469,7 @@ scale = Vector2(0.20252712, 0.24997805)
 texture = ExtResource("11_7r35f")
 
 [node name="Player" parent="." unique_id=1219857062 instance=ExtResource("12_n7knr")]
-position = Vector2(20276, 888)
+position = Vector2(20231, 890)
 collision_mask = 1
 floor_block_on_wall = false
 
@@ -499,5 +500,10 @@ position = Vector2(25088.611, 931.5922)
 position = Vector2(0.38867188, 0.40777588)
 shape = SubResource("RectangleShape2D_w3cr1")
 
-[node name="Node2D" type="Node2D" parent="." unique_id=1180961320]
-position = Vector2(20374.537, 891.65845)
+[node name="Coins" type="Node" parent="." unique_id=967519725]
+
+[node name="Node2D" parent="." unique_id=1996574672 instance=ExtResource("17_38gbn")]
+position = Vector2(24802, 875)
+
+[node name="Test" type="Node2D" parent="." unique_id=659662699]
+position = Vector2(20320.215, 892.59503)

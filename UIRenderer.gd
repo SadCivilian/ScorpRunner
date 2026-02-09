@@ -8,8 +8,6 @@ enum imageExtension {png, jpeg, jpg};
 @onready var Counter = $Counter;
 var Player : CharacterBody2D;
 
-
-
 func _ready() -> void:
 	self.add_to_group("UIRenderer");
 	Player = get_tree().get_first_node_in_group("Player");

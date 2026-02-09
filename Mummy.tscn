@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://inednby1yotr"]
+[gd_scene format=3 uid="uid://inednby1yotr"]
 
 [ext_resource type="Script" uid="uid://djbwuhtgbcf0n" path="res://MummyBrain.gd" id="1_105sr"]
 
@@ -27,38 +27,36 @@ size = Vector2(2, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0wpy"]
 size = Vector2(17, 20)
 
-[node name="Mummy" type="CharacterBody2D"]
+[node name="Mummy" type="CharacterBody2D" unique_id=1543909718]
 script = ExtResource("1_105sr")
 
-[node name="Model" type="Sprite2D" parent="."]
+[node name="Model" type="Sprite2D" parent="." unique_id=2141282517]
 
-[node name="Collision" type="CollisionShape2D" parent="."]
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=656841859]
 position = Vector2(-1.5, 0)
 shape = SubResource("RectangleShape2D_vaaym")
 
-[node name="Animator" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_nxij1")
-}
+[node name="Animator" type="AnimationPlayer" parent="." unique_id=1256258197]
+libraries/ = SubResource("AnimationLibrary_nxij1")
 
-[node name="SightRay" type="RayCast2D" parent="."]
+[node name="SightRay" type="RayCast2D" parent="." unique_id=957517838]
 target_position = Vector2(-60, 0)
 
-[node name="GroundRay" type="RayCast2D" parent="."]
+[node name="GroundRay" type="RayCast2D" parent="." unique_id=1705333642]
 target_position = Vector2(-45, 22)
 
-[node name="Mouth" type="AudioStreamPlayer2D" parent="."]
+[node name="Mouth" type="AudioStreamPlayer2D" parent="." unique_id=1619388427]
 
-[node name="CD" type="Timer" parent="."]
+[node name="CD" type="Timer" parent="." unique_id=289949692]
 
-[node name="BackArea" type="Area2D" parent="."]
+[node name="BackArea" type="Area2D" parent="." unique_id=38276681]
 
-[node name="Back" type="CollisionShape2D" parent="BackArea"]
+[node name="Back" type="CollisionShape2D" parent="BackArea" unique_id=1802608546]
 position = Vector2(8, 0)
 shape = SubResource("RectangleShape2D_105sr")
 
-[node name="HitboxArea" type="Area2D" parent="."]
+[node name="HitboxArea" type="Area2D" parent="." unique_id=799024508]
 
-[node name="Hitbox" type="CollisionShape2D" parent="HitboxArea"]
+[node name="Hitbox" type="CollisionShape2D" parent="HitboxArea" unique_id=1621536759]
 position = Vector2(-1.5, 0)
 shape = SubResource("RectangleShape2D_m0wpy")

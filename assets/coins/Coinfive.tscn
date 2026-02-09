@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://vjah3tslf4a2" path="res://New/PNG (Transparent)/smoke_03.png" id="4_3mgqm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ou7jl"]
+size = Vector2(13, 12)
 
 [sub_resource type="Animation" id="Animation_ou7jl"]
 resource_name = "Spin"
@@ -27,11 +28,12 @@ script = ExtResource("1_elsc8")
 value = null
 
 [node name="Model" type="Sprite2D" parent="." unique_id=772865180]
-position = Vector2(0.50000083, 1)
-scale = Vector2(0.042000003, 0.04)
+position = Vector2(2.500001, 3)
+scale = Vector2(0.03, 0.028)
 texture = ExtResource("2_y4tr3")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=197681937]
+position = Vector2(2.5, 3)
 shape = SubResource("RectangleShape2D_ou7jl")
 
 [node name="Animator" type="AnimationPlayer" parent="." unique_id=204741611]

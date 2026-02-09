@@ -23,7 +23,7 @@ extends CharacterBody2D
 @onready var DamagedAnimator : AnimationPlayer = $DamagedAnimator;
 @onready var tilemap : TileMapLayer = $"../MainLayer";
 @onready var CD : Timer = $CD;
-@onready var GameOverUIRenderer : CanvasLayer = get_tree().get_first_node_in_group(&"GameOverUIRenderer");
+@onready var GameOverUIRenderer : CanvasLayer = PlayerCamera.get_child(2);
 @onready var Flasher = $Model/Flash;
 
 var TimesJumped : int = 0;
@@ -47,6 +47,8 @@ func connectListeners() -> void:
 	
 	
 func GameOver() -> void:
+	var current_color = sprite.modulate
+	create_tween().tween_property(sprite, "modulate", Color(current_color.r, current_color.b, current_color.g, 0), 0.5).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUINT);
 	dead = true;
 	GameOverUIRenderer.show();
 	
@@ -149,7 +151,7 @@ func takeDamage(amount : int, triggeriframes : bool = true, iframetime : float =
 		Global.emit_signal(&"PlayerHealthChanged");	
 		if self.Health <= 0:
 			GameOver();
-		if triggeriframes == true and (self.Health - 1) != 0:
+		if triggeriframes == true:
 			enableIFrames(iframetime);
 
 func addCoins(amount : int) -> void:
