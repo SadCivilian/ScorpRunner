@@ -7,7 +7,7 @@ extends Node2D
 @onready var Sprite = $Model;
 	
 func _physics_process(delta: float) ->void:
-	Sprite.flip_h = not Global.boolfromint(direct);
+	Sprite.flip_h = not bool(direct);
 	if move:
 		position.x -= speed * delta * -direct
 		

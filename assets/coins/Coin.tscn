@@ -2,18 +2,52 @@
 
 [ext_resource type="Script" uid="uid://bj1fpqbmpt0jq" path="res://assets/coins/coin.gd" id="1_io0pg"]
 [ext_resource type="Texture2D" uid="uid://by2ewcn2krmri" path="res://assets/images/1coin.png" id="2_o0ics"]
+[ext_resource type="Texture2D" uid="uid://f4mr77765fo6" path="res://assets/images/CoinFrame4.png" id="3_1m7ad"]
 [ext_resource type="AudioStream" uid="uid://yetgljluy6e7" path="res://assets/sounds/coin.mp3" id="3_57yfk"]
 [ext_resource type="Texture2D" uid="uid://vjah3tslf4a2" path="res://New/PNG (Transparent)/smoke_03.png" id="4_3mocm"]
+[ext_resource type="Texture2D" uid="uid://cul4x3ia8ne8p" path="res://assets/images/CoinFrame1.png" id="4_vngd0"]
+[ext_resource type="Texture2D" uid="uid://d4dqmtffijxbu" path="res://assets/images/sideways.png" id="5_2xwqe"]
+[ext_resource type="Texture2D" uid="uid://dmlcg3tmbp61r" path="res://assets/images/CoinFrame5.png" id="6_6xoxl"]
+[ext_resource type="Texture2D" uid="uid://lr0dw4qkwl8s" path="res://assets/images/CoinFrame6.png" id="7_7ot7c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ou7jl"]
-size = Vector2(14, 13)
+size = Vector2(13, 12)
+
+[sub_resource type="Animation" id="Animation_vrejw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_o0ics")]
+}
 
 [sub_resource type="Animation" id="Animation_ou7jl"]
 resource_name = "Spin"
+length = 1.5
 loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166, 0.332, 0.498, 0.664, 0.83, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_o0ics"), ExtResource("3_1m7ad"), ExtResource("4_vngd0"), ExtResource("5_2xwqe"), ExtResource("6_6xoxl"), ExtResource("7_7ot7c"), ExtResource("2_o0ics")]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ufda5"]
 _data = {
+&"RESET": SubResource("Animation_vrejw"),
 &"Spin": SubResource("Animation_ou7jl")
 }
 
@@ -27,12 +61,12 @@ scale_max = 0.04
 script = ExtResource("1_io0pg")
 
 [node name="Model" type="Sprite2D" parent="." unique_id=772865180]
-position = Vector2(3.500001, 4)
-scale = Vector2(0.030000003, 0.027999999)
+position = Vector2(3.9999998, 4.4999995)
+scale = Vector2(0.028, 0.026)
 texture = ExtResource("2_o0ics")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=197681937]
-position = Vector2(3, 3.5)
+position = Vector2(3.5, 4)
 shape = SubResource("RectangleShape2D_ou7jl")
 
 [node name="Animator" type="AnimationPlayer" parent="." unique_id=204741611]

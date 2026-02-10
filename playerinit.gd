@@ -21,6 +21,7 @@ extends CharacterBody2D
 @onready var DeathZone : Area2D = $"../DeathZone";
 @onready var Animator : AnimationPlayer = $Animator;
 @onready var DamagedAnimator : AnimationPlayer = $DamagedAnimator;
+@onready var AttackAnimator : AnimationPlayer = $AttackAnimator;
 @onready var tilemap : TileMapLayer = $"../MainLayer";
 @onready var CD : Timer = $CD;
 @onready var GameOverUIRenderer : CanvasLayer = PlayerCamera.get_child(2);
@@ -32,7 +33,6 @@ var jumpedfromvalid : bool = false; # if the player jumped from a surface (aka t
 var beingKnockedBack : bool = false;
 var currentKnockbackForce : Vector2 = Vector2.ZERO;
 var facing : int = 1 # An alternative to direction which is statically changed instead of being reliant on inputs.
-@export var TileMetadata = {["CurrentTileStandingOn"] : null, ["CurrentTileIn"] : null, ["CurrentTileOrigin"] : null}; # Information about the current tile the character is standing on/is in.
 
 func connectListeners() -> void:
 	DeathZone.area_entered.connect(area_entered_clbk);
@@ -48,7 +48,7 @@ func connectListeners() -> void:
 	
 func GameOver() -> void:
 	var current_color = sprite.modulate
-	create_tween().tween_property(sprite, "modulate", Color(current_color.r, current_color.b, current_color.g, 0), 0.5).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUINT);
+	create_tween().tween_property(sprite, "modulate", Color(current_color.r, current_color.b, current_color.g, 0), 0.2).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUINT);
 	dead = true;
 	GameOverUIRenderer.show();
 	
@@ -63,7 +63,7 @@ func onAttackCooldownFinished() -> void:
 	canAttack = true;
 	
 func _ready() -> void:
-	add_to_group("Player");
+	add_to_group(&"Player");
 	connectListeners();	
 	print("Connected signals");
 	# FadeTransition.transition(FadeTransition.TransitionType.OTHER);
@@ -108,9 +108,8 @@ func attack() -> Variant:
 				areaPos = Vector2(currentPos.x + 40.0, currentPos.y + 2.5);	
 			-1:
 				areaPos = Vector2(currentPos.x - 40.0, currentPos.y + 2.5);
-		
 		Animator.stop();
-		# Animator.play(&"Stinger");
+		Animator.play(&"Stinger");
 		isAttacking = true;
 		canAttack = false;
 		CD.start(attackCD);
@@ -133,7 +132,6 @@ func attack() -> Variant:
 		await get_tree().physics_frame;
 		IntersectArray = await bundleChecks(hitArea);
 		hitArea.queue_free(); 
-		print(IntersectArray);
 		onAttackFinished();
 		
 		return IntersectArray
@@ -159,6 +157,16 @@ func addCoins(amount : int) -> void:
 		return 
 	self.Coins += amount;
 	Global.emit_signal(&"PlayerCoinsChanged");		
+	
+# Uses an amount of counts and returns a boolean on whether it was successful.
+func useCoins(amount : int) -> bool:
+	if self.Coins - amount < 0:
+		return false
+	else:
+		self.Coins = self.Coins - amount;
+		Global.emit_signal(&"PlayerCoinsChanged");
+		return true
+	
 	
 func applyKnockback(direction : Vector2, strength : float) -> void:
 	if dead: return;
@@ -186,22 +194,6 @@ func processJump() -> void:
 				velocity.y = -jumpforce
 				TimesJumped += 1;
 				jumpedfromvalid = true;
-				
-# This shit probably doesn't work. Doesn't bother me though I think I'm fucked either way.
-func checktransitionTile() -> void:
-	if dead: return;
-	var tile_pos = tilemap.local_to_map(self.to_local(Vector2(self.sprite.global_position.x, self.sprite.global_position.y - 5)));
-	var tile_data = tilemap.get_cell_tile_data(tile_pos) as TileData; 
-	var tile_id = tilemap.get_cell_source_id(tile_pos)
-	print(tile_id);
-	if tile_data:
-		var _tile_id = tilemap.get_cell_source_id(tile_pos)
-		if tile_id == 1:
-			var CurrentScene = Global.GetCurrentScene();
-			var NextScene = Global.SceneTransitions[CurrentScene] as StringName;
-			var Scene = Global.GetSceneFromString(NextScene);
-			print("standing on transition tile and transitioning");	
-			FadeTransition.transition(FadeTransition.TransitionType.ROOM_TRANSITION, Scene);
 		
 # Use StringName for performance reasons
 func _physics_process(delta: float) -> void: 
@@ -246,5 +238,4 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0, speed);
 			
 	move_and_slide();
-	# checktransitionTile();
 	

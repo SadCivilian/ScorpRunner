@@ -3,17 +3,51 @@
 [ext_resource type="Script" uid="uid://wh3bjcqiymbd" path="res://assets/coins/cointen.gd" id="1_nxslk"]
 [ext_resource type="Texture2D" uid="uid://bbakjf5700dd7" path="res://assets/images/10coin.png" id="2_7suas"]
 [ext_resource type="AudioStream" uid="uid://yetgljluy6e7" path="res://assets/sounds/coin.mp3" id="3_jqe1f"]
+[ext_resource type="Texture2D" uid="uid://f4mr77765fo6" path="res://assets/images/CoinFrame4.png" id="3_tfd8o"]
 [ext_resource type="Texture2D" uid="uid://vjah3tslf4a2" path="res://New/PNG (Transparent)/smoke_03.png" id="4_vwulk"]
+[ext_resource type="Texture2D" uid="uid://cul4x3ia8ne8p" path="res://assets/images/CoinFrame1.png" id="4_y716h"]
+[ext_resource type="Texture2D" uid="uid://d4dqmtffijxbu" path="res://assets/images/sideways.png" id="5_vibxi"]
+[ext_resource type="Texture2D" uid="uid://dmlcg3tmbp61r" path="res://assets/images/CoinFrame5.png" id="6_ttsoi"]
+[ext_resource type="Texture2D" uid="uid://lr0dw4qkwl8s" path="res://assets/images/CoinFrame6.png" id="7_luop0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ou7jl"]
 size = Vector2(13, 12)
 
+[sub_resource type="Animation" id="Animation_4wyac"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_7suas")]
+}
+
 [sub_resource type="Animation" id="Animation_ou7jl"]
 resource_name = "Spin"
+length = 1.5
 loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16800004, 0.334, 0.5, 0.666, 0.83199996, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_7suas"), ExtResource("3_tfd8o"), ExtResource("4_y716h"), ExtResource("5_vibxi"), ExtResource("6_ttsoi"), ExtResource("7_luop0"), ExtResource("2_7suas")]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ufda5"]
 _data = {
+&"RESET": SubResource("Animation_4wyac"),
 &"Spin": SubResource("Animation_ou7jl")
 }
 

@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://da4x2ncotxq24" path="res://assets/images/EmptyCoin.png" id="5_qqtj1"]
 [ext_resource type="Script" uid="uid://dbhyqhc8n3oxg" path="res://GameOverUI.gd" id="6_ibo1c"]
 [ext_resource type="Texture2D" uid="uid://w3j0iql20sp" path="res://assets/images/GameOver.png" id="7_ri33b"]
+[ext_resource type="Script" uid="uid://dwfgqoc84eq12" path="res://GameWinUICut.gd" id="8_3y4og"]
 
 [sub_resource type="Animation" id="Animation_kek77"]
 length = 0.001
@@ -156,11 +157,12 @@ visible = false
 script = ExtResource("6_ibo1c")
 
 [node name="RetryLevel" type="Button" parent="GameOverUI" unique_id=1664878932]
-offset_left = 660.0
+modulate = Color(1.6197081, 1.6197081, 1.6197081, 1)
+offset_left = 620.0
 offset_top = 339.0
-offset_right = 754.0
+offset_right = 842.0
 offset_bottom = 370.0
-text = "Retry Level"
+text = "Retry From Last Checkpoint"
 
 [node name="QuitGame" type="Button" parent="GameOverUI" unique_id=1536263054]
 offset_left = 449.0
@@ -193,3 +195,6 @@ texture_filter = 1
 position = Vector2(609, 244)
 scale = Vector2(3.1599998, 2.7200003)
 texture = ExtResource("7_ri33b")
+
+[node name="GameWinUI" type="CanvasLayer" parent="." unique_id=1377204685]
+script = ExtResource("8_3y4og")

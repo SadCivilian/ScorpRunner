@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://b70i3ufijrnc5"]
 
 [ext_resource type="Script" uid="uid://dqnlh3vjb5y18" path="res://Anubis.gd" id="1_ebgrx"]
-[ext_resource type="Texture2D" uid="uid://vjah3tslf4a2" path="res://New/PNG (Transparent)/smoke_03.png" id="2_4l6wv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4l6wv"]
 size = Vector2(20, 48)
@@ -11,6 +10,9 @@ size = Vector2(20, 48)
 
 [sub_resource type="Animation" id="Animation_4l6wv"]
 resource_name = "Overhead"
+
+[sub_resource type="Animation" id="Animation_ypou6"]
+resource_name = "Staff"
 
 [sub_resource type="Animation" id="Animation_1rcsa"]
 resource_name = "Stomp"
@@ -24,6 +26,7 @@ resource_name = "Walk"
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ypou6"]
 _data = {
 &"Overhead": SubResource("Animation_4l6wv"),
+&"Staff": SubResource("Animation_ypou6"),
 &"Stomp": SubResource("Animation_1rcsa"),
 &"Summoning": SubResource("Animation_6l8ur"),
 &"Walk": SubResource("Animation_xqreg")
@@ -58,10 +61,5 @@ offset_bottom = -39.0
 max_value = 250.0
 value = 250.0
 show_percentage = false
-
-[node name="ParticleEmitter" type="CPUParticles2D" parent="." unique_id=1983061953]
-emitting = false
-texture = ExtResource("2_4l6wv")
-one_shot = true
 
 [node name="CD" type="Timer" parent="." unique_id=897517077]

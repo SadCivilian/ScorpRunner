@@ -7,12 +7,13 @@ signal onStateChanged(state);
 enum state {WANDER, CHARGING, DEAD, CHASE};
 const WanderSpeed : int = 20;
 const ChaseSpeed : int = 50;
+const PunchVelocity = 100;
 var isonfloor = true;
 var isdying = false;
 var RNG : RandomNumberGenerator = RandomNumberGenerator.new();
-@export var IgnorePlayer = false;
+@export var IgnorePlayer : bool = false;
 @export var DrawRaycasts : bool = false;
-@export var CurrentSpeed = 20;
+@export var CurrentSpeed : int = 20;
 @export var gravityprone : bool = true; 
 @export var gravity : int = 300;
 @export var CurrentState : state = state.WANDER;
@@ -110,13 +111,11 @@ func onHitboxEntered(body : PhysicsBody2D) -> void:
 	if body.name == "Player":
 		match punching:
 			true:
-				print("player took damage I guess");
 				player.takeDamage(2, true, 2.0);
 				player.applyKnockback(KNOCKBACK_VECTOR, 800.0);
 			false:
-				print("player took damage I guess");
 				player.takeDamage(1, true, 1.0);
-				player.applyKnockback(KNOCKBACK_VECTOR, 600.0);
+				player.applyKnockback(KNOCKBACK_VECTOR, 300.0);
 
 func loseChase() -> void:
 	print("well it seems the player got away somehow");
@@ -173,8 +172,11 @@ func punch() -> void:
 	changeState(state.CHARGING);
 	if Animator.is_playing():
 		Animator.stop();
-		Animator.play(&"Punching"); # Keep in mind that the movement of the enemy hitbox is in the animation.
-	
+		Animator.play(&"Punching"); 
+		get_tree().physics_frame.connect(func():
+			velocity = Vector2(PunchVelocity * direction, 0)
+		)
+		# TODO: ANIMATION event
 	
 	
 func chase() -> void:

@@ -10,6 +10,7 @@ var null_voidClbk : Callable = Callable();
 var cutsceneActive : bool = false;
 
 func _ready() -> void:
+	add_to_group(&"Camera");
 	var blurred = Global.BlurImage(bg);
 	# Display(blurred);
 	print("Camera initialized"); 

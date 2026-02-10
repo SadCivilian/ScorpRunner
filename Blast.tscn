@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bt3jq6fmdsawn"]
+
+[ext_resource type="Script" uid="uid://co3jrsxrbkpdr" path="res://Blast.gd" id="1_f3ncc"]
+[ext_resource type="Texture2D" uid="uid://42o55nu7gjug" path="res://New/PNG (Transparent)/Rotated/trace_03_rotated.png" id="2_smrnc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_smrnc"]
+
+[node name="Blast" type="Node2D" unique_id=1373558372]
+script = ExtResource("1_f3ncc")
+
+[node name="Collision" type="Area2D" parent="." unique_id=1438143954]
+
+[node name="Hitbox" type="CollisionShape2D" parent="Collision" unique_id=1782269511]
+shape = SubResource("RectangleShape2D_smrnc")
+
+[node name="Model" type="Sprite2D" parent="." unique_id=869079488]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(-3.0000014, 1.1920929e-07)
+scale = Vector2(0.0703125, 0.04687503)
+texture = ExtResource("2_smrnc")

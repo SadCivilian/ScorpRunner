@@ -1,5 +1,9 @@
 extends Node
 
+# Some stuff for global setup.
+@onready var anubisScript = preload("res://Anubis.gd");
+
+# Cache.
 var LineCache : Array[Line2D] = [];
 
 var SceneTransitions = {
@@ -7,6 +11,15 @@ var SceneTransitions = {
 	&"shn2" : &"shn3",
 	&"shn3" : &"shn4"
 }
+
+# Works on a NAME basis.
+var CurrentCheckpoint = {
+	
+}
+
+var CurrentLevel = &"shn1"
+
+var __TEMP_FADE_IN = false;
 
 signal PlayerCoinsChanged(newCoins);
 signal PlayerHealthChanged(newHealth);
@@ -19,16 +32,6 @@ func delay(seconds : float, function : Callable) -> Variant:
 	await get_tree().create_timer(seconds).timeout;
 	var ret = function.call();
 	return ret;
-	
-func boolfromint(integer : int) -> bool:
-	match integer:
-		-1:
-			return false
-		1:
-			return true
-		_: 
-			push_error("invalid integer");
-	return false;
 	
 func wait(time : float) -> void:
 	await get_tree().create_timer(time).timeout
@@ -74,13 +77,15 @@ func TypeString(variable : Variant) -> Variant:
 		return null
 
 # TODO
-func MakeHitbox(x : float, y : float) -> Area2D:
+func MakeHitbox(x : float, y : float, pos : Vector2 = Vector2(0,0)) -> Area2D:
 	var newBox = Area2D.new();
 	var newCollisionShape = CollisionShape2D.new();
 	var rect = RectangleShape2D.new();
 	rect.size = Vector2(x, y);
-	newCollisionShape.add_child(rect);
 	newBox.add_child(newCollisionShape);
+	newCollisionShape.shape = rect;
+	if pos:
+		newBox.global_position = pos;
 	return newBox
 
 ## This function will only work if the given Area2D has a CollisionShape2D child that posseses a .get_rect() method.
@@ -98,6 +103,17 @@ func visualizeArea(Area : Area2D, color : Color = Color(1.0,0.0,0.3)) -> ColorRe
 	Area.add_child(visualizer);
 			
 	return visualizer
+	
+func _GBOSSFIGHTVARS(boss : Node) -> void:
+	boss.Health = 250;
+	boss.IgnorePlayer = false;
+	boss.CurrentSpeed = 20;
+	boss.gravityprone = true;
+	boss.gravity = 300;
+	boss.CurrentState = anubisScript.state.IDLE;
+	boss.CurrentAttack = anubisScript.attacks.NIL;
+	boss.LastUsedAttack = anubisScript.attacks.NIL;
+	boss.direction = -1;
 	
 func GetCurrentScene() -> String:
 	var scenename = get_tree().current_scene.scene_file_path.get_basename().substr(6);

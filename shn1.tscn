@@ -17,6 +17,9 @@
 [ext_resource type="PackedScene" uid="uid://d3v672i3o8v2k" path="res://BG_Music_Player.tscn" id="15_7qw2m"]
 [ext_resource type="PackedScene" uid="uid://piujtwli0wtf" path="res://lever.tscn" id="16_w3cr1"]
 [ext_resource type="PackedScene" uid="uid://0irbyaoubumg" path="res://bridge.tscn" id="17_38gbn"]
+[ext_resource type="PackedScene" uid="uid://dxu50grlog0dv" path="res://assets/coins/Coin.tscn" id="17_w7x6o"]
+[ext_resource type="PackedScene" uid="uid://cxcxwjustky3m" path="res://assets/coins/Cointen.tscn" id="18_ynqkk"]
+[ext_resource type="PackedScene" uid="uid://fvgbkxswaebg" path="res://assets/coins/Coinfive.tscn" id="19_peo2a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_272bh"]
 texture = ExtResource("2_w3cr1")
@@ -469,7 +472,7 @@ scale = Vector2(0.20252712, 0.24997805)
 texture = ExtResource("11_7r35f")
 
 [node name="Player" parent="." unique_id=1219857062 instance=ExtResource("12_n7knr")]
-position = Vector2(20231, 890)
+position = Vector2(20252, 888)
 collision_mask = 1
 floor_block_on_wall = false
 
@@ -497,13 +500,22 @@ position = Vector2(20200, 893)
 position = Vector2(25088.611, 931.5922)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelEnd" unique_id=945549586]
-position = Vector2(0.38867188, 0.40777588)
+position = Vector2(-4969.6113, -48.592224)
 shape = SubResource("RectangleShape2D_w3cr1")
 
 [node name="Coins" type="Node" parent="." unique_id=967519725]
 
+[node name="Root" parent="Coins" unique_id=1018544288 instance=ExtResource("17_w7x6o")]
+position = Vector2(20353, 890)
+
+[node name="Root2" parent="Coins" unique_id=1390266208 instance=ExtResource("18_ynqkk")]
+position = Vector2(20370, 893)
+
+[node name="Root3" parent="Coins" unique_id=49753382 instance=ExtResource("19_peo2a")]
+position = Vector2(20381, 891)
+
 [node name="Node2D" parent="." unique_id=1996574672 instance=ExtResource("17_38gbn")]
-position = Vector2(24802, 875)
+position = Vector2(25542, 661)
 
 [node name="Test" type="Node2D" parent="." unique_id=659662699]
 position = Vector2(20320.215, 892.59503)
