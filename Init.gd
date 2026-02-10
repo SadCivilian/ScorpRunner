@@ -18,9 +18,9 @@ func _ready() -> void:
 	#Global._GBOSSFIGHTVARS(anubisTest);
 	#add_child(anubisTest);
 	#anubisTest.Summon();
-	var box = Global.MakeHitbox(20.0,30.0, Test.global_position);
-	await Global.wait(2.0);
-	var visualizer = Global.visualizeArea(box);
+	#var box = Global.MakeHitbox(20.0,30.0, Test.global_position);
+	#await Global.wait(2.0);
+	#var visualizer = Global.visualizeArea(box);
 	
 	LevelEnd.body_entered.connect(func(body):
 		if body.name == "Player":

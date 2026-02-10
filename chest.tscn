@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://d3uwg3kvod77e"]
+
+[ext_resource type="Script" uid="uid://bd5vfd64wxtc1" path="res://chest.gd" id="1_8uwsg"]
+[ext_resource type="Texture2D" uid="uid://bncv4jnfxt16o" path="res://assets/sprites/chestopen.jpeg" id="2_8uwsg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8uwsg"]
+size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_bp1or"]
+resource_name = "Open"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.25),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_8uwsg")]
+}
+
+[sub_resource type="Animation" id="Animation_trlyu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_8uwsg")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x7mpe"]
+_data = {
+&"Open": SubResource("Animation_bp1or"),
+&"RESET": SubResource("Animation_trlyu")
+}
+
+[node name="Root" type="Area2D" unique_id=145549212]
+script = ExtResource("1_8uwsg")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=291338608]
+position = Vector2(-2, 2)
+shape = SubResource("RectangleShape2D_8uwsg")
+
+[node name="Animator" type="AnimationPlayer" parent="." unique_id=264059197]
+libraries/ = SubResource("AnimationLibrary_x7mpe")
+
+[node name="Model" type="Sprite2D" parent="." unique_id=567118553]
+position = Vector2(-2.0000005, 2)
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("2_8uwsg")
