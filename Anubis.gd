@@ -17,7 +17,7 @@ var caninitiate = true;
 var isonfloor = true;
 var isdying = false;
 var closeEnoughtoOverhead = false;
-@export var Health = 250;
+@export var Health = 500;
 @export var IgnorePlayer = false;
 @export var CurrentSpeed = 20;
 @export var gravityprone : bool = true; 
@@ -25,15 +25,18 @@ var closeEnoughtoOverhead = false;
 @export var CurrentState : state = state.FIGHT;
 @export var CurrentAttack : attacks = attacks.NIL;
 @export var LastUsedAttack : attacks = attacks.NIL;
-@export var direction : int = -1;
+@export var direction : int = 1;
 @onready var Player: CharacterBody2D = get_tree().get_first_node_in_group("Player");
 @onready var Model : Sprite2D = $Model;
 @onready var Animator : AnimationPlayer = $Animator;
 @onready var Mouth : AudioStreamPlayer2D = $Mouth;
 @onready var CD : Timer = $CD;
 @onready var HPBar : ProgressBar = $Model/ProgressBar;
+@onready var Hitbox : Area2D = $Anubis_HitboxArea;
+@onready var GameWinUI : CanvasLayer = get_tree().get_first_node_in_group(&"Camera").get_child(3);
 
 func _ready() -> void:
+	Hitbox.area_entered.connect(onSelfEntered);
 	CD.timeout.connect(func():
 		caninitiate = true;	
 	)
@@ -56,7 +59,7 @@ func _ready() -> void:
 	
 # Need to figure out turning logic? Or always face player?
 func _physics_process(dt : float) -> void:
-	Model.flip_h = bool(direction); # Normalize model I guess
+	Model.flip_h = not Global.IntToBool(direction); # Normalize model I guess
 	if not IgnorePlayer:
 		var playerPos = Player.global_position;
 		var selfPos = self.global_position;
@@ -85,15 +88,22 @@ func changeState(newstate : state) -> state:
 func onstateChanged(newstate : state) -> void:
 	match newstate:
 		state.DEAD:
-			print("freeing object")
 			queue_free();
+			
+func onSelfEntered(area : Area2D) -> void:
+	if area.name == &"Stinger":
+		takeDamage(Player.attackDMG);
+	elif area.get_parent().get_parent().is_in_group(&"Player"):
+		Player.takeDamage(1, 1.0, true);	
+	elif area.get_parent().is_in_group(&"Player"):
+		Player.takeDamage(1, 1.0, true);
 
 func updateHealthBar(hp : int) -> void:
-	var final = Health - hp;
-	create_tween().tween_property(HPBar, "value", final, 0.2).set_ease(Tween.EASE_IN);
+	create_tween().tween_property(HPBar, "value", hp, 0.2).set_ease(Tween.EASE_IN);
 
 func takeDamage(amount : int) -> void:
 	var new = Health - amount;
+	Health = new;
 	updateHealthBar(new);
 	if new <= 0:
 		Die();
@@ -104,16 +114,17 @@ func DecideNextAttack() -> StringName:
 		if random == LastUsedAttack:
 			continue
 		else:
-			return attacks.find_key(random) as StringName;
+			return attacks.find_key(random);
 	return &"";
 	
 # Summoning attack. Enemy is buffed.
+#TODO: fade it in
 func Summon() -> Node:
 	CurrentAttack = attacks.SUMMON;
 	Animator.stop(); # Make sure he's LOCKED IN
 	Animator.play(&"Summoning");
 	var newMummy = Create(mummyScene);
-	newMummy.CurrentSpeed = 30;
+	newMummy.CurrentSpeed = 20;
 	newMummy.DrawRaycasts = false;
 	newMummy.IgnorePlayer = false;
 	newMummy.gravityprone = true;
@@ -153,7 +164,7 @@ func Overhead() -> void:
 	Animator.play(&"Overhead");
 	await Global.wait(1.0);
 	var IntersectArray = [];
-	var newBox = Global.MakeHitbox(20.0, 30.0);
+	var newBox = Global.MakeHitbox(1, 20.0, 30.0);
 	Global.visualizeArea(newBox);
 	
 # Ranged attack.
@@ -165,6 +176,7 @@ func Staff() -> void:
 	newBlast.direct = direction;
 	newBlast.speed = 200;
 	newBlast.global_position = self.global_position;
+	scene.add_child(newBlast);
 	
 
 # For when HP hits 0.
@@ -172,9 +184,10 @@ func Die() -> void:
 	HPBar.visible = false;
 	await Global.wait(0.3);
 	var curr = Model.modulate;
-	create_tween().tween_property(Model, "modulate", Color(curr.r, curr.g, curr.b, 0), 0.2).set_ease(Tween.EASE_IN);
-	self.queue_free();
-	
+	var tweener = create_tween().tween_property(Model, "modulate", Color(curr.r, curr.g, curr.b, 0), 0.2).set_ease(Tween.EASE_IN);
+	tweener.finished.connect(func():
+		queue_free();	
+	)
 	
 
 	

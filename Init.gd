@@ -9,7 +9,6 @@ extends Node
 @onready var Test = $Test;
 @onready var Camera = get_tree().get_first_node_in_group(&"Camera");
 @onready var GameWin = Camera.get_child(3);
-
 var anubisScript = preload("res://Anubis.gd")
 
 func _ready() -> void:
@@ -22,9 +21,13 @@ func _ready() -> void:
 		Global._GBOSSFIGHTVARS(anubisTest);
 		add_child(anubisTest);
 		await Global.wait(1.0);
-		#var box = Global.MakeHitbox(20.0,30.0, Test.global_position);
-		#await Global.wait(2.0);
-		#var visualizer = Global.visualizeArea(box);
+		var box = Global.MakeHitbox(1, 20.0, 30.0, Test.global_position);
+		await Global.wait(2.0);
+		var visualizer = Global.visualizeArea(box);
+		add_child(box);
+		add_child(visualizer);
+	elif Global.GetCurrentScene() == &"shn2":
+		print("shn2");
 	
 	LevelEnd.body_entered.connect(func(body):
 		if body.name == "Player":

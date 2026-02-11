@@ -3,16 +3,17 @@
 [ext_resource type="Script" uid="uid://5ypipbwijs2i" path="res://Ending.gd" id="1_hp54k"]
 [ext_resource type="Texture2D" uid="uid://32mfl0gphmjj" path="res://assets/sprites/Portal.png" id="2_vmtde"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e2n2j"]
-radius = 35.0
-height = 94.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hp54k"]
+size = Vector2(34.5, 40.5)
 
 [node name="EndingPortal" type="Area2D" unique_id=469420388]
 script = ExtResource("1_hp54k")
 
 [node name="Model" type="Sprite2D" parent="." unique_id=1216835577]
+position = Vector2(22, 21)
+scale = Vector2(0.55999994, 0.58000004)
 texture = ExtResource("2_vmtde")
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=195637462]
-position = Vector2(-22, -16)
-shape = SubResource("CapsuleShape2D_e2n2j")
+position = Vector2(10.25, 11.25)
+shape = SubResource("RectangleShape2D_hp54k")

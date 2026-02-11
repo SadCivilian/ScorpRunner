@@ -15,6 +15,6 @@ func _ready() -> void:
 	);
 
 func _physics_process(delta: float) -> void:
-	Sprite.flip_h = not bool(direct);
+	Sprite.flip_h = Global.IntToBool(direct);
 	if moving:
 		position.x -= speed * delta * -direct;

@@ -474,9 +474,9 @@ tile_set = SubResource("TileSet_yasrw")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=40083538]
 z_index = -1
-position = Vector2(3.0517578e-05, 1.9999847)
+position = Vector2(-0.030139646, -0.024246156)
 rotation = -1.5707964
-scale = Vector2(0.20252712, 0.24997805)
+scale = Vector2(0.23076084, 0.28549927)
 texture = ExtResource("9_8t0tj")
 
 [node name="Player" parent="." unique_id=1773314479 instance=ExtResource("1_847y5")]

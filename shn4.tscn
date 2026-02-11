@@ -469,9 +469,9 @@ tile_set = SubResource("TileSet_qk0v6")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1582778923]
 z_index = -1
-position = Vector2(3.0517578e-05, 1.9999847)
+position = Vector2(0.065835, -0.015268192)
 rotation = -1.5707964
-scale = Vector2(0.20252712, 0.24997805)
+scale = Vector2(0.23141679, 0.285765)
 texture = ExtResource("11_1plf6")
 
 [node name="Player" parent="." unique_id=2115676443 instance=ExtResource("12_omjff")]

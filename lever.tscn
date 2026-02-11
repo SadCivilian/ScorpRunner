@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://piujtwli0wtf"]
+[gd_scene format=3 uid="uid://piujtwli0wtf"]
 
 [ext_resource type="Script" uid="uid://c0umsr5kwx6uc" path="res://Lever.gd" id="1_0ohsc"]
 [ext_resource type="Texture2D" uid="uid://bk0up4x12ipfx" path="res://assets/sprites/NewLever.png" id="2_1btnt"]
@@ -6,19 +6,19 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7uavd"]
 size = Vector2(2.553885, 13.118554)
 
-[node name="Lever" type="Node2D"]
+[node name="Lever" type="Node2D" unique_id=1235347298]
 script = ExtResource("1_0ohsc")
 
-[node name="Model" type="Sprite2D" parent="."]
+[node name="Model" type="Sprite2D" parent="." unique_id=542988722]
 position = Vector2(0.9999999, -1.9999998)
 scale = Vector2(0.04, 0.038)
 texture = ExtResource("2_1btnt")
 
-[node name="ActivationArea" type="Area2D" parent="."]
+[node name="ActivationArea" type="Area2D" parent="." unique_id=754834966]
 
-[node name="Hitbox" type="CollisionShape2D" parent="ActivationArea"]
+[node name="Hitbox" type="CollisionShape2D" parent="ActivationArea" unique_id=1000928188]
 position = Vector2(1.0113175, 0.96584845)
 shape = SubResource("RectangleShape2D_7uavd")
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 
-[node name="CD" type="Timer" parent="."]
+[node name="CD" type="Timer" parent="." unique_id=1320695504]

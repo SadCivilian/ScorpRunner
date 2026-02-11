@@ -9,6 +9,7 @@ const FADE_IN_TIME = 0.5;
 @onready var BGMusicPlayer : AudioStreamPlayer = $".";
 
 func _ready() -> void:
+	add_to_group(&"BGMusicPlayer");
 	BGMusicPlayer.finished.connect(FadeOutTrack);
 	CurrentTrackLength = BGMusicPlayer.stream.get_length();
 	await get_tree().create_timer(1.0).timeout;
@@ -22,6 +23,11 @@ func _process(delta: float) -> void:
 
 # Fades out the current track right before replaying it.
 func FadeOutTrack() -> void:
+	var fadeouttween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO);	
+	fadeouttween.tween_property(BGMusicPlayer, "volume_db", -80.0, FADE_OUT_TIME);
+	FadeInTrack()
+	
+func FadeOutTrackPerm() -> void:
 	var fadeouttween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO);	
 	fadeouttween.tween_property(BGMusicPlayer, "volume_db", -80.0, FADE_OUT_TIME);
 	

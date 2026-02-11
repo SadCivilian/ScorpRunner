@@ -144,10 +144,9 @@ expand_mode = 1
 
 [node name="Counter" type="RichTextLabel" parent="UIRenderer" unique_id=919305088]
 texture_filter = 1
-offset_left = 1004.0
-offset_top = 1.0
-offset_right = 1044.0
-offset_bottom = 41.0
+offset_left = 957.0
+offset_right = 1024.5
+offset_bottom = 40.0
 scale = Vector2(2, 2)
 text = "0"
 horizontal_alignment = 1
@@ -202,6 +201,7 @@ visible = false
 script = ExtResource("8_3y4og")
 
 [node name="FadeOut" type="ColorRect" parent="GameWinUI" unique_id=1276571112]
+modulate = Color(1, 1, 1, 0)
 offset_right = 1154.0
 offset_bottom = 649.0
 color = Color(0, 0, 0, 1)
@@ -246,6 +246,7 @@ theme_override_font_sizes/normal_font_size = 64
 text = "Thanks For Playing!"
 
 [node name="Logo" type="Sprite2D" parent="GameWinUI" unique_id=922811610]
+modulate = Color(1, 1, 1, 0)
 top_level = true
 z_index = 4096
 position = Vector2(973, 459)

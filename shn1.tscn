@@ -475,7 +475,7 @@ scale = Vector2(0.23040731, 0.28510484)
 texture = ExtResource("11_7r35f")
 
 [node name="Player" parent="." unique_id=1219857062 instance=ExtResource("12_n7knr")]
-position = Vector2(21314, 737)
+position = Vector2(20243, 889)
 collision_mask = 1
 floor_block_on_wall = false
 

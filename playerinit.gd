@@ -85,6 +85,13 @@ func bundleChecks(area : Area2D) -> Variant:
 	# Check 10 times if there is anything intersecting, and append to an array
 	for i in range(10):
 		await get_tree().physics_frame;
+		# Triangulate position first:
+		var currentPos = self.global_position;
+		match facing:
+			1:
+				area.global_position = Vector2(currentPos.x + 40.0, currentPos.y + 2.5);	
+			-1:
+				area.global_position = Vector2(currentPos.x - 40.0, currentPos.y + 2.5);
 		var areas = area.get_overlapping_areas();
 		for v in areas:
 			if v != area or area.is_ancestor_of(self):
@@ -117,10 +124,10 @@ func attack() -> Variant:
 		var hitArea = Area2D.new();
 		var hitShape = CollisionShape2D.new();
 		var rect = RectangleShape2D.new();
-		rect.size = Vector2(30, 20);
+		rect.size = Vector2(45, 20);
 		
 		hitArea.add_child(hitShape);
-		hitArea.name = "Stinger";
+		hitArea.name = &"Stinger";
 		hitArea.global_position = areaPos;
 		hitArea.collision_layer = 1;
 		hitArea.collision_mask = 1;

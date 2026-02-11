@@ -9,13 +9,13 @@
 [ext_resource type="Texture2D" uid="uid://e03ucbkte0vk" path="res://assets/sprites/fr3.png" id="5_5ncpa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e80uo"]
-size = Vector2(169.92404, 72.43515)
+size = Vector2(178.08493, 62.870094)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kpjcp"]
 size = Vector2(321.47787, 31.304459)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cxr5p"]
-size = Vector2(74, 34)
+size = Vector2(74, 26)
 
 [sub_resource type="Animation" id="Animation_e80uo"]
 resource_name = "Damaged"
@@ -177,8 +177,8 @@ script = ExtResource("1_kpjcp")
 
 [node name="Model" type="Sprite2D" parent="." unique_id=1946451531]
 clip_children = 2
-position = Vector2(7, -1)
-scale = Vector2(-0.10887218, 0.046938535)
+position = Vector2(6.454618, 0.21690911)
+scale = Vector2(-0.10669066, 0.04528893)
 texture = ExtResource("3_tdg3f")
 flip_h = true
 
@@ -186,7 +186,7 @@ flip_h = true
 
 [node name="Hurtbox" type="CollisionShape2D" parent="Model/HurtArea" unique_id=1742769506]
 texture_filter = 1
-position = Vector2(-25.921844, 62.231785)
+position = Vector2(-33.230465, 86.14443)
 scale = Vector2(2, 5)
 shape = SubResource("RectangleShape2D_e80uo")
 debug_color = Color(1, 1, 1, 0.41960785)
@@ -206,7 +206,7 @@ offset_right = 194.94266
 offset_bottom = 240.7016
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=234536885]
-position = Vector2(9.5, 2.5)
+position = Vector2(9.5, 4.5)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_cxr5p")
 

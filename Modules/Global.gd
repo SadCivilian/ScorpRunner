@@ -77,6 +77,8 @@ func visualizeRays(caller : Node, ... rays: Array) -> void:
 			
 # Returns the type of the variable "variable" as a human readable string. 
 func TypeString(variable : Variant) -> Variant:
+	if variable.has_method(&"get_class"):
+		return variable.get_class();
 	var string = type_string(typeof(variable));
 	if string != null:
 		return string
@@ -84,11 +86,14 @@ func TypeString(variable : Variant) -> Variant:
 		return null
 
 # TODO
-func MakeHitbox(x : float, y : float, pos : Vector2 = Vector2(0,0)) -> Area2D:
+func MakeHitbox(mask : int, x : float, y : float, pos : Vector2 = Vector2(0,0)) -> Area2D:
 	var newBox = Area2D.new();
 	var newCollisionShape = CollisionShape2D.new();
 	var rect = RectangleShape2D.new();
 	rect.size = Vector2(x, y);
+	newBox.collision_layer = 1;
+	newBox.collision_mask = 1;
+	newBox.monitoring = true;
 	newBox.add_child(newCollisionShape);
 	newCollisionShape.shape = rect;
 	if pos:
@@ -111,6 +116,16 @@ func visualizeArea(Area : Area2D, color : Color = Color(1.0,0.0,0.3)) -> ColorRe
 			
 	return visualizer
 	
+func IntToBool(integer : int) -> bool:
+	match integer:
+		-1:
+			return true
+		1:
+			return false
+		_:
+			push_error("Invalid integer");	
+	return false
+
 func _GBOSSFIGHTVARS(boss : Node) -> void:
 	boss.Health = 250;
 	boss.IgnorePlayer = false;
