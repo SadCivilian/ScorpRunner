@@ -13,8 +13,11 @@ var SceneTransitions = {
 }
 
 # Works on a NAME basis.
-var CurrentCheckpoint = {
-	
+var SaveData = {
+	&"Checkpoint" : &"Checkpoint",
+	&"Hearts" : 3,
+	&"Coins" : 0,
+	&"Score" : 0,
 }
 
 var CurrentLevel = &"shn1"
@@ -110,7 +113,7 @@ func _GBOSSFIGHTVARS(boss : Node) -> void:
 	boss.CurrentSpeed = 20;
 	boss.gravityprone = true;
 	boss.gravity = 300;
-	boss.CurrentState = anubisScript.state.IDLE;
+	boss.CurrentState = anubisScript.state.FIGHT;
 	boss.CurrentAttack = anubisScript.attacks.NIL;
 	boss.LastUsedAttack = anubisScript.attacks.NIL;
 	boss.direction = -1;

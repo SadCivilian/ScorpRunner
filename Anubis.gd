@@ -164,6 +164,7 @@ func Staff() -> void:
 	newBlast.moving = true;
 	newBlast.direct = direction;
 	newBlast.speed = 200;
+	newBlast.global_position = self.global_position;
 	
 
 # For when HP hits 0.

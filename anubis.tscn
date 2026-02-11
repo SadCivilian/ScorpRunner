@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://b70i3ufijrnc5"]
 
 [ext_resource type="Script" uid="uid://dqnlh3vjb5y18" path="res://Anubis.gd" id="1_ebgrx"]
+[ext_resource type="Texture2D" uid="uid://nd5jxqtdkft3" path="res://assets/sprites/anubisBase.png" id="2_4l6wv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4l6wv"]
-size = Vector2(20, 48)
+size = Vector2(20, 45)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ebgrx"]
-size = Vector2(20, 48)
+size = Vector2(20, 45)
 
 [sub_resource type="Animation" id="Animation_4l6wv"]
 resource_name = "Overhead"
@@ -36,13 +37,13 @@ _data = {
 script = ExtResource("1_ebgrx")
 
 [node name="Anubis_Hitbox" type="CollisionShape2D" parent="." unique_id=709217228]
-position = Vector2(0, -12)
+position = Vector2(0, -10.5)
 shape = SubResource("RectangleShape2D_4l6wv")
 
 [node name="Anubis_HitboxArea" type="Area2D" parent="." unique_id=577648181]
 
 [node name="Area" type="CollisionShape2D" parent="Anubis_HitboxArea" unique_id=297710812]
-position = Vector2(0, -12)
+position = Vector2(0, -10.5)
 shape = SubResource("RectangleShape2D_ebgrx")
 
 [node name="Animator" type="AnimationPlayer" parent="." unique_id=1724057311]
@@ -51,13 +52,16 @@ libraries/ = SubResource("AnimationLibrary_ypou6")
 [node name="Mouth" type="AudioStreamPlayer2D" parent="." unique_id=1572647217]
 
 [node name="Model" type="Sprite2D" parent="." unique_id=1526796508]
+position = Vector2(-0.99999994, -8.999999)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_4l6wv")
 
 [node name="ProgressBar" type="ProgressBar" parent="Model" unique_id=1001915618]
 modulate = Color(0, 1, 0, 1)
-offset_left = -30.0
-offset_top = -46.0
-offset_right = 30.0
-offset_bottom = -39.0
+offset_left = -159.99998
+offset_top = -290.0
+offset_right = 179.99998
+offset_bottom = -270.0
 max_value = 250.0
 value = 250.0
 show_percentage = false

@@ -5,16 +5,21 @@ extends CanvasLayer
 @onready var QuitGame : Button = $QuitGame;
 @onready var ContinueText : RichTextLabel = $ContinueText;
 @onready var GameOver : RichTextLabel = $GameOver;
+@onready var Player : CharacterBody2D = get_tree().get_first_node_in_group(&"Player");
+
 		
 func getUILayer() -> CanvasLayer:
 	return get_tree().get_first_node_in_group(&"GameOverUIRenderer");
 
 func WireFunctionality() -> void:
 	RetryLevel.pressed.connect(func():
-		print("pressed retry");
 		FadeTransition.transition(FadeTransition.TransitionType.OTHER)
 		hide();
+		var PlayerData : Dictionary[StringName, Variant] = Player.getUserData();
 		get_tree().reload_current_scene();
+		Player.Health = PlayerData[&"Health"];
+		Player.Coins = PlayerData[&"Coins"];
+		Player.Score = PlayerData[&"Score"];
 	);
 	QuitGame.pressed.connect(func():
 		get_tree().quit(0);

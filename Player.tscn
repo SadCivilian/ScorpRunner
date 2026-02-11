@@ -41,10 +41,10 @@ tracks/0/path = NodePath("Model:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ExtResource("3_dtqjt")]
+"values": [ExtResource("3_dtqjt"), ExtResource("2_kpjcp")]
 }
 
 [sub_resource type="Animation" id="Animation_cxr5p"]
@@ -74,22 +74,6 @@ tracks/1/keys = {
 "values": [Color(0.78431374, 0, 0, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_wi0c6"]
-resource_name = "Stinger"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Model:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.125, 0.25, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("3_tdg3f"), ExtResource("4_dtqjt"), ExtResource("5_5ncpa"), ExtResource("2_kpjcp")]
-}
-
 [sub_resource type="Animation" id="Animation_kne1u"]
 resource_name = "Walk"
 length = 0.5
@@ -111,7 +95,6 @@ _data = {
 &"Damaged": SubResource("Animation_e80uo"),
 &"Jump": SubResource("Animation_hp6x6"),
 &"RESET": SubResource("Animation_cxr5p"),
-&"Stinger": SubResource("Animation_wi0c6"),
 &"Walk": SubResource("Animation_kne1u")
 }
 
@@ -151,11 +134,40 @@ _data = {
 &"RESET": SubResource("Animation_dtqjt")
 }
 
+[sub_resource type="Animation" id="Animation_3tkgg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_tdg3f")]
+}
+
 [sub_resource type="Animation" id="Animation_5ncpa"]
 resource_name = "Stinger"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.01666665, 0.10833335, 0.23333335, 0.38333338),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_tdg3f"), ExtResource("4_dtqjt"), ExtResource("5_5ncpa"), ExtResource("2_kpjcp")]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wi0c6"]
 _data = {
+&"RESET": SubResource("Animation_3tkgg"),
 &"Stinger": SubResource("Animation_5ncpa")
 }
 
@@ -167,7 +179,7 @@ script = ExtResource("1_kpjcp")
 clip_children = 2
 position = Vector2(6.677834, -0.42106915)
 scale = Vector2(-0.10887218, 0.046938535)
-texture = ExtResource("2_kpjcp")
+texture = ExtResource("3_tdg3f")
 flip_h = true
 
 [node name="HurtArea" type="Area2D" parent="Model" unique_id=294332429]

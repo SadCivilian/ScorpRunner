@@ -108,8 +108,8 @@ func attack() -> Variant:
 				areaPos = Vector2(currentPos.x + 40.0, currentPos.y + 2.5);	
 			-1:
 				areaPos = Vector2(currentPos.x - 40.0, currentPos.y + 2.5);
-		Animator.stop();
-		Animator.play(&"Stinger");
+		AttackAnimator.stop();
+		AttackAnimator.play(&"Stinger");
 		isAttacking = true;
 		canAttack = false;
 		CD.start(attackCD);
@@ -166,13 +166,18 @@ func useCoins(amount : int) -> bool:
 		self.Coins = self.Coins - amount;
 		Global.emit_signal(&"PlayerCoinsChanged");
 		return true
-	
+
+func getUserData() -> Dictionary[StringName, Variant]:
+	var dict = {}
+	dict[&"Checkpoint"] = Global.SaveData[&"Checkpoint"];
+	dict[&"Coins"] = Coins;
+	dict[&"Health"] = Health
+	return dict
 	
 func applyKnockback(direction : Vector2, strength : float) -> void:
 	if dead: return;
 	beingKnockedBack = true; 
 	currentKnockbackForce = direction * strength;
-	print("Applying knockback to character");
 	
 # Handles all jump states
 func processJump() -> void:
