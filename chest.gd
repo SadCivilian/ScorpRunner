@@ -3,7 +3,7 @@ extends Area2D
 @onready var Area = $".";
 @onready var Animator = $"Animator";
 @onready var Player = get_tree().get_first_node_in_group(&"Player");
-var opened = false;
+@export var opened = false;
 
 func _ready() -> void:
 	Animator.animation_finished.connect(func(anim_name):
@@ -13,5 +13,6 @@ func _ready() -> void:
 	Area.area_entered.connect(func(area):
 		if area.name == &"Stinger" and opened == false:
 			opened = true;
+			Global.OpenedChests.append(self.name);
 			Animator.play(&"Open");
 	);

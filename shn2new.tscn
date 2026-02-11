@@ -462,9 +462,9 @@ tile_set = SubResource("TileSet_xi7w5")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1160884326]
 z_index = -1
-position = Vector2(3.0517578e-05, 1.9999847)
+position = Vector2(1.4210855e-14, 0)
 rotation = -1.5707964
-scale = Vector2(0.20252712, 0.24997805)
+scale = Vector2(0.23, 0.286)
 texture = ExtResource("7_il7no")
 
 [node name="Player" parent="." unique_id=261517677 instance=ExtResource("8_ft66h")]
@@ -491,3 +491,9 @@ position = Vector2(4067.0466, 296.54602)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelEnd" unique_id=1163630435]
 position = Vector2(4993.953, 14.4539795)
 shape = SubResource("RectangleShape2D_6l7wy")
+
+[node name="Coins" type="Node" parent="." unique_id=128757841]
+
+[node name="Enemies" type="Node" parent="." unique_id=13699482]
+
+[node name="Chests" type="Node" parent="." unique_id=1124774968]

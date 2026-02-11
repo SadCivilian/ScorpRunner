@@ -11,17 +11,19 @@ var anubisScript = preload("res://Anubis.gd")
 
 func _ready() -> void:
 	print(Global.SaveData);
-	Global.SaveData[&"Health"] = 2;
-	Global.SaveData[&"Coins"] = 10;
-	FadeTransition.supply(FadeRect, FadePlayer);
-	var anubisTest = load("res://anubis.tscn").instantiate()
-	anubisTest.global_position = Test.global_position;
-	Global._GBOSSFIGHTVARS(anubisTest);
-	add_child(anubisTest);
-	await Global.wait(1.0);
-	#var box = Global.MakeHitbox(20.0,30.0, Test.global_position);
-	#await Global.wait(2.0);
-	#var visualizer = Global.visualizeArea(box);
+	Player.loadPlayerState();
+	Player.Disperse();
+	if Global.GetCurrentScene() == &"shn1":
+		print("passed");
+		FadeTransition.supply(FadeRect, FadePlayer);
+		var anubisTest = load("res://anubis.tscn").instantiate()
+		anubisTest.global_position = Test.global_position;
+		Global._GBOSSFIGHTVARS(anubisTest);
+		add_child(anubisTest);
+		await Global.wait(1.0);
+		#var box = Global.MakeHitbox(20.0,30.0, Test.global_position);
+		#await Global.wait(2.0);
+		#var visualizer = Global.visualizeArea(box);
 	
 	LevelEnd.body_entered.connect(func(body):
 		if body.name == "Player":

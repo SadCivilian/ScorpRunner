@@ -49,6 +49,7 @@ func _ready() -> void:
 	HitboxArea.body_entered.connect(onHitboxEntered);
 	Animator.animation_finished.connect(func(anim_name):
 		if anim_name == &"Dying":
+			Global.FelledEnemies.append(self.name);
 			print("dying finished");
 			onStateChanged.emit(state.DEAD)
 		elif anim_name == &"Punching":
@@ -100,8 +101,8 @@ func lookforCliff() -> bool:
 	else:
 		return false
 
-func onBackStabbedorEntered(area: Area2D) -> void:
-	if area.name == "Stinger":
+func onBackStabbedorEntered(area : Area2D) -> void:
+	if area.name == &"Stinger":
 		if Animator.is_playing():
 			Animator.stop();
 			Animator.play(&"Dying");

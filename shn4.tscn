@@ -13,7 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://2jmkk8rs0ixp" path="res://assets/tiles/kutu.jpg" id="10_8npk0"]
 [ext_resource type="Texture2D" uid="uid://b7cqeendc15gk" path="res://assets/sprites/ismetbackground.jpg" id="11_1plf6"]
 [ext_resource type="PackedScene" uid="uid://3d6danocgmgj" path="res://Player.tscn" id="12_omjff"]
-[ext_resource type="Texture2D" uid="uid://2kg1qa5faugg" path="res://assets/sprites/Yılan2.png" id="15_74nc3"]
 [ext_resource type="PackedScene" uid="uid://wngjkw8mu783" path="res://PlayerCamera.tscn" id="16_2lxvh"]
 [ext_resource type="PackedScene" uid="uid://d3v672i3o8v2k" path="res://BG_Music_Player.tscn" id="16_uiois"]
 
@@ -458,7 +457,7 @@ sources/9 = SubResource("TileSetAtlasSource_03s2v")
 sources/10 = SubResource("TileSetAtlasSource_joh1p")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pwsq2"]
-size = Vector2(15480, 206.25)
+size = Vector2(6592, 206.25)
 
 [node name="Node2D" type="Node2D" unique_id=555974150]
 
@@ -476,7 +475,7 @@ scale = Vector2(0.20252712, 0.24997805)
 texture = ExtResource("11_1plf6")
 
 [node name="Player" parent="." unique_id=2115676443 instance=ExtResource("12_omjff")]
-position = Vector2(-6606, 369)
+position = Vector2(-6615, 389)
 collision_mask = 1
 floor_block_on_wall = false
 
@@ -486,14 +485,15 @@ position = Vector2(148, 33)
 [node name="DeathZone" type="Area2D" parent="." unique_id=24442213]
 
 [node name="BBox" type="CollisionShape2D" parent="DeathZone" unique_id=780504596]
-position = Vector2(876, 932.875)
+position = Vector2(-3568, 932.875)
 shape = SubResource("RectangleShape2D_pwsq2")
-
-[node name="Yılan2" type="Sprite2D" parent="." unique_id=2008838996]
-position = Vector2(4553, 331)
-scale = Vector2(0.10205696, 0.243655)
-texture = ExtResource("15_74nc3")
 
 [node name="BGMusicPlayer" parent="." unique_id=1700569638 instance=ExtResource("16_uiois")]
 
 [node name="Camera2D" parent="." unique_id=1206915148 instance=ExtResource("16_2lxvh")]
+
+[node name="Enemies" type="Node" parent="." unique_id=232406910]
+
+[node name="Chests" type="Node" parent="." unique_id=627237886]
+
+[node name="Coins" type="Node" parent="." unique_id=1815526521]

@@ -511,3 +511,9 @@ position = Vector2(4067.0466, 296.54602)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/LevelEnd" unique_id=940293947]
 position = Vector2(14145.953, 76.45398)
 shape = SubResource("RectangleShape2D_512em")
+
+[node name="Coins" type="Node" parent="." unique_id=1666162899]
+
+[node name="Enemies" type="Node" parent="." unique_id=1951396211]
+
+[node name="Chests" type="Node" parent="." unique_id=1178069660]

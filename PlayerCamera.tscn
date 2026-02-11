@@ -88,7 +88,7 @@ _data = {
 }
 
 [node name="Camera2D" type="Camera2D" unique_id=1206915148]
-zoom = Vector2(4, 4)
+zoom = Vector2(3.5, 3.5)
 script = ExtResource("1_brkmr")
 
 [node name="FadeOutLayer" type="CanvasLayer" parent="." unique_id=1838536304]

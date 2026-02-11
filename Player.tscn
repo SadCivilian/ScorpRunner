@@ -177,7 +177,7 @@ script = ExtResource("1_kpjcp")
 
 [node name="Model" type="Sprite2D" parent="." unique_id=1946451531]
 clip_children = 2
-position = Vector2(6.677834, -0.42106915)
+position = Vector2(7, -1)
 scale = Vector2(-0.10887218, 0.046938535)
 texture = ExtResource("3_tdg3f")
 flip_h = true

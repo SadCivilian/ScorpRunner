@@ -6,6 +6,11 @@ extends Node
 # Cache.
 var LineCache : Array[Line2D] = [];
 
+# Save Data
+var CollectedCoins = []; # Coins which were collected.
+var FelledEnemies = []; # Killed enemies which will not respawn. 
+var OpenedChests = [] # Opened chests which will spawn open.
+
 var SceneTransitions = {
 	&"shn1" : &"shn2",
 	&"shn2" : &"shn3",
@@ -14,6 +19,7 @@ var SceneTransitions = {
 
 # Works on a NAME basis.
 var SaveData = {
+	&"HasDoubleJump" : false,
 	&"Checkpoint" : &"Checkpoint",
 	&"Hearts" : 3,
 	&"Coins" : 0,
@@ -71,8 +77,6 @@ func visualizeRays(caller : Node, ... rays: Array) -> void:
 			
 # Returns the type of the variable "variable" as a human readable string. 
 func TypeString(variable : Variant) -> Variant:
-	if variable.has_method(&"get_class"):
-		return variable.get_class();
 	var string = type_string(typeof(variable));
 	if string != null:
 		return string

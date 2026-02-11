@@ -17,13 +17,13 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="ScorpGameTest"
 run/main_scene="uid://dspyygs5le4nb"
 config/features=PackedStringArray("4.6", "Mobile")
+boot_splash/image="uid://bmyvsejo7dn2a"
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://Modules/Global.gd"
 FadeTransition="*res://FadeTransition.gd"
-ShockwaveHandler="*uid://cxubkgdcgo41j"
 
 [debug]
 

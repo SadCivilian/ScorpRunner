@@ -20,6 +20,8 @@
 [ext_resource type="PackedScene" uid="uid://dxu50grlog0dv" path="res://assets/coins/Coin.tscn" id="17_w7x6o"]
 [ext_resource type="PackedScene" uid="uid://cxcxwjustky3m" path="res://assets/coins/Cointen.tscn" id="18_ynqkk"]
 [ext_resource type="PackedScene" uid="uid://fvgbkxswaebg" path="res://assets/coins/Coinfive.tscn" id="19_peo2a"]
+[ext_resource type="PackedScene" uid="uid://oocei46ao6iw" path="res://checkpoint.tscn" id="21_ynqkk"]
+[ext_resource type="PackedScene" uid="uid://d3uwg3kvod77e" path="res://chest.tscn" id="22_peo2a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_272bh"]
 texture = ExtResource("2_w3cr1")
@@ -466,13 +468,13 @@ tile_set = SubResource("TileSet_kek77")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1495845662]
 z_index = -1
-position = Vector2(3.0517578e-05, 1.9999847)
+position = Vector2(7.1054274e-15, -2.3841858e-07)
 rotation = -1.5707964
-scale = Vector2(0.20252712, 0.24997805)
+scale = Vector2(0.23040731, 0.28510484)
 texture = ExtResource("11_7r35f")
 
 [node name="Player" parent="." unique_id=1219857062 instance=ExtResource("12_n7knr")]
-position = Vector2(20252, 888)
+position = Vector2(21314, 737)
 collision_mask = 1
 floor_block_on_wall = false
 
@@ -484,9 +486,6 @@ position = Vector2(148, 33)
 [node name="BBox" type="CollisionShape2D" parent="DeathZone" unique_id=1005500275]
 position = Vector2(21122, 1123)
 shape = SubResource("RectangleShape2D_h2yge")
-
-[node name="Snake" parent="." unique_id=1519851614 instance=ExtResource("13_2xn8o")]
-position = Vector2(20948, 890)
 
 [node name="PlayerCamera" parent="." unique_id=1781630124 instance=ExtResource("14_qytd6")]
 
@@ -513,9 +512,23 @@ position = Vector2(20370, 893)
 
 [node name="Root3" parent="Coins" unique_id=49753382 instance=ExtResource("19_peo2a")]
 position = Vector2(20381, 891)
+value = 5
 
-[node name="Node2D" parent="." unique_id=1996574672 instance=ExtResource("17_38gbn")]
+[node name="Bridge" parent="." unique_id=1996574672 instance=ExtResource("17_38gbn")]
 position = Vector2(25542, 661)
 
 [node name="Test" type="Node2D" parent="." unique_id=659662699]
 position = Vector2(20320.215, 892.59503)
+
+[node name="Check1" parent="." unique_id=861267910 instance=ExtResource("21_ynqkk")]
+position = Vector2(21278, 742)
+
+[node name="Enemies" type="Node" parent="." unique_id=1223594341]
+
+[node name="Snake" parent="Enemies" unique_id=1519851614 instance=ExtResource("13_2xn8o")]
+position = Vector2(20947, 890)
+
+[node name="Chests" type="Node" parent="." unique_id=560478682]
+
+[node name="Root" parent="Chests" unique_id=145549212 instance=ExtResource("22_peo2a")]
+position = Vector2(21379, 746)

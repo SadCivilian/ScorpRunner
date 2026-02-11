@@ -15,11 +15,7 @@ func WireFunctionality() -> void:
 	RetryLevel.pressed.connect(func():
 		FadeTransition.transition(FadeTransition.TransitionType.OTHER)
 		hide();
-		var PlayerData : Dictionary[StringName, Variant] = Player.getUserData();
 		get_tree().reload_current_scene();
-		Player.Health = PlayerData[&"Health"];
-		Player.Coins = PlayerData[&"Coins"];
-		Player.Score = PlayerData[&"Score"];
 	);
 	QuitGame.pressed.connect(func():
 		get_tree().quit(0);

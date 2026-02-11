@@ -10,6 +10,7 @@ extends CharacterBody2D
 @export var hasDoubleJump : bool = false; ## has it
 @export var Health : int = 3;
 @export var Coins : int = 0;
+@export var Score : int = 0;
 @export var gravityprone = true; # controls gravity
 @export var iframes = false; # controls if char has iframes
 @export var dead = false;
@@ -156,6 +157,8 @@ func addCoins(amount : int) -> void:
 	if self.Coins >= 999:
 		return 
 	self.Coins += amount;
+	Global.SaveData[&"Coins"] += amount;
+	Global.SaveData[&"Score"] += amount;
 	Global.emit_signal(&"PlayerCoinsChanged");		
 	
 # Uses an amount of counts and returns a boolean on whether it was successful.
@@ -167,12 +170,59 @@ func useCoins(amount : int) -> bool:
 		Global.emit_signal(&"PlayerCoinsChanged");
 		return true
 
-func getUserData() -> Dictionary[StringName, Variant]:
+func getUserData() -> Dictionary:
 	var dict = {}
+	dict[&"HasDoubleJump"] = Global.SaveData[&"HasDoubleJump"];
 	dict[&"Checkpoint"] = Global.SaveData[&"Checkpoint"];
-	dict[&"Coins"] = Coins;
-	dict[&"Health"] = Health
+	dict[&"Coins"] = Global.SaveData[&"Coins"];
+	dict[&"Hearts"] =	Global.SaveData[&"Hearts"];
+	dict[&"Score"] = Global.SaveData[&"Score"];
 	return dict
+	
+func Disperse() -> void:
+	DisperseCollectedCoins();
+	DisperseOpenedChests();
+	DisperseKilledEnemies();
+
+func DisperseKilledEnemies() -> void:
+	var enemiesNode = get_tree().current_scene.find_child(&"Enemies");
+	for enemyName in Global.FelledEnemies:
+		var node = enemiesNode.find_child(enemyName);
+		node.queue_free();
+
+func DisperseCollectedCoins() -> void:
+	var coinsNode = get_tree().current_scene.find_child(&"Coins");
+	for coinName in Global.CollectedCoins:
+		var node = coinsNode.find_child(coinName);
+		node.queue_free();
+		
+func DisperseOpenedChests() -> void:
+	var openTexture = load("res://assets/sprites/chestopen.jpeg")
+	var chestsNode = get_tree().current_scene.find_child(&"Chests")
+	for chestName in Global.OpenedChests:
+		var node = chestsNode.find_child(chestName);
+		node.opened = true
+		node.get_child(2).texture = openTexture
+		
+func loadPlayerState() -> void:
+	var userData = getUserData();
+	if userData[&"Checkpoint"] == &"Checkpoint":
+		self.Score = userData[&"Score"];
+		self.Coins = userData[&"Coins"];
+		self.Health = userData[&"Hearts"];
+		Global.emit_signal(&"PlayerCoinsChanged");
+		Global.emit_signal(&"PlayerHealthChanged");
+	else:
+		var SpawnPoint : Area2D = get_tree().current_scene.find_child(userData[&"Checkpoint"]);
+		if Global.TypeString(SpawnPoint) != &"Area2D":
+			push_error("false spawnpoint");
+		# First pos
+		self.global_position = SpawnPoint.global_position;
+		self.Score = userData[&"Score"];
+		self.Coins = userData[&"Coins"];
+		self.Health = userData[&"Hearts"];
+		Global.emit_signal(&"PlayerCoinsChanged");
+		Global.emit_signal(&"PlayerHealthChanged");
 	
 func applyKnockback(direction : Vector2, strength : float) -> void:
 	if dead: return;
@@ -187,18 +237,23 @@ func processJump() -> void:
 			if hasDoubleJump == true and TimesJumped == 0:
 				velocity.y = -jumpforce;
 				TimesJumped += 1;
+				Animator.play(&"Jump");
 			elif jumpedfromvalid == true:
 				velocity.y = -jumpforce;
 				TimesJumped += 1;
 				jumpedfromvalid = false;
+				Animator.play(&"Jump");
 		else:
 			if hasDoubleJump == false and TimesJumped == 0:
 				velocity.y = -jumpforce;
 				TimesJumped += 1;
+				Animator.play(&"Jump");
 			elif hasDoubleJump == true and TimesJumped < 2:
 				velocity.y = -jumpforce
 				TimesJumped += 1;
 				jumpedfromvalid = true;
+				Animator.play(&"Jump");
+
 		
 # Use StringName for performance reasons
 func _physics_process(delta: float) -> void: 
@@ -212,6 +267,8 @@ func _physics_process(delta: float) -> void:
 			onfloor = false;
 			velocity += Vector2(0.0, gravity * delta); 
 		else:
+			if Animator.current_animation == &"Jump":
+				Animator.stop();
 			onfloor = true;
 			TimesJumped = 0;
 	else:

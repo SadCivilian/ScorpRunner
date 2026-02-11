@@ -24,8 +24,8 @@ var isdying = false;
 @onready var snakeHiss : AudioStreamWAV = preload("res://assets/sounds/snake-hiss.wav");
 @onready var Mouth : AudioStreamPlayer2D = $Mouth;
 # target_position (x,y)/position (x,y) 
-const GROUND_RIGHT_FLIP_VEC_POS = [30.0, 22.0, 67.0, 0.0];
-const GROUND_LEFT_FLIP_VEC_POS = [-30.0, 22.0, 0.0, 0.0];
+const GROUND_RIGHT_FLIP_VEC_POS = [50.0, 22.0, 67.0, 0.0];
+const GROUND_LEFT_FLIP_VEC_POS = [-50.0, 22.0, 0.0, 0.0];
 const SIGHT_LEFT_FLIP_VEC_POS = [-60.0, 0.0, 0.0, 0.0];
 const SIGHT_RIGHT_FLIP_VEC_POS = [60.0, 0.0, 67.0, 0.0];
 const KNOCKBACK_VECTOR = Vector2(1.0, 1.0); # Base vector for knockback which is muled by a scalar.
@@ -35,6 +35,7 @@ func onPlayerJumpedOn() -> void:
 	# Stop the fucker first
 	CurrentSpeed = 0;
 	isdying = true;
+	Global.FelledEnemies.append(self.name);
 	if Animator.is_playing():
 		Animator.stop();
 		Animator.play(&"Dying");
@@ -46,17 +47,16 @@ func onHeadEntered(area : Area2D) -> void:
 		onPlayerJumpedOn(); 
 	elif area.name == "Hurtbox":
 		player.takeDamage(1, true, 1.0);
-		print("player took damage supposedly from head");
 		
 func onHitboxEntered(body : PhysicsBody2D) -> void:
 	if body.name == "Player":
-		print("player took damage supposedly");
 		player.takeDamage(1, true, 1.0);
+		if player.hasiframes == true: return;
 		match self.direction:
 			1:
-				player.applyKnockback(KNOCKBACK_VECTOR, -600.0);
+				player.applyKnockback(KNOCKBACK_VECTOR, -200.0);
 			-1:
-				player.applyKnockback(KNOCKBACK_VECTOR, 600.0);
+				player.applyKnockback(KNOCKBACK_VECTOR, 200.0);
 				
 # Signal clbk
 func onstateChanged(newstate : state) -> void:
