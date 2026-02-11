@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://cyveko28vppar"]
+
+[ext_resource type="Script" uid="uid://bfoqq51rijim3" path="res://papar.gd" id="1_0snqi"]
+[ext_resource type="Texture2D" uid="uid://ctgalvhiifown" path="res://assets/sprites/paper.png" id="2_204fv"]
+[ext_resource type="PackedScene" uid="uid://c1st6pvxetd65" path="res://interaction_scene(2).tscn" id="3_204fv"]
+[ext_resource type="FontFile" uid="uid://cnajn6ypftrdn" path="res://assets/fonts/Bitwise-m19x.ttf" id="4_204fv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q7aqr"]
+size = Vector2(22, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_og7kx"]
+size = Vector2(46, 38)
+
+[node name="Area2D" type="Area2D" unique_id=1832806798]
+process_mode = 1
+z_index = 1
+script = ExtResource("1_0snqi")
+
+[node name="Model" type="Sprite2D" parent="." unique_id=940825191]
+position = Vector2(-3.8146973e-06, -13.999995)
+scale = Vector2(0.043999985, 0.04400002)
+texture = ExtResource("2_204fv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=855362179]
+visible = false
+position = Vector2(0, -14)
+shape = SubResource("RectangleShape2D_q7aqr")
+
+[node name="InteractionArea" parent="." unique_id=519926408 instance=ExtResource("3_204fv")]
+script = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=73231205]
+position = Vector2(0, -14)
+shape = SubResource("RectangleShape2D_og7kx")
+
+[node name="InteractionLabel" type="Label" parent="InteractionArea" unique_id=1398740366]
+texture_filter = 2
+offset_left = -17.0
+offset_top = -40.0
+offset_right = 28.0
+offset_bottom = -22.0
+theme_override_colors/font_color = Color(0.07058824, 0.043137256, 0.14901961, 1)
+theme_override_fonts/font = ExtResource("4_204fv")
+theme_override_font_sizes/font_size = 16
+text = "Read"
+
+[node name="NoteUI" type="CanvasLayer" parent="." unique_id=1221157850]
+visible = false
+
+[node name="Label" type="Label" parent="NoteUI" unique_id=54348000]
+offset_left = -42.0
+offset_top = -26.0
+offset_right = 54.0
+offset_bottom = -3.0
+text = "AAAAAAAAA"

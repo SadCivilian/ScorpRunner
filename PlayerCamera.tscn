@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dbhyqhc8n3oxg" path="res://GameOverUI.gd" id="6_ibo1c"]
 [ext_resource type="Texture2D" uid="uid://w3j0iql20sp" path="res://assets/images/GameOver.png" id="7_ri33b"]
 [ext_resource type="Script" uid="uid://dwfgqoc84eq12" path="res://GameWinUICut.gd" id="8_3y4og"]
+[ext_resource type="Texture2D" uid="uid://bmyvsejo7dn2a" path="res://assets/images/scorpions logo tişört.png" id="9_qqtj1"]
 
 [sub_resource type="Animation" id="Animation_kek77"]
 length = 0.001
@@ -196,5 +197,57 @@ position = Vector2(609, 244)
 scale = Vector2(3.1599998, 2.7200003)
 texture = ExtResource("7_ri33b")
 
-[node name="GameWinUI" type="CanvasLayer" parent="." unique_id=1377204685]
+[node name="GameWinUI" type="CanvasLayer" parent="." unique_id=518580378]
+visible = false
 script = ExtResource("8_3y4og")
+
+[node name="FadeOut" type="ColorRect" parent="GameWinUI" unique_id=1276571112]
+offset_right = 1154.0
+offset_bottom = 649.0
+color = Color(0, 0, 0, 1)
+
+[node name="FinishLabel" type="RichTextLabel" parent="GameWinUI" unique_id=1752818028]
+modulate = Color(1, 1, 1, 0)
+texture_filter = 2
+offset_left = 142.0
+offset_top = 145.0
+offset_right = 826.0
+offset_bottom = 215.33336
+scale = Vector2(1.5, 1.5)
+theme_override_font_sizes/normal_font_size = 62
+bbcode_enabled = true
+text = "To Be Continued..."
+
+[node name="ScoreLabel" type="RichTextLabel" parent="GameWinUI" unique_id=380968593]
+modulate = Color(1, 1, 1, 0)
+offset_left = 147.0
+offset_top = 306.0
+offset_right = 751.6667
+offset_bottom = 398.6667
+theme_override_font_sizes/normal_font_size = 64
+text = "Score:"
+
+[node name="Score" type="RichTextLabel" parent="GameWinUI" unique_id=2096431646]
+modulate = Color(1, 1, 1, 0)
+offset_left = 347.0
+offset_top = 307.0
+offset_right = 1178.0
+offset_bottom = 393.5
+theme_override_font_sizes/normal_font_size = 64
+text = "(score)"
+
+[node name="Thanks" type="RichTextLabel" parent="GameWinUI" unique_id=705492287]
+modulate = Color(1, 1, 1, 0)
+offset_left = 136.0
+offset_top = 487.0
+offset_right = 860.0
+offset_bottom = 654.0
+theme_override_font_sizes/normal_font_size = 64
+text = "Thanks For Playing!"
+
+[node name="Logo" type="Sprite2D" parent="GameWinUI" unique_id=922811610]
+top_level = true
+z_index = 4096
+position = Vector2(973, 459)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("9_qqtj1")

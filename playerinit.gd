@@ -66,7 +66,6 @@ func onAttackCooldownFinished() -> void:
 func _ready() -> void:
 	add_to_group(&"Player");
 	connectListeners();	
-	print("Connected signals");
 	# FadeTransition.transition(FadeTransition.TransitionType.OTHER);
 	
 	# Cam.setSteppedclbk(func(): print("this is from the clbk"));

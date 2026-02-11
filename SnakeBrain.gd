@@ -43,7 +43,6 @@ func onPlayerJumpedOn() -> void:
 		
 func onHeadEntered(area : Area2D) -> void:
 	if area.name == "PlayerStomp":
-		print("player hit a stomp");
 		onPlayerJumpedOn(); 
 	elif area.name == "Hurtbox":
 		player.takeDamage(1, true, 1.0);
@@ -67,7 +66,6 @@ func onstateChanged(newstate : state) -> void:
 		state.WANDER:
 			self.CurrentSpeed = WanderSpeed;
 		state.DEAD:
-			print("freeing object");
 			self.queue_free();
 			
 # Changes the state of the snake and returns the old state.
@@ -116,7 +114,6 @@ func chase() -> void:
 func wander() -> void:
 	if Animator.current_animation != &"Crawling" and isdying == false:
 		Animator.play(&"Crawling");
-		print("we WILL play: " + Animator.current_animation);
 	elif isdying == true:
 		Animator.play(&"Dying");
 	var SeesPlayer = lookforPlayer(); 

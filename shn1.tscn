@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://fvgbkxswaebg" path="res://assets/coins/Coinfive.tscn" id="19_peo2a"]
 [ext_resource type="PackedScene" uid="uid://oocei46ao6iw" path="res://checkpoint.tscn" id="21_ynqkk"]
 [ext_resource type="PackedScene" uid="uid://d3uwg3kvod77e" path="res://chest.tscn" id="22_peo2a"]
+[ext_resource type="PackedScene" uid="uid://cyveko28vppar" path="res://papar.tscn" id="23_ej03g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_272bh"]
 texture = ExtResource("2_w3cr1")
@@ -532,3 +533,6 @@ position = Vector2(20947, 890)
 
 [node name="Root" parent="Chests" unique_id=145549212 instance=ExtResource("22_peo2a")]
 position = Vector2(21379, 746)
+
+[node name="NoteUI" parent="." unique_id=1832806798 instance=ExtResource("23_ej03g")]
+position = Vector2(21356, 687)

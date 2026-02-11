@@ -13,7 +13,6 @@ func _ready() -> void:
 	add_to_group(&"Camera");
 	var blurred = Global.BlurImage(bg);
 	# Display(blurred);
-	print("Camera initialized"); 
 	CurrentFocus = $"../Player";
 	CameraStepped.connect(func(): if currentClbk.is_valid(): currentClbk.call());
 	setSteppedclbk(func():
