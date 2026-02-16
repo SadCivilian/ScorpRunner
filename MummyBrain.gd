@@ -165,8 +165,7 @@ func flip() -> void:
 			-1:
 				flipRays(1);
 				direction = 1;
-			
-# Fuck em up good would ya
+
 func punch() -> void:
 	# Stop all velocity first
 	velocity = Vector2(0.0, 0.0);
@@ -182,6 +181,7 @@ func punch() -> void:
 	
 func chase() -> void:
 	# Every frame while chasing, decide to do punch by rolling a 10% chance.
+	# Keep in mind the punch can still ricochet the guy off the cliff.
 	if RNG.randi_range(1,10) == 1 and onpunchCD == false:
 		punch();
 	var SeesCliff = lookforCliff();
@@ -190,7 +190,7 @@ func chase() -> void:
 		loseChase();
 	velocity.x = direction * CurrentSpeed;
 
- # Use StringName for performance reasonsa
+ # Use StringName for performance reasons
 func wander() -> void:
 	if Animator.current_animation != &"Walking" and isdying == false:
 		Animator.play(&"Walking");

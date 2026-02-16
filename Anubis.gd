@@ -8,10 +8,18 @@ var ShockwaveScene = preload("res://Shockwave.tscn");
 var BlastScene = preload("res://Blast.tscn");
 @onready var scene = get_tree().current_scene;
 
+# ANIMATION EVENT STUFF
+const AnimEvents : Array[StringName] = [&"Overhead", &"Staff", &"Stomp", &"Summoning"];
+signal MarkerReached(anim_name : StringName);
+
+func onMarkerReached(anim_name : StringName) -> void:
+	if AnimEvents.has(anim_name):
+		MarkerReached.emit(anim_name);  
+
 # OTHER SHIT
 signal onStateChanged(state);
 enum state {FIGHT, DEAD, HIT};
-enum attacks {SUMMON, PROJECTILE, STOMP, OVERHEAD, NIL};
+enum attacks {SUMMONING, STAFF, STOMP, OVERHEAD, NIL};
 const TimeBetweenAttacks : int = 5;
 var caninitiate = true;
 var isonfloor = true;
@@ -27,31 +35,34 @@ var closeEnoughtoOverhead = false;
 @export var LastUsedAttack : attacks = attacks.NIL;
 @export var direction : int = 1;
 @onready var Player: CharacterBody2D = get_tree().get_first_node_in_group("Player");
+@onready var PlayerHitbox : Area2D = Player.find_child(&"HurtArea", true);
 @onready var Model : Sprite2D = $Model;
 @onready var Animator : AnimationPlayer = $Animator;
 @onready var Mouth : AudioStreamPlayer2D = $Mouth;
 @onready var CD : Timer = $CD;
 @onready var HPBar : ProgressBar = $Model/ProgressBar;
 @onready var Hitbox : Area2D = $Anubis_HitboxArea;
-@onready var GameWinUI : CanvasLayer = get_tree().get_first_node_in_group(&"Camera").get_child(3);
 
 func _ready() -> void:
 	Hitbox.area_entered.connect(onSelfEntered);
 	CD.timeout.connect(func():
+		print("we're off move cooldown now");
 		caninitiate = true;	
+		print(caninitiate);
 	)
 	Animator.animation_finished.connect(func(anim_name):
 		match anim_name:
 			&"Summoning":
 				CurrentAttack = attacks.NIL;
-				LastUsedAttack = attacks.SUMMON;
+				LastUsedAttack = attacks.SUMMONING;
 			&"Overhead":
 				CurrentAttack = attacks.NIL;
 				LastUsedAttack = attacks.OVERHEAD;
 			&"Staff":
 				CurrentAttack = attacks.NIL;
-				LastUsedAttack = attacks.PROJECTILE;
+				LastUsedAttack = attacks.STAFF;
 			&"Stomp":
+				MarkerReached.disconnect(stompLambda);
 				CurrentAttack = attacks.NIL;
 				LastUsedAttack = attacks.STOMP;
 	);
@@ -65,17 +76,24 @@ func _physics_process(dt : float) -> void:
 		var selfPos = self.global_position;
 		var yDiff = abs(selfPos.y - playerPos.y);
 		var xDiff = abs(selfPos.x - playerPos.x);
-		var can : bool = yDiff < 3.0 and LastUsedAttack != attacks.OVERHEAD and sign(direction) == sign(xDiff) and xDiff < sign(direction) * 20
+		var can : bool = yDiff < 3.0 and LastUsedAttack != attacks.OVERHEAD and sign(direction) == sign(xDiff) and xDiff < abs(direction * 50)
 		# First, figure out if we can do the overhead if we're close enough, off cooldown, and facing the right dir
 		if can:
+			print("close");
 			closeEnoughtoOverhead = true;
 		else:
 			closeEnoughtoOverhead = false;
+		if caninitiate and CurrentAttack == attacks.NIL:
+			var attack = DecideNextAttack();
+			call(attack);
+			
+func walkLoop() -> void:
+	if Animator.current_animation != &"Walk" and velocity != Vector2(0,0):
+		Animator.play(&"Walk");
+	velocity.x = CurrentSpeed * -direction;
 		
-	
-# Instantiates a scene.
-func Create(loaded : Resource) -> Node:
-	return loaded.instantiate();
+func Halt() -> void:
+	velocity.x = 0;
 
 # Changes the state to some state "newstate", returns the old state.
 func changeState(newstate : state) -> state:
@@ -110,73 +128,130 @@ func takeDamage(amount : int) -> void:
 	
 func DecideNextAttack() -> StringName:
 	while true:
-		var random = randi_range(1,4);
-		if random == LastUsedAttack:
+		var random = randi_range(0,3);
+		if random == LastUsedAttack as int:
+			print("SAME!");
 			continue
 		else:
-			return attacks.find_key(random);
+			var attackName = attacks.find_key(random).capitalize();
+			print("decided for " + attackName);
+			return attackName;
 	return &"";
 	
+func bundleChecks(area : Area2D) -> Variant:
+	var results = [];
+	# Check 3 times if there is anything intersecting, and append to an array
+	for i in range(3):
+		await get_tree().physics_frame;
+		var areas = area.get_overlapping_areas();
+		for v in areas:
+			if v == area or area.is_ancestor_of(self):
+				continue
+			elif results.has(v):
+				continue
+			else:
+				results.append(v)
+	return results;
+	
+func checkIfPlayerHit(hitbox : Area2D) -> bool:
+	var objects = await bundleChecks(hitbox);
+	if objects.has(PlayerHitbox):
+		return true
+	return false
+
 # Summoning attack. Enemy is buffed.
 #TODO: fade it in
-func Summon() -> Node:
-	CurrentAttack = attacks.SUMMON;
-	Animator.stop(); # Make sure he's LOCKED IN
+func Summoning() -> void:
+	print("executing summon");
+	CurrentAttack = attacks.SUMMONING;
+	Animator.stop();
+	Halt();
+	caninitiate = false;
+	CD.start(TimeBetweenAttacks);
+	MarkerReached.connect(func(anim_name):
+		if anim_name == &"SUMMONING":
+			var newMummy = Global.Create(mummyScene);
+			newMummy.CurrentSpeed = 20;
+			newMummy.DrawRaycasts = false;
+			newMummy.IgnorePlayer = false;
+			newMummy.gravityprone = true;
+			newMummy.gravity = 300;
+			newMummy.CurrentState = mummyScript.state.WANDER;
+			newMummy.direction = direction;
+			newMummy.punchCD = 5;
+			newMummy.onpunchCD = false;
+			newMummy.punching = false;
+			newMummy.global_position = self.global_position; # hack, fix later
+			scene.add_child(newMummy);
+	, CONNECT_ONE_SHOT)
 	Animator.play(&"Summoning");
-	var newMummy = Create(mummyScene);
-	newMummy.CurrentSpeed = 20;
-	newMummy.DrawRaycasts = false;
-	newMummy.IgnorePlayer = false;
-	newMummy.gravityprone = true;
-	newMummy.gravity = 300;
-	newMummy.CurrentState = mummyScript.state.CHASE;
-	newMummy.direction = direction;
-	newMummy.punchCD = 5;
-	newMummy.onpunchCD = false;
-	newMummy.punching = false;
-	newMummy.global_position = self.global_position; # hack, fix later
-	scene.add_child(newMummy);
-	return newMummy;
 	
+func stompLambda(anim_name : StringName) -> void:
+	if anim_name == &"Stomp":
+		for i in [-1, 1]:
+			print(i);
+			var vec;
+			var new = Global.Create(ShockwaveScene);
+			new.direct = i;
+			new.moving = true;
+			new.speed = 150;			
+			match i:
+				-1:
+					vec = Vector2(-5, 0);
+				1:
+					vec = Vector2(5, 0);
+			new.global_position = self.global_position + vec;
+			scene.add_child(new);
+			
 # Stomping attack.
 func Stomp() -> void:
 	CurrentAttack = attacks.STOMP;
-	for i in range(2):
-		var one = Create(ShockwaveScene);
-		var two = Create(ShockwaveScene);
-		one.direct = -1;
-		two.direct = 1;
-		one.moving = true;
-		two.moving = true;
-		one.speed = 200;
-		two.speed = 200;
-		one.global_position = self.global_position + Vector2(5, 0);
-		two.global_position = self.global_position - Vector2(5, 0);
-		scene.add_child(one);
-		scene.add_child(two);
-		print(one.global_position, two.global_position);
-		await Global.wait(1.5); # hack fix, add animation event
-
+	MarkerReached.connect(stompLambda);
+	Animator.stop();
+	Halt();
+	caninitiate = false;
+	CD.start(TimeBetweenAttacks);
+	Animator.play(&"Stomp");
+	
 
 func Overhead() -> void:
-	var pos = self.global_position + Vector2(10 * direction, 0);
+	var pos = self.global_position + Vector2(25 * direction, -3.5);
 	CurrentAttack = attacks.OVERHEAD;
+	MarkerReached.connect(func(anim_name):
+		pass
+	, CONNECT_ONE_SHOT)
+	Animator.stop();
+	Halt();
+	caninitiate = false;
+	CD.start(TimeBetweenAttacks);
 	Animator.play(&"Overhead");
 	await Global.wait(1.0);
-	var IntersectArray = [];
-	var newBox = Global.MakeHitbox(1, 20.0, 30.0);
-	Global.visualizeArea(newBox);
+	var newBox = Global.MakeHitbox(1, 40.0, 30.0, pos);
+	scene.add_child(newBox);
+	#var visualizer = Global.visualizeArea(newBox);
+	#scene.add_child(visualizer);
+	if await checkIfPlayerHit(newBox) == true:
+		Player.takeDamage(2, 1.0, true);
+		Player.applyKnockback(Vector2.ONE, 800.0 * direction);
+	newBox.queue_free();
 	
 # Ranged attack.
 func Staff() -> void:
-	CurrentAttack = attacks.PROJECTILE;
+	CurrentAttack = attacks.STAFF;
+	MarkerReached.connect(func(anim_name):
+		if anim_name == &"Staff":
+			var newBlast = Global.Create(BlastScene);
+			newBlast.moving = true;
+			newBlast.direct = direction;
+			newBlast.speed = 200;
+			newBlast.global_position = self.global_position;
+			scene.add_child(newBlast);
+	, CONNECT_ONE_SHOT);
+	Animator.stop();
+	Halt();
+	caninitiate = false;
+	CD.start(TimeBetweenAttacks);
 	Animator.play(&"Staff");
-	var newBlast = Create(BlastScene);
-	newBlast.moving = true;
-	newBlast.direct = direction;
-	newBlast.speed = 200;
-	newBlast.global_position = self.global_position;
-	scene.add_child(newBlast);
 	
 
 # For when HP hits 0.

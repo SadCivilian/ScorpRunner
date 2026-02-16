@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://d3uwg3kvod77e"]
 
 [ext_resource type="Script" uid="uid://bd5vfd64wxtc1" path="res://chest.gd" id="1_8uwsg"]
-[ext_resource type="Texture2D" uid="uid://bncv4jnfxt16o" path="res://assets/sprites/chestopen.jpeg" id="2_8uwsg"]
-[ext_resource type="Texture2D" uid="uid://d3mf27p4yexa4" path="res://assets/sprites/Chest.jpeg" id="3_bp1or"]
+[ext_resource type="Texture2D" uid="uid://bncv4jnfxt16o" path="res://assets/sprites/Chest/chestopen.jpeg" id="2_8uwsg"]
+[ext_resource type="Texture2D" uid="uid://d3mf27p4yexa4" path="res://assets/sprites/Chest/Chest.jpeg" id="3_bp1or"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8uwsg"]
 size = Vector2(16, 16)

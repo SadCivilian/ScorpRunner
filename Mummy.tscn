@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://inednby1yotr"]
 
 [ext_resource type="Script" uid="uid://djbwuhtgbcf0n" path="res://MummyBrain.gd" id="1_105sr"]
-[ext_resource type="Texture2D" uid="uid://blyoqdncptqwa" path="res://assets/sprites/MummyBase.png" id="2_m0wpy"]
+[ext_resource type="Texture2D" uid="uid://blyoqdncptqwa" path="res://assets/sprites/Mummy/MummyBase.png" id="2_m0wpy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vaaym"]
 size = Vector2(14, 21)

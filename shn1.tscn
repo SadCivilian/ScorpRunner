@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://dspyygs5le4nb"]
 
-[ext_resource type="Script" uid="uid://qoxurnncpy1s" path="res://Init.gd" id="1_h3rxv"]
+[ext_resource type="Script" uid="uid://qoxurnncpy1s" path="res://Initialization/Init.gd" id="1_h3rxv"]
 [ext_resource type="Texture2D" uid="uid://cmqvgo12irw6c" path="res://New/Solaria Demo Tiles.png" id="2_w3cr1"]
 [ext_resource type="Texture2D" uid="uid://0p5wh7ie4m47" path="res://assets/tiles/Blank.png" id="3_38gbn"]
 [ext_resource type="Texture2D" uid="uid://cry3sepcku3gv" path="res://assets/tiles/Rock.jpg" id="4_oo4gy"]
@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://2jmkk8rs0ixp" path="res://assets/tiles/kutu.jpg" id="8_peo2a"]
 [ext_resource type="Texture2D" uid="uid://cf5vbdjk1av53" path="res://assets/tiles/Sandİç.jpg" id="9_ej03g"]
 [ext_resource type="Texture2D" uid="uid://cv2iv0ggix877" path="res://assets/tiles/cactus.png" id="10_a1d00"]
-[ext_resource type="Texture2D" uid="uid://b7cqeendc15gk" path="res://assets/sprites/ismetbackground.jpg" id="11_7r35f"]
+[ext_resource type="Texture2D" uid="uid://b7cqeendc15gk" path="res://assets/sprites/Misc/ismetbackground.jpg" id="11_7r35f"]
 [ext_resource type="PackedScene" uid="uid://3d6danocgmgj" path="res://Player.tscn" id="12_n7knr"]
 [ext_resource type="PackedScene" uid="uid://dsr3vrh4sebyt" path="res://snake.tscn" id="13_2xn8o"]
 [ext_resource type="PackedScene" uid="uid://wngjkw8mu783" path="res://PlayerCamera.tscn" id="14_qytd6"]
@@ -20,7 +20,6 @@
 [ext_resource type="PackedScene" uid="uid://dxu50grlog0dv" path="res://assets/coins/Coin.tscn" id="17_w7x6o"]
 [ext_resource type="PackedScene" uid="uid://cxcxwjustky3m" path="res://assets/coins/Cointen.tscn" id="18_ynqkk"]
 [ext_resource type="PackedScene" uid="uid://fvgbkxswaebg" path="res://assets/coins/Coinfive.tscn" id="19_peo2a"]
-[ext_resource type="PackedScene" uid="uid://oocei46ao6iw" path="res://checkpoint.tscn" id="21_ynqkk"]
 [ext_resource type="PackedScene" uid="uid://d3uwg3kvod77e" path="res://chest.tscn" id="22_peo2a"]
 [ext_resource type="PackedScene" uid="uid://cyveko28vppar" path="res://papar.tscn" id="23_ej03g"]
 
@@ -488,7 +487,7 @@ position = Vector2(148, 33)
 position = Vector2(21122, 1123)
 shape = SubResource("RectangleShape2D_h2yge")
 
-[node name="PlayerCamera" parent="." unique_id=1781630124 instance=ExtResource("14_qytd6")]
+[node name="Camera2D" parent="." unique_id=1781630124 instance=ExtResource("14_qytd6")]
 
 [node name="BGMusicPlayer" parent="." unique_id=1863265657 instance=ExtResource("15_7qw2m")]
 mix_target = 2
@@ -519,10 +518,7 @@ value = 5
 position = Vector2(25542, 661)
 
 [node name="Test" type="Node2D" parent="." unique_id=659662699]
-position = Vector2(20320.215, 892.59503)
-
-[node name="Check1" parent="." unique_id=861267910 instance=ExtResource("21_ynqkk")]
-position = Vector2(21278, 742)
+position = Vector2(20321, 888)
 
 [node name="Enemies" type="Node" parent="." unique_id=1223594341]
 

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://piujtwli0wtf"]
 
 [ext_resource type="Script" uid="uid://c0umsr5kwx6uc" path="res://Lever.gd" id="1_0ohsc"]
-[ext_resource type="Texture2D" uid="uid://bk0up4x12ipfx" path="res://assets/sprites/NewLever.png" id="2_1btnt"]
+[ext_resource type="Texture2D" uid="uid://bk0up4x12ipfx" path="res://assets/sprites/Misc/NewLever.png" id="2_1btnt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7uavd"]
 size = Vector2(2.553885, 13.118554)

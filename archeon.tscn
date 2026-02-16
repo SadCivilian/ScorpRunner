@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://86jc08an0bjg"]
 
 [ext_resource type="Script" uid="uid://ch5j2ofahnjm5" path="res://archeon.gd" id="1_ona8j"]
-[ext_resource type="Texture2D" uid="uid://sis02378nyq3" path="res://assets/sprites/Arrow.png" id="2_ona8j"]
+[ext_resource type="Texture2D" uid="uid://sis02378nyq3" path="res://assets/sprites/Misc/Arrow.png" id="2_ona8j"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ona8j"]
 radius = 2.0

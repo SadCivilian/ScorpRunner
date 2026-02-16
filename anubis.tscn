@@ -1,7 +1,26 @@
 [gd_scene format=3 uid="uid://b70i3ufijrnc5"]
 
 [ext_resource type="Script" uid="uid://dqnlh3vjb5y18" path="res://Anubis.gd" id="1_ebgrx"]
-[ext_resource type="Texture2D" uid="uid://nd5jxqtdkft3" path="res://assets/sprites/anubisBase.png" id="2_4l6wv"]
+[ext_resource type="Texture2D" uid="uid://nd5jxqtdkft3" path="res://assets/sprites/Anubis/anubisBase.png" id="2_4l6wv"]
+[ext_resource type="Texture2D" uid="uid://g1mrgnr6c7ov" path="res://assets/sprites/Anubis/StaffFrame2.png" id="3_8jqvt"]
+[ext_resource type="Texture2D" uid="uid://ci4qjbu3wvcxh" path="res://assets/sprites/Anubis/StompFrame2.png" id="3_yl54q"]
+[ext_resource type="Texture2D" uid="uid://d2u3pmmen11wf" path="res://assets/sprites/Anubis/WalkFrame2.png" id="3_ypou6"]
+[ext_resource type="Texture2D" uid="uid://byd4dqw4286y8" path="res://assets/sprites/Anubis/StompFrame3.png" id="4_aln7m"]
+[ext_resource type="Texture2D" uid="uid://clulxt5dhnkpp" path="res://assets/sprites/Anubis/StaffFrame3.png" id="4_rj615"]
+[ext_resource type="Texture2D" uid="uid://5hl4pyfpr3d6" path="res://assets/sprites/Anubis/WalkFrame3.png" id="4_y6r8g"]
+[ext_resource type="Texture2D" uid="uid://c8kfelnqt6ojq" path="res://assets/sprites/Anubis/StompFrame4.png" id="5_5do5v"]
+[ext_resource type="Texture2D" uid="uid://dhdbdfyx0xcg" path="res://assets/sprites/Anubis/StaffFrame4.png" id="5_b24b7"]
+[ext_resource type="Texture2D" uid="uid://bc7t28icavxb1" path="res://assets/sprites/Anubis/WalkFrame4.png" id="5_qgrt8"]
+[ext_resource type="Texture2D" uid="uid://bu5e4lnf1ktpa" path="res://assets/sprites/Anubis/StompFrame5.png" id="6_c2kji"]
+[ext_resource type="Texture2D" uid="uid://bgx5nl7lr8h44" path="res://assets/sprites/Anubis/WalkFrame1.png" id="6_g18xm"]
+[ext_resource type="Texture2D" uid="uid://bre4vrpfiuhum" path="res://assets/sprites/Anubis/StaffFrame6.png" id="6_vy7w2"]
+[ext_resource type="Texture2D" uid="uid://bp4wwc2hgxcgp" path="res://assets/sprites/Anubis/StompFrame7.png" id="7_7cdv1"]
+[ext_resource type="Texture2D" uid="uid://b52a77irrqjqx" path="res://assets/sprites/Anubis/StaffFrame7.png" id="7_7emc6"]
+[ext_resource type="Texture2D" uid="uid://cn6pg4jkxjes2" path="res://assets/sprites/Anubis/StaffFrame8.png" id="8_6shun"]
+[ext_resource type="Texture2D" uid="uid://cv3ps8ytijrei" path="res://assets/sprites/Anubis/StompFrame8.png" id="8_lsdv2"]
+[ext_resource type="Texture2D" uid="uid://bs4m3m5ht6f1b" path="res://assets/sprites/Anubis/StompFrame6.png" id="9_0neei"]
+[ext_resource type="Texture2D" uid="uid://tx6wvg1uywgt" path="res://assets/sprites/Anubis/StaffFrame9.png" id="9_tcv3m"]
+[ext_resource type="Texture2D" uid="uid://dngcuyvno82av" path="res://assets/sprites/Anubis/StaffFrame10.png" id="10_qyolp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4l6wv"]
 size = Vector2(20, 45)
@@ -12,21 +31,108 @@ size = Vector2(20, 45)
 [sub_resource type="Animation" id="Animation_4l6wv"]
 resource_name = "Overhead"
 
+[sub_resource type="Animation" id="Animation_evt28"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_4l6wv")]
+}
+
 [sub_resource type="Animation" id="Animation_ypou6"]
 resource_name = "Staff"
+length = 1.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1, 1.125, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_4l6wv"), ExtResource("3_8jqvt"), ExtResource("4_rj615"), ExtResource("5_b24b7"), ExtResource("5_b24b7"), ExtResource("6_vy7w2"), ExtResource("7_7emc6"), ExtResource("8_6shun"), ExtResource("9_tcv3m"), ExtResource("10_qyolp"), ExtResource("2_4l6wv")]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.1333333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"Staff"],
+"method": &"onMarkerReached"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_1rcsa"]
 resource_name = "Stomp"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1, 1.125, 1.25, 1.375, 1.5, 1.625, 1.75, 1.875, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_4l6wv"), ExtResource("3_yl54q"), ExtResource("4_aln7m"), ExtResource("5_5do5v"), ExtResource("6_c2kji"), ExtResource("6_c2kji"), ExtResource("7_7cdv1"), ExtResource("8_lsdv2"), ExtResource("7_7cdv1"), ExtResource("7_7cdv1"), ExtResource("7_7cdv1"), ExtResource("7_7cdv1"), ExtResource("6_c2kji"), ExtResource("9_0neei"), ExtResource("7_7cdv1"), ExtResource("8_lsdv2"), ExtResource("2_4l6wv")]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8666667, 1.8666667),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [&"Stomp"],
+"method": &"onMarkerReached"
+}, {
+"args": [&"Stomp"],
+"method": &"onMarkerReached"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_6l8ur"]
 resource_name = "Summoning"
 
 [sub_resource type="Animation" id="Animation_xqreg"]
 resource_name = "Walk"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_4l6wv"), ExtResource("3_ypou6"), ExtResource("4_y6r8g"), ExtResource("5_qgrt8"), ExtResource("6_g18xm")]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ypou6"]
 _data = {
 &"Overhead": SubResource("Animation_4l6wv"),
+&"RESET": SubResource("Animation_evt28"),
 &"Staff": SubResource("Animation_ypou6"),
 &"Stomp": SubResource("Animation_1rcsa"),
 &"Summoning": SubResource("Animation_6l8ur"),

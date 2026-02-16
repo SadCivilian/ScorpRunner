@@ -85,14 +85,13 @@ func TypeString(variable : Variant) -> Variant:
 	else:
 		return null
 
-# TODO
 func MakeHitbox(mask : int, x : float, y : float, pos : Vector2 = Vector2(0,0)) -> Area2D:
 	var newBox = Area2D.new();
 	var newCollisionShape = CollisionShape2D.new();
 	var rect = RectangleShape2D.new();
 	rect.size = Vector2(x, y);
 	newBox.collision_layer = 1;
-	newBox.collision_mask = 1;
+	newBox.collision_mask = mask;
 	newBox.monitoring = true;
 	newBox.add_child(newCollisionShape);
 	newCollisionShape.shape = rect;
@@ -125,6 +124,10 @@ func IntToBool(integer : int) -> bool:
 		_:
 			push_error("Invalid integer");	
 	return false
+
+# Instantiates a scene.
+func Create(loaded : Resource) -> Node:
+	return loaded.instantiate();
 
 func _GBOSSFIGHTVARS(boss : Node) -> void:
 	boss.Health = 250;

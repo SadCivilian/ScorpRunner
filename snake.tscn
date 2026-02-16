@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://dsr3vrh4sebyt"]
 
 [ext_resource type="Script" uid="uid://cwdxhfxcqe84i" path="res://SnakeBrain.gd" id="1_baghe"]
-[ext_resource type="Texture2D" uid="uid://cwvkhi00fwe7l" path="res://assets/sprites/Yılan1.png" id="2_gxkgb"]
-[ext_resource type="Texture2D" uid="uid://2kg1qa5faugg" path="res://assets/sprites/Yılan2.png" id="3_2x2sd"]
-[ext_resource type="Texture2D" uid="uid://m65521guoeu2" path="res://assets/sprites/SnakeDead.png" id="4_dw1s1"]
+[ext_resource type="Texture2D" uid="uid://cwvkhi00fwe7l" path="res://assets/sprites/Snake/Yılan1.png" id="2_gxkgb"]
+[ext_resource type="Texture2D" uid="uid://2kg1qa5faugg" path="res://assets/sprites/Snake/Yılan2.png" id="3_2x2sd"]
+[ext_resource type="Texture2D" uid="uid://m65521guoeu2" path="res://assets/sprites/Snake/SnakeDead.png" id="4_dw1s1"]
 [ext_resource type="AudioStream" uid="uid://bfb53quatms3r" path="res://assets/sounds/snake-hiss.wav" id="4_olj5u"]
 
 [sub_resource type="Animation" id="Animation_dw1s1"]

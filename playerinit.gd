@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var speed : int = 85;
 @export var gravity : int = 300;
 @export var jumpforce : int = 200;
-@export var hasDoubleJump : bool = false; ## has it
+@export var hasDoubleJump : bool = false; 
 @export var Health : int = 3;
 @export var Coins : int = 0;
 @export var Score : int = 0;
@@ -18,7 +18,7 @@ extends CharacterBody2D
 @onready var HurtBox = $Model/HurtArea/Hurtbox;
 @onready var HurtArea = $Model/HurtArea;
 @onready var PlayerStomp = $Model/PlayerStomp;
-@onready var PlayerCamera =  $"../PlayerCamera";
+@onready var PlayerCamera = $"../Camera2D";
 @onready var DeathZone : Area2D = $"../DeathZone";
 @onready var Animator : AnimationPlayer = $Animator;
 @onready var DamagedAnimator : AnimationPlayer = $DamagedAnimator;
@@ -94,7 +94,7 @@ func bundleChecks(area : Area2D) -> Variant:
 				area.global_position = Vector2(currentPos.x - 40.0, currentPos.y + 2.5);
 		var areas = area.get_overlapping_areas();
 		for v in areas:
-			if v != area or area.is_ancestor_of(self):
+			if v == area or area.is_ancestor_of(self):
 				continue
 			elif results.has(v):
 				continue
@@ -163,8 +163,7 @@ func addCoins(amount : int) -> void:
 	if self.Coins >= 999:
 		return 
 	self.Coins += amount;
-	Global.SaveData[&"Coins"] += amount;
-	Global.SaveData[&"Score"] += amount;
+	self.Score += amount;
 	Global.emit_signal(&"PlayerCoinsChanged");		
 	
 # Uses an amount of counts and returns a boolean on whether it was successful.
@@ -194,21 +193,24 @@ func DisperseKilledEnemies() -> void:
 	var enemiesNode = get_tree().current_scene.find_child(&"Enemies");
 	for enemyName in Global.FelledEnemies:
 		var node = enemiesNode.find_child(enemyName);
-		node.queue_free();
+		if node:
+			node.queue_free();
 
 func DisperseCollectedCoins() -> void:
 	var coinsNode = get_tree().current_scene.find_child(&"Coins");
 	for coinName in Global.CollectedCoins:
 		var node = coinsNode.find_child(coinName);
-		node.queue_free();
+		if node:
+			node.queue_free();
 		
 func DisperseOpenedChests() -> void:
 	var openTexture = load("res://assets/sprites/chestopen.jpeg")
 	var chestsNode = get_tree().current_scene.find_child(&"Chests")
 	for chestName in Global.OpenedChests:
 		var node = chestsNode.find_child(chestName);
-		node.opened = true
-		node.get_child(2).texture = openTexture
+		if node:
+			node.opened = true
+			node.get_child(2).texture = openTexture
 		
 func loadPlayerState() -> void:
 	var userData = getUserData();

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cyveko28vppar"]
 
 [ext_resource type="Script" uid="uid://bfoqq51rijim3" path="res://papar.gd" id="1_0snqi"]
-[ext_resource type="Texture2D" uid="uid://ctgalvhiifown" path="res://assets/sprites/paper.png" id="2_204fv"]
+[ext_resource type="Texture2D" uid="uid://ctgalvhiifown" path="res://assets/sprites/Misc/paper.png" id="2_204fv"]
 [ext_resource type="PackedScene" uid="uid://c1st6pvxetd65" path="res://interaction_scene(2).tscn" id="3_204fv"]
 [ext_resource type="FontFile" uid="uid://cnajn6ypftrdn" path="res://assets/fonts/Bitwise-m19x.ttf" id="4_204fv"]
 

@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cv2iv0ggix877" path="res://assets/tiles/cactus.png" id="8_g35rf"]
 [ext_resource type="Texture2D" uid="uid://cf5vbdjk1av53" path="res://assets/tiles/Sandİç.jpg" id="9_ut2u1"]
 [ext_resource type="Texture2D" uid="uid://2jmkk8rs0ixp" path="res://assets/tiles/kutu.jpg" id="10_8npk0"]
-[ext_resource type="Texture2D" uid="uid://b7cqeendc15gk" path="res://assets/sprites/ismetbackground.jpg" id="11_1plf6"]
+[ext_resource type="Texture2D" uid="uid://b7cqeendc15gk" path="res://assets/sprites/Misc/ismetbackground.jpg" id="11_1plf6"]
 [ext_resource type="PackedScene" uid="uid://3d6danocgmgj" path="res://Player.tscn" id="12_omjff"]
 [ext_resource type="PackedScene" uid="uid://wngjkw8mu783" path="res://PlayerCamera.tscn" id="16_2lxvh"]
 [ext_resource type="PackedScene" uid="uid://d3v672i3o8v2k" path="res://BG_Music_Player.tscn" id="16_uiois"]

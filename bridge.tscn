@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://0irbyaoubumg"]
 
-[ext_resource type="Texture2D" uid="uid://b5rmc7o00qxvv" path="res://assets/sprites/bridge.png" id="1_jvmcf"]
+[ext_resource type="Texture2D" uid="uid://b5rmc7o00qxvv" path="res://assets/sprites/Misc/bridge.png" id="1_jvmcf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xy2vu"]
 size = Vector2(1414.0005, 167.81396)
@@ -10,9 +10,6 @@ size = Vector2(1414.0005, 167.81396)
 [node name="Control" type="Control" parent="." unique_id=405668995]
 layout_mode = 3
 anchors_preset = 0
-offset_top = -1.0
-offset_right = 1413.9998
-offset_bottom = 183.18605
 
 [node name="Bridge" type="Sprite2D" parent="Control" unique_id=328417546 groups=["bridge"]]
 position = Vector2(134.99998, 22.5)
