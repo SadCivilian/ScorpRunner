@@ -19,7 +19,6 @@ func _process(delta: float) -> void:
 	if (CurrentTrackLength - BGMusicPlayer.get_playback_position()) < FADE_OUT_TIME and FadeRan == false:
 		FadeOutTrack();
 		FadeRan = true;
-		FadeInTrack();
 
 # Fades out the current track right before replaying it.
 func FadeOutTrack() -> void:

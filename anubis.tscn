@@ -3,24 +3,43 @@
 [ext_resource type="Script" uid="uid://dqnlh3vjb5y18" path="res://Anubis.gd" id="1_ebgrx"]
 [ext_resource type="Texture2D" uid="uid://nd5jxqtdkft3" path="res://assets/sprites/Anubis/anubisBase.png" id="2_4l6wv"]
 [ext_resource type="Texture2D" uid="uid://g1mrgnr6c7ov" path="res://assets/sprites/Anubis/StaffFrame2.png" id="3_8jqvt"]
+[ext_resource type="Texture2D" uid="uid://jmayrmc7xx4s" path="res://assets/sprites/Anubis/OverheadFrame2.png" id="3_ao5ih"]
 [ext_resource type="Texture2D" uid="uid://ci4qjbu3wvcxh" path="res://assets/sprites/Anubis/StompFrame2.png" id="3_yl54q"]
 [ext_resource type="Texture2D" uid="uid://d2u3pmmen11wf" path="res://assets/sprites/Anubis/WalkFrame2.png" id="3_ypou6"]
 [ext_resource type="Texture2D" uid="uid://byd4dqw4286y8" path="res://assets/sprites/Anubis/StompFrame3.png" id="4_aln7m"]
+[ext_resource type="Texture2D" uid="uid://d3i2poj620xdd" path="res://assets/sprites/Anubis/OverheadFrame3.png" id="4_mvaxl"]
 [ext_resource type="Texture2D" uid="uid://clulxt5dhnkpp" path="res://assets/sprites/Anubis/StaffFrame3.png" id="4_rj615"]
 [ext_resource type="Texture2D" uid="uid://5hl4pyfpr3d6" path="res://assets/sprites/Anubis/WalkFrame3.png" id="4_y6r8g"]
 [ext_resource type="Texture2D" uid="uid://c8kfelnqt6ojq" path="res://assets/sprites/Anubis/StompFrame4.png" id="5_5do5v"]
 [ext_resource type="Texture2D" uid="uid://dhdbdfyx0xcg" path="res://assets/sprites/Anubis/StaffFrame4.png" id="5_b24b7"]
+[ext_resource type="Texture2D" uid="uid://bx7y1nn43k0t" path="res://assets/sprites/Anubis/OverheadFrame4.png" id="5_gx7qt"]
 [ext_resource type="Texture2D" uid="uid://bc7t28icavxb1" path="res://assets/sprites/Anubis/WalkFrame4.png" id="5_qgrt8"]
 [ext_resource type="Texture2D" uid="uid://bu5e4lnf1ktpa" path="res://assets/sprites/Anubis/StompFrame5.png" id="6_c2kji"]
+[ext_resource type="Texture2D" uid="uid://c26ig2ott0kgc" path="res://assets/sprites/Anubis/OverheadFrame5.png" id="6_drnr2"]
 [ext_resource type="Texture2D" uid="uid://bgx5nl7lr8h44" path="res://assets/sprites/Anubis/WalkFrame1.png" id="6_g18xm"]
 [ext_resource type="Texture2D" uid="uid://bre4vrpfiuhum" path="res://assets/sprites/Anubis/StaffFrame6.png" id="6_vy7w2"]
 [ext_resource type="Texture2D" uid="uid://bp4wwc2hgxcgp" path="res://assets/sprites/Anubis/StompFrame7.png" id="7_7cdv1"]
 [ext_resource type="Texture2D" uid="uid://b52a77irrqjqx" path="res://assets/sprites/Anubis/StaffFrame7.png" id="7_7emc6"]
+[ext_resource type="Texture2D" uid="uid://xhcuih7asq6s" path="res://assets/sprites/Anubis/OverheadFrame6.png" id="7_ps3cl"]
 [ext_resource type="Texture2D" uid="uid://cn6pg4jkxjes2" path="res://assets/sprites/Anubis/StaffFrame8.png" id="8_6shun"]
+[ext_resource type="Texture2D" uid="uid://ba4ah276ylu3w" path="res://assets/sprites/Anubis/OverheadFrame7.png" id="8_esn6g"]
 [ext_resource type="Texture2D" uid="uid://cv3ps8ytijrei" path="res://assets/sprites/Anubis/StompFrame8.png" id="8_lsdv2"]
 [ext_resource type="Texture2D" uid="uid://bs4m3m5ht6f1b" path="res://assets/sprites/Anubis/StompFrame6.png" id="9_0neei"]
+[ext_resource type="Texture2D" uid="uid://dnu01ou8uy3fy" path="res://assets/sprites/Anubis/OverheadFrame8.png" id="9_pmcfo"]
 [ext_resource type="Texture2D" uid="uid://tx6wvg1uywgt" path="res://assets/sprites/Anubis/StaffFrame9.png" id="9_tcv3m"]
+[ext_resource type="Texture2D" uid="uid://cye17tug3q3iu" path="res://assets/sprites/Anubis/OverheadFrame9.png" id="10_pmcfo"]
 [ext_resource type="Texture2D" uid="uid://dngcuyvno82av" path="res://assets/sprites/Anubis/StaffFrame10.png" id="10_qyolp"]
+[ext_resource type="Texture2D" uid="uid://cdnj318mtwghx" path="res://assets/sprites/Anubis/OverheadFrame10.png" id="11_5o67t"]
+[ext_resource type="Texture2D" uid="uid://dfex6tq3f8udj" path="res://assets/sprites/Anubis/OverheadFrame11.png" id="12_b2bup"]
+[ext_resource type="Texture2D" uid="uid://cddquayuco7jj" path="res://assets/sprites/Anubis/OverheadFrame12.png" id="13_rteri"]
+[ext_resource type="Texture2D" uid="uid://ouy64pcfxqli" path="res://assets/sprites/Anubis/OverheadFrame13.png" id="14_stmck"]
+[ext_resource type="Texture2D" uid="uid://1b6hqcw6sv71" path="res://assets/sprites/Anubis/OverheadFrame14.png" id="15_8yvmi"]
+[ext_resource type="Texture2D" uid="uid://cf5kl3p437wjm" path="res://assets/sprites/Anubis/SummonFrame1.png" id="18_tcv3m"]
+[ext_resource type="Texture2D" uid="uid://ckd60bcoexvtv" path="res://assets/sprites/Anubis/SummonFrame2.png" id="19_qyolp"]
+[ext_resource type="Texture2D" uid="uid://csbp7kyswgwpn" path="res://assets/sprites/Anubis/SummonFrame3.png" id="20_ldnbh"]
+[ext_resource type="Texture2D" uid="uid://je60md4qtwl3" path="res://assets/sprites/Anubis/SummonFrame4.png" id="21_ghhh2"]
+[ext_resource type="Texture2D" uid="uid://dlod4ucds1a5b" path="res://assets/sprites/Anubis/SummonFrame5.png" id="22_rhfd4"]
+[ext_resource type="Texture2D" uid="uid://bwtu0gau0yhko" path="res://assets/sprites/Anubis/SummonFrame6.png" id="23_gca8h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4l6wv"]
 size = Vector2(20, 45)
@@ -30,6 +49,33 @@ size = Vector2(20, 45)
 
 [sub_resource type="Animation" id="Animation_4l6wv"]
 resource_name = "Overhead"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1875, 0.375, 0.5625, 0.75, 0.9375, 1.125, 1.3125, 1.5, 1.6875, 2, 2.1, 2.2, 2.35, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_4l6wv"), ExtResource("3_ao5ih"), ExtResource("4_mvaxl"), ExtResource("5_gx7qt"), ExtResource("6_drnr2"), ExtResource("7_ps3cl"), ExtResource("8_esn6g"), ExtResource("9_pmcfo"), ExtResource("10_pmcfo"), ExtResource("11_5o67t"), ExtResource("12_b2bup"), ExtResource("13_rteri"), ExtResource("14_stmck"), ExtResource("15_8yvmi"), ExtResource("2_4l6wv")]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2.3666666),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"Overhead"],
+"method": &"onMarkerReached"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_evt28"]
 length = 0.001
@@ -111,6 +157,33 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_6l8ur"]
 resource_name = "Summoning"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1875, 0.375, 0.5625, 0.75, 0.9375, 1.125, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_4l6wv"), ExtResource("18_tcv3m"), ExtResource("19_qyolp"), ExtResource("20_ldnbh"), ExtResource("21_ghhh2"), ExtResource("22_rhfd4"), ExtResource("23_gca8h"), ExtResource("2_4l6wv")]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.1333333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"Summoning"],
+"method": &"onMarkerReached"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_xqreg"]
 resource_name = "Walk"
@@ -141,6 +214,15 @@ _data = {
 
 [node name="Anubis" type="CharacterBody2D" unique_id=1508226872]
 script = ExtResource("1_ebgrx")
+Health = null
+IgnorePlayer = null
+CurrentSpeed = null
+gravityprone = null
+gravity = null
+CurrentState = null
+CurrentAttack = null
+LastUsedAttack = null
+direction = null
 
 [node name="Anubis_Hitbox" type="CollisionShape2D" parent="." unique_id=709217228]
 position = Vector2(0, -10.5)

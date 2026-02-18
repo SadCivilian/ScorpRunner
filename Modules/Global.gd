@@ -5,6 +5,7 @@ extends Node
 
 # Cache.
 var LineCache : Array[Line2D] = [];
+var Debris : Array[Variant] = [];
 
 # Save Data
 var CollectedCoins = []; # Coins which were collected.
@@ -35,8 +36,20 @@ signal PlayerHealthChanged(newHealth);
 
 static func concatPrint(... args : Array):
 	var message: String = ", ".join(args.map(str));
-	print(message);
+	print(message);	
 
+func addtoDebris(object : Variant) -> void:
+	Debris.append(object);
+	
+func sweepDebris() -> void:
+	for item in Debris:
+		if is_instance_valid(item) and not item.is_queued_for_deletion():
+			item.queue_free();
+
+func InitDebris() -> void:
+	var debrisThread = Thread.new();
+	debrisThread.start(sweepDebris, Thread.PRIORITY_HIGH);
+	
 func delay(seconds : float, function : Callable) -> Variant:
 	await get_tree().create_timer(seconds).timeout;
 	var ret = function.call();

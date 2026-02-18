@@ -25,7 +25,7 @@ var caninitiate = true;
 var isonfloor = true;
 var isdying = false;
 var closeEnoughtoOverhead = false;
-@export var Health = 500;
+@export var Health = 750;
 @export var IgnorePlayer = false;
 @export var CurrentSpeed = 20;
 @export var gravityprone : bool = true; 
@@ -48,7 +48,6 @@ func _ready() -> void:
 	CD.timeout.connect(func():
 		print("we're off move cooldown now");
 		caninitiate = true;	
-		print(caninitiate);
 	)
 	Animator.animation_finished.connect(func(anim_name):
 		match anim_name:
@@ -69,28 +68,39 @@ func _ready() -> void:
 	add_to_group(&"AnubisBoss");
 	
 # Need to figure out turning logic? Or always face player?
-func _physics_process(dt : float) -> void:
+func _physics_process(delta : float) -> void:
 	Model.flip_h = not Global.IntToBool(direction); # Normalize model I guess
 	if not IgnorePlayer:
 		var playerPos = Player.global_position;
 		var selfPos = self.global_position;
 		var yDiff = abs(selfPos.y - playerPos.y);
 		var xDiff = abs(selfPos.x - playerPos.x);
-		var can : bool = yDiff < 3.0 and LastUsedAttack != attacks.OVERHEAD and sign(direction) == sign(xDiff) and xDiff < abs(direction * 50)
+		var signed = sign(selfPos.x - playerPos.x);
+		var can : bool = yDiff < 3.0 and LastUsedAttack != attacks.OVERHEAD and sign(direction) == -signed and xDiff < abs(direction * 50)
 		# First, figure out if we can do the overhead if we're close enough, off cooldown, and facing the right dir
 		if can:
-			print("close");
 			closeEnoughtoOverhead = true;
 		else:
 			closeEnoughtoOverhead = false;
 		if caninitiate and CurrentAttack == attacks.NIL:
+			print("not walk")
+			print(Animator.current_animation);
 			var attack = DecideNextAttack();
 			call(attack);
+		else:
+			walkLoop();
+			
+		if not is_on_floor():
+			velocity.y += gravity * delta;
+			
+	move_and_slide();		
+	
 			
 func walkLoop() -> void:
 	if Animator.current_animation != &"Walk" and velocity != Vector2(0,0):
 		Animator.play(&"Walk");
-	velocity.x = CurrentSpeed * -direction;
+	velocity.x = CurrentSpeed * direction;
+
 		
 func Halt() -> void:
 	velocity.x = 0;
@@ -129,11 +139,11 @@ func takeDamage(amount : int) -> void:
 func DecideNextAttack() -> StringName:
 	while true:
 		var random = randi_range(0,3);
-		if random == LastUsedAttack as int:
+		if random == (LastUsedAttack as int):
 			print("SAME!");
 			continue
 		else:
-			var attackName = attacks.find_key(random).capitalize();
+			var attackName = attacks.find_key(random).capitalize();		
 			print("decided for " + attackName);
 			return attackName;
 	return &"";
@@ -169,7 +179,7 @@ func Summoning() -> void:
 	caninitiate = false;
 	CD.start(TimeBetweenAttacks);
 	MarkerReached.connect(func(anim_name):
-		if anim_name == &"SUMMONING":
+		if anim_name == &"Summoning":
 			var newMummy = Global.Create(mummyScene);
 			newMummy.CurrentSpeed = 20;
 			newMummy.DrawRaycasts = false;
@@ -205,6 +215,7 @@ func stompLambda(anim_name : StringName) -> void:
 			
 # Stomping attack.
 func Stomp() -> void:
+	print("executing stomp");
 	CurrentAttack = attacks.STOMP;
 	MarkerReached.connect(stompLambda);
 	Animator.stop();
@@ -215,28 +226,30 @@ func Stomp() -> void:
 	
 
 func Overhead() -> void:
+	print("executing overhead");
 	var pos = self.global_position + Vector2(25 * direction, -3.5);
 	CurrentAttack = attacks.OVERHEAD;
 	MarkerReached.connect(func(anim_name):
-		pass
-	, CONNECT_ONE_SHOT)
+		if anim_name == &"Overhead":
+			var newBox = Global.MakeHitbox(1, 40.0, 30.0, pos);
+			scene.add_child(newBox);
+			var visualizer = Global.visualizeArea(newBox);
+			scene.add_child(visualizer);
+			if await checkIfPlayerHit(newBox) == true:
+				Player.takeDamage(2, 1.0, true);
+				Player.applyKnockback(Vector2.ONE, 600.0 * direction);
+			newBox.queue_free();
+	, CONNECT_ONE_SHOT);
 	Animator.stop();
 	Halt();
 	caninitiate = false;
 	CD.start(TimeBetweenAttacks);
 	Animator.play(&"Overhead");
-	await Global.wait(1.0);
-	var newBox = Global.MakeHitbox(1, 40.0, 30.0, pos);
-	scene.add_child(newBox);
-	#var visualizer = Global.visualizeArea(newBox);
-	#scene.add_child(visualizer);
-	if await checkIfPlayerHit(newBox) == true:
-		Player.takeDamage(2, 1.0, true);
-		Player.applyKnockback(Vector2.ONE, 800.0 * direction);
-	newBox.queue_free();
+
 	
 # Ranged attack.
 func Staff() -> void:
+	print("executing staff");
 	CurrentAttack = attacks.STAFF;
 	MarkerReached.connect(func(anim_name):
 		if anim_name == &"Staff":
@@ -256,10 +269,12 @@ func Staff() -> void:
 
 # For when HP hits 0.
 func Die() -> void:
+	changeState(state.DEAD);
 	HPBar.visible = false;
+	Player.addScore(100);
 	await Global.wait(0.3);
 	var curr = Model.modulate;
-	var tweener = create_tween().tween_property(Model, "modulate", Color(curr.r, curr.g, curr.b, 0), 0.2).set_ease(Tween.EASE_IN);
+	var tweener = create_tween().tween_property(Model, "modulate:a", 0, 0.2).set_ease(Tween.EASE_IN);
 	tweener.finished.connect(func():
 		queue_free();	
 	)

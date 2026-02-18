@@ -15,12 +15,12 @@
 [ext_resource type="PackedScene" uid="uid://dsr3vrh4sebyt" path="res://snake.tscn" id="13_2xn8o"]
 [ext_resource type="PackedScene" uid="uid://wngjkw8mu783" path="res://PlayerCamera.tscn" id="14_qytd6"]
 [ext_resource type="PackedScene" uid="uid://d3v672i3o8v2k" path="res://BG_Music_Player.tscn" id="15_7qw2m"]
-[ext_resource type="PackedScene" uid="uid://piujtwli0wtf" path="res://lever.tscn" id="16_w3cr1"]
 [ext_resource type="PackedScene" uid="uid://0irbyaoubumg" path="res://bridge.tscn" id="17_38gbn"]
 [ext_resource type="PackedScene" uid="uid://dxu50grlog0dv" path="res://assets/coins/Coin.tscn" id="17_w7x6o"]
 [ext_resource type="PackedScene" uid="uid://cxcxwjustky3m" path="res://assets/coins/Cointen.tscn" id="18_ynqkk"]
 [ext_resource type="PackedScene" uid="uid://fvgbkxswaebg" path="res://assets/coins/Coinfive.tscn" id="19_peo2a"]
 [ext_resource type="PackedScene" uid="uid://d3uwg3kvod77e" path="res://chest.tscn" id="22_peo2a"]
+[ext_resource type="PackedScene" uid="uid://inednby1yotr" path="res://Mummy.tscn" id="23_a1d00"]
 [ext_resource type="PackedScene" uid="uid://cyveko28vppar" path="res://papar.tscn" id="23_ej03g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_272bh"]
@@ -492,14 +492,11 @@ shape = SubResource("RectangleShape2D_h2yge")
 [node name="BGMusicPlayer" parent="." unique_id=1863265657 instance=ExtResource("15_7qw2m")]
 mix_target = 2
 
-[node name="Lever" parent="." unique_id=800463251 instance=ExtResource("16_w3cr1")]
-position = Vector2(20200, 893)
-
 [node name="LevelEnd" type="Area2D" parent="." unique_id=595983499]
 position = Vector2(25088.611, 931.5922)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelEnd" unique_id=945549586]
-position = Vector2(-4969.6113, -48.592224)
+position = Vector2(-4450.6113, -110.592224)
 shape = SubResource("RectangleShape2D_w3cr1")
 
 [node name="Coins" type="Node" parent="." unique_id=967519725]
@@ -525,10 +522,13 @@ position = Vector2(20321, 888)
 [node name="Snake" parent="Enemies" unique_id=1519851614 instance=ExtResource("13_2xn8o")]
 position = Vector2(20947, 890)
 
+[node name="Mummy" parent="Enemies" unique_id=1543909718 instance=ExtResource("23_a1d00")]
+position = Vector2(20095, 889)
+
 [node name="Chests" type="Node" parent="." unique_id=560478682]
 
 [node name="Root" parent="Chests" unique_id=145549212 instance=ExtResource("22_peo2a")]
 position = Vector2(21379, 746)
 
 [node name="NoteUI" parent="." unique_id=1832806798 instance=ExtResource("23_ej03g")]
-position = Vector2(21356, 687)
+position = Vector2(21379, 686)

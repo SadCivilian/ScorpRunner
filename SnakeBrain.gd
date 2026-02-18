@@ -66,6 +66,7 @@ func onstateChanged(newstate : state) -> void:
 		state.WANDER:
 			self.CurrentSpeed = WanderSpeed;
 		state.DEAD:
+			player.addScore(10);
 			self.queue_free();
 			
 # Changes the state of the snake and returns the old state.

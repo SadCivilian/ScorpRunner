@@ -2,28 +2,102 @@
 
 [ext_resource type="Script" uid="uid://djbwuhtgbcf0n" path="res://MummyBrain.gd" id="1_105sr"]
 [ext_resource type="Texture2D" uid="uid://blyoqdncptqwa" path="res://assets/sprites/Mummy/MummyBase.png" id="2_m0wpy"]
+[ext_resource type="Texture2D" uid="uid://deig3573t7rme" path="res://assets/sprites/Mummy/punchFrame1.png" id="3_wyl64"]
+[ext_resource type="Texture2D" uid="uid://d3tfkm7r3wj5o" path="res://assets/sprites/Mummy/punchFrame2.png" id="4_twb56"]
+[ext_resource type="Texture2D" uid="uid://8qds4oel128w" path="res://assets/sprites/Mummy/punchFrame3.png" id="5_qsfew"]
+[ext_resource type="Texture2D" uid="uid://qjb4qlyaboyj" path="res://assets/sprites/Mummy/punchFrame4.png" id="6_1hewu"]
+[ext_resource type="Texture2D" uid="uid://51h8j3dek8b1" path="res://assets/sprites/Mummy/limp2.png" id="7_d6wsq"]
+[ext_resource type="Texture2D" uid="uid://b3bbsyxpfaqeh" path="res://assets/sprites/Mummy/limp3.png" id="8_6y7pk"]
+[ext_resource type="Texture2D" uid="uid://dw6skuiqe8kht" path="res://assets/sprites/Mummy/limp1.png" id="9_t53c8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vaaym"]
 size = Vector2(14, 21)
 
 [sub_resource type="Animation" id="Animation_72wxb"]
 resource_name = "Dying"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_m0wpy"), ExtResource("2_m0wpy")]
+}
 
 [sub_resource type="Animation" id="Animation_nxij1"]
 resource_name = "Punching"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 1, 1.1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_wyl64"), ExtResource("4_twb56"), ExtResource("5_qsfew"), ExtResource("6_1hewu"), ExtResource("2_m0wpy")]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"Punching"],
+"method": &"onMarkerReached"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_m0wpy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_m0wpy")]
+}
 
 [sub_resource type="Animation" id="Animation_vaaym"]
 resource_name = "Walking"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("7_d6wsq"), ExtResource("8_6y7pk"), ExtResource("9_t53c8"), ExtResource("8_6y7pk"), ExtResource("7_d6wsq"), ExtResource("8_6y7pk"), ExtResource("9_t53c8"), ExtResource("7_d6wsq"), ExtResource("9_t53c8")]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nxij1"]
 _data = {
 &"Dying": SubResource("Animation_72wxb"),
 &"Punching": SubResource("Animation_nxij1"),
+&"RESET": SubResource("Animation_m0wpy"),
 &"Walking": SubResource("Animation_vaaym")
 }
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_105sr"]
-size = Vector2(2, 21)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0wpy"]
 size = Vector2(14, 21)
@@ -37,6 +111,16 @@ position = Vector2(-3.0000038, 2.000002)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_m0wpy")
 
+[node name="ProgressBar" type="ProgressBar" parent="Model" unique_id=268801610]
+modulate = Color(0, 1, 0, 1)
+offset_left = -89.99996
+offset_top = -170.00002
+offset_right = 150.0
+offset_bottom = -150.00002
+max_value = 60.0
+value = 60.0
+show_percentage = false
+
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=656841859]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_vaaym")
@@ -45,20 +129,12 @@ shape = SubResource("RectangleShape2D_vaaym")
 libraries/ = SubResource("AnimationLibrary_nxij1")
 
 [node name="SightRay" type="RayCast2D" parent="." unique_id=957517838]
-target_position = Vector2(-60, 0)
+target_position = Vector2(60, 0)
 
 [node name="GroundRay" type="RayCast2D" parent="." unique_id=1705333642]
-target_position = Vector2(-45, 22)
-
-[node name="Mouth" type="AudioStreamPlayer2D" parent="." unique_id=1619388427]
+target_position = Vector2(30, 22)
 
 [node name="CD" type="Timer" parent="." unique_id=289949692]
-
-[node name="BackArea" type="Area2D" parent="." unique_id=38276681]
-
-[node name="Back" type="CollisionShape2D" parent="BackArea" unique_id=1802608546]
-position = Vector2(8, -0.5)
-shape = SubResource("RectangleShape2D_105sr")
 
 [node name="HitboxArea" type="Area2D" parent="." unique_id=799024508]
 

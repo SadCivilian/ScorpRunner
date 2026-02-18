@@ -35,6 +35,10 @@ func Update() -> void:
 	var hp = Player.get("Health");
 	var coins = Player.get("Coins");
 	match hp:
+		0:
+			for i in range(3):
+				var heart = get_child(i) as TextureRect;
+				heart.texture = getTexture("emptyHeart", imageExtension.png);
 		1:
 			for i in range(3):
 				var heart = get_child(i) as TextureRect;

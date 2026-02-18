@@ -166,6 +166,9 @@ func addCoins(amount : int) -> void:
 	self.Score += amount;
 	Global.emit_signal(&"PlayerCoinsChanged");		
 	
+func addScore(amount : int) -> void:
+	self.Score += amount;
+	
 # Uses an amount of counts and returns a boolean on whether it was successful.
 func useCoins(amount : int) -> bool:
 	if self.Coins - amount < 0:
@@ -183,6 +186,12 @@ func getUserData() -> Dictionary:
 	dict[&"Hearts"] =	Global.SaveData[&"Hearts"];
 	dict[&"Score"] = Global.SaveData[&"Score"];
 	return dict
+	
+func wipeUserData() -> void:
+	Global.SaveData[&"Hearts"] = 0;
+	Global.SaveData[&"Coins"] = 0;
+	Global.SaveData[&"Score"] = 0;
+	Global.SaveData[&"HasDoubleJump"] = false;
 	
 func Disperse() -> void:
 	DisperseCollectedCoins();
@@ -237,6 +246,21 @@ func applyKnockback(direction : Vector2, strength : float) -> void:
 	beingKnockedBack = true; 
 	currentKnockbackForce = direction * strength;
 	
+func update_animations() -> void:
+	if isAttacking:
+		return;
+	
+	if not is_on_floor():
+		if Animator.current_animation != &"Jump":
+			Animator.play(&"Jump");
+	else:
+		if abs(velocity.x) > 1.0:
+			if Animator.current_animation != &"Walk":
+				Animator.play(&"Walk");
+		else:
+			if Animator.is_playing() and Animator.current_animation != &"RESET":
+				Animator.stop();
+	
 # Handles all jump states
 func processJump() -> void:
 	if dead: return;
@@ -245,31 +269,22 @@ func processJump() -> void:
 			if hasDoubleJump == true and TimesJumped == 0:
 				velocity.y = -jumpforce;
 				TimesJumped += 1;
-				Animator.play(&"Jump");
 			elif jumpedfromvalid == true:
 				velocity.y = -jumpforce;
 				TimesJumped += 1;
 				jumpedfromvalid = false;
-				Animator.play(&"Jump");
 		else:
 			if hasDoubleJump == false and TimesJumped == 0:
 				velocity.y = -jumpforce;
 				TimesJumped += 1;
-				Animator.play(&"Jump");
 			elif hasDoubleJump == true and TimesJumped < 2:
 				velocity.y = -jumpforce
 				TimesJumped += 1;
 				jumpedfromvalid = true;
-				Animator.play(&"Jump");
-
 		
 # Use StringName for performance reasons
 func _physics_process(delta: float) -> void: 
 	if dead: return;
-	if velocity != Vector2(0.0,0.0) and Animator.current_animation != &"Walk":
-		Animator.play(&"Walk");	
-	elif (velocity == Vector2(0.0,0.0) and Animator.current_animation == &"Walk") or is_on_floor() == false:
-		Animator.stop();	
 	if self.gravityprone == true:
 		if not is_on_floor():
 			onfloor = false;
@@ -308,4 +323,5 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0, speed);
 			
 	move_and_slide();
+	update_animations();
 	

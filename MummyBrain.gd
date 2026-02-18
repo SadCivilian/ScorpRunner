@@ -3,11 +3,18 @@
 # The signal for when the hitbox of the enemy is entered will check if the enemy is punching, which will increase the knockback scalar and do TWO damage.
 extends CharacterBody2D
 
+const AnimEvents : Array[StringName] = [&"Punching"];
+signal MarkerReached(anim_name : StringName);
+
+func onMarkerReached(anim_name : StringName) -> void:
+	if AnimEvents.has(anim_name):
+		MarkerReached.emit(anim_name);  
+
 signal onStateChanged(state);
 enum state {WANDER, CHARGING, DEAD, CHASE};
 const WanderSpeed : int = 20;
-const ChaseSpeed : int = 50;
-const PunchVelocity = 100;
+const ChaseSpeed : int = 10;
+const PunchVelocity = 200;
 var isonfloor = true;
 var isdying = false;
 var RNG : RandomNumberGenerator = RandomNumberGenerator.new();
@@ -18,40 +25,34 @@ var RNG : RandomNumberGenerator = RandomNumberGenerator.new();
 @export var gravity : int = 300;
 @export var CurrentState : state = state.WANDER;
 @export var direction : int = 1; 
-@export var punchCD : int = 20; # SECONDS, obviously  
+@export var punchCD : int = 10; # SECONDS, obviously  
 @export var onpunchCD : bool = false; 
 @export var punching : bool = false;
-
+@export var Health : int = 60;
+@onready var HPBar : ProgressBar = $Model/ProgressBar;
 @onready var player: CharacterBody2D = get_tree().get_first_node_in_group("Player");
 @onready var SightRay : RayCast2D = $SightRay; 
 @onready var GroundRay : RayCast2D = $GroundRay;
 @onready var Model : Sprite2D = $Model;
 @onready var Animator : AnimationPlayer = $Animator;
-@onready var BackArea : Area2D = $BackArea;
 @onready var HitboxArea : Area2D = $HitboxArea;
 @onready var snakeHiss : AudioStreamWAV = preload("res://assets/sounds/snake-hiss.wav");
-@onready var Mouth : AudioStreamPlayer2D = $Mouth;
 @onready var CD : Timer = $CD;
 
-# target_position (x,y)/position (x,y) 
-# BELOW ARE HEAVY PLACEHOLDERS AS THE MODEL IS NOT DONE YET!!!!!!!!
-const GROUND_RIGHT_FLIP_VEC_POS = [30.0, 22.0, 67.0, 0.0];
+# target_position (x,y)/position (x,y)
+const GROUND_RIGHT_FLIP_VEC_POS = [30.0, 22.0, 0.0, 0.0];
 const GROUND_LEFT_FLIP_VEC_POS = [-30.0, 22.0, 0.0, 0.0];
 const SIGHT_LEFT_FLIP_VEC_POS = [-60.0, 0.0, 0.0, 0.0];
-const SIGHT_RIGHT_FLIP_VEC_POS = [60.0, 0.0, 67.0, 0.0];
-const KNOCKBACK_VECTOR = Vector2(1.0, 1.0); # Base vector for knockback which is muled by a scalar.
+const SIGHT_RIGHT_FLIP_VEC_POS = [60.0, 0.0, 0.0, 0.0];
 
 func _ready() -> void:
-	DrawRaycasts = true;
 	SightRay.collision_mask = 1;
-	CurrentSpeed = 20; # Var keeps nulling for some reason.
-	BackArea.area_entered.connect(onBackStabbedorEntered);
-	HitboxArea.body_entered.connect(onHitboxEntered);
+	HitboxArea.area_entered.connect(onHitboxEntered);
 	Animator.animation_finished.connect(func(anim_name):
 		if anim_name == &"Dying":
 			Global.FelledEnemies.append(self.name);
 			print("dying finished");
-			onStateChanged.emit(state.DEAD)
+			changeState(state.DEAD);
 		elif anim_name == &"Punching":
 			punching = false;
 			# After punching the mummy goes into wander? I probably will want to change this later.
@@ -61,6 +62,7 @@ func _ready() -> void:
 		onstateChanged(newstate);
 	)
 	CD.timeout.connect(func():
+		print("off cd");
 		onpunchCD = false;	
 	)
 	
@@ -68,7 +70,6 @@ func _ready() -> void:
 func onstateChanged(newstate : state) -> void:
 	match newstate:
 		state.CHASE:
-			Mouth.play();
 			CurrentSpeed = ChaseSpeed;
 		state.WANDER:
 			CurrentSpeed = WanderSpeed;
@@ -77,7 +78,7 @@ func onstateChanged(newstate : state) -> void:
 			onpunchCD = true;
 			CD.start(punchCD);
 		state.DEAD:
-			print("freeing object")
+			player.addScore(25);
 			queue_free();
 			
 # Changes the state to some state "newstate", returns the old state.
@@ -100,23 +101,42 @@ func lookforCliff() -> bool:
 		return true
 	else:
 		return false
-
-func onBackStabbedorEntered(area : Area2D) -> void:
-	if area.name == &"Stinger":
-		if Animator.is_playing():
-			Animator.stop();
-			Animator.play(&"Dying");
+		
+func isPlayerBehind() -> bool:
+	var selfPos = self.global_position;
+	var playerPos = player.global_position;
+	var signed = -sign(selfPos.x - playerPos.x);
+	match signed:
+		-1.0:
+			return true
+		1.0:
+			return false
+	return false # null guard
 			
 # This is where the match case for when the enemy is punching is initiated.
-func onHitboxEntered(body : PhysicsBody2D) -> void:
-	if body.name == "Player":
+func onHitboxEntered(area : Area2D) -> void:
+	if area.get_parent().get_parent().is_in_group(&"Player"):
 		match punching:
 			true:
 				player.takeDamage(2, true, 2.0);
-				player.applyKnockback(KNOCKBACK_VECTOR, 800.0);
+				player.applyKnockback(Vector2.ONE, 800.0);
 			false:
 				player.takeDamage(1, true, 1.0);
-				player.applyKnockback(KNOCKBACK_VECTOR, 300.0);
+				player.applyKnockback(Vector2.ONE, 300.0);
+	elif area.name == &"Stinger":
+		if isPlayerBehind() == true:
+			flip();
+		takeDamage(player.attackDMG);
+				
+func updateHealthBar(hp : int) -> void:
+	create_tween().tween_property(HPBar, "value", hp, 0.2).set_ease(Tween.EASE_IN);
+	
+func takeDamage(amount : int) -> void:
+	var new = Health - amount;
+	Health = new;
+	updateHealthBar(new);
+	if new <= 0:
+		changeState(state.DEAD);
 
 func loseChase() -> void:
 	print("well it seems the player got away somehow");
@@ -165,24 +185,32 @@ func flip() -> void:
 			-1:
 				flipRays(1);
 				direction = 1;
+				
+func punchLambda() -> void:
+	velocity = Vector2(PunchVelocity * direction, 0);
+	
 
 func punch() -> void:
-	# Stop all velocity first
+	if punching: return;
+	
+	# Stop all velocity aafirst
 	velocity = Vector2(0.0, 0.0);
 	changeState(state.CHARGING);
+	
 	if Animator.is_playing():
 		Animator.stop();
 		Animator.play(&"Punching"); 
-		get_tree().physics_frame.connect(func():
-			velocity = Vector2(PunchVelocity * direction, 0)
-		)
-		# TODO: ANIMATION event
+		MarkerReached.connect(func(anim_name):
+			if anim_name == &"Punching":
+				get_tree().physics_frame.connect(punchLambda);
+		, CONNECT_ONE_SHOT);
 	
 	
 func chase() -> void:
 	# Every frame while chasing, decide to do punch by rolling a 10% chance.
 	# Keep in mind the punch can still ricochet the guy off the cliff.
-	if RNG.randi_range(1,10) == 1 and onpunchCD == false:
+	var rand = RNG.randi_range(1,10);
+	if rand == 1 and onpunchCD == false:
 		punch();
 	var SeesCliff = lookforCliff();
 	# Drop the chase if we see a cliff.
@@ -208,7 +236,7 @@ func wander() -> void:
 		flip();
 	else:
 		pass
-	velocity.x = CurrentSpeed * -direction;
+	velocity.x = CurrentSpeed * direction;
 
 func _physics_process(delta: float) -> void:
 	if DrawRaycasts == true and is_instance_valid(self):
@@ -221,4 +249,5 @@ func _physics_process(delta: float) -> void:
 	
 	if not is_on_floor():
 		velocity.y += gravity * delta;
+		
 	move_and_slide();
