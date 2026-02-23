@@ -270,6 +270,8 @@ func Staff() -> void:
 # For when HP hits 0.
 func Die() -> void:
 	changeState(state.DEAD);
+	Animator.stop();
+	Animator.play(&"Defeated");
 	HPBar.visible = false;
 	Player.addScore(100);
 	await Global.wait(0.3);

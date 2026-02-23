@@ -2,8 +2,10 @@
 
 [ext_resource type="Script" uid="uid://dqnlh3vjb5y18" path="res://Anubis.gd" id="1_ebgrx"]
 [ext_resource type="Texture2D" uid="uid://nd5jxqtdkft3" path="res://assets/sprites/Anubis/anubisBase.png" id="2_4l6wv"]
+[ext_resource type="Texture2D" uid="uid://ma7cjw6o83uh" path="res://assets/sprites/Anubis/DieFrame1.png" id="2_rteri"]
 [ext_resource type="Texture2D" uid="uid://g1mrgnr6c7ov" path="res://assets/sprites/Anubis/StaffFrame2.png" id="3_8jqvt"]
 [ext_resource type="Texture2D" uid="uid://jmayrmc7xx4s" path="res://assets/sprites/Anubis/OverheadFrame2.png" id="3_ao5ih"]
+[ext_resource type="Texture2D" uid="uid://dhoum4ggwbb16" path="res://assets/sprites/Anubis/DieFrame2.png" id="3_stmck"]
 [ext_resource type="Texture2D" uid="uid://ci4qjbu3wvcxh" path="res://assets/sprites/Anubis/StompFrame2.png" id="3_yl54q"]
 [ext_resource type="Texture2D" uid="uid://d2u3pmmen11wf" path="res://assets/sprites/Anubis/WalkFrame2.png" id="3_ypou6"]
 [ext_resource type="Texture2D" uid="uid://byd4dqw4286y8" path="res://assets/sprites/Anubis/StompFrame3.png" id="4_aln7m"]
@@ -46,6 +48,21 @@ size = Vector2(20, 45)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ebgrx"]
 size = Vector2(20, 45)
+
+[sub_resource type="Animation" id="Animation_pmcfo"]
+resource_name = "Defeated"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_rteri"), ExtResource("3_stmck")]
+}
 
 [sub_resource type="Animation" id="Animation_4l6wv"]
 resource_name = "Overhead"
@@ -204,6 +221,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ypou6"]
 _data = {
+&"Defeated": SubResource("Animation_pmcfo"),
 &"Overhead": SubResource("Animation_4l6wv"),
 &"RESET": SubResource("Animation_evt28"),
 &"Staff": SubResource("Animation_ypou6"),
@@ -214,15 +232,6 @@ _data = {
 
 [node name="Anubis" type="CharacterBody2D" unique_id=1508226872]
 script = ExtResource("1_ebgrx")
-Health = null
-IgnorePlayer = null
-CurrentSpeed = null
-gravityprone = null
-gravity = null
-CurrentState = null
-CurrentAttack = null
-LastUsedAttack = null
-direction = null
 
 [node name="Anubis_Hitbox" type="CollisionShape2D" parent="." unique_id=709217228]
 position = Vector2(0, -10.5)
