@@ -473,11 +473,6 @@ rotation = -1.5707964
 scale = Vector2(0.23040731, 0.28510484)
 texture = ExtResource("11_7r35f")
 
-[node name="Player" parent="." unique_id=1219857062 instance=ExtResource("12_n7knr")]
-position = Vector2(20243, 889)
-collision_mask = 1
-floor_block_on_wall = false
-
 [node name="Placeholder" type="Sprite2D" parent="." unique_id=1482922241]
 position = Vector2(148, 33)
 
@@ -492,11 +487,14 @@ shape = SubResource("RectangleShape2D_h2yge")
 [node name="BGMusicPlayer" parent="." unique_id=1863265657 instance=ExtResource("15_7qw2m")]
 mix_target = 2
 
+[node name="Player" parent="." unique_id=1041797437 instance=ExtResource("12_n7knr")]
+position = Vector2(20717, 773)
+
 [node name="LevelEnd" type="Area2D" parent="." unique_id=595983499]
 position = Vector2(25088.611, 931.5922)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelEnd" unique_id=945549586]
-position = Vector2(-4450.6113, -110.592224)
+position = Vector2(-4030.6113, -46.592224)
 shape = SubResource("RectangleShape2D_w3cr1")
 
 [node name="Coins" type="Node" parent="." unique_id=967519725]
@@ -512,7 +510,7 @@ position = Vector2(20381, 891)
 value = 5
 
 [node name="Bridge" parent="." unique_id=1996574672 instance=ExtResource("17_38gbn")]
-position = Vector2(25542, 661)
+position = Vector2(20832, 693)
 
 [node name="Test" type="Node2D" parent="." unique_id=659662699]
 position = Vector2(20321, 888)

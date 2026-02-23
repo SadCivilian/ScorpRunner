@@ -172,8 +172,7 @@ _data = {
 &"Stinger": SubResource("Animation_5ncpa")
 }
 
-[node name="Player" type="CharacterBody2D" unique_id=1041797437]
-collision_mask = 0
+[node name="Player" type="CharacterBody2D" unique_id=1041797437 groups=["Player"]]
 script = ExtResource("1_kpjcp")
 
 [node name="Model" type="Sprite2D" parent="." unique_id=1946451531]

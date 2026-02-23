@@ -1,12 +1,34 @@
 [gd_scene format=3 uid="uid://bp8bc23tb26jy"]
 
-[ext_resource type="Script" uid="uid://cfh8kypb7tnd6" path="res://trigger.gd" id="1_r7rtx"]
+[sub_resource type="GDScript" id="GDScript_w1vxf"]
+script/source = "extends Area2D
+
+@export var bridge_node : Control
+var triggered : bool = false
+func _ready():
+	bridge_node = get_tree().current_scene.find_child(\"Node2D2\").find_child(\"Control\");
+	if bridge_node:
+		bridge_node.rotation = 0
+	if not body_entered.is_connected(_on_body_entered):
+		body_entered.connect(_on_body_entered)
+		
+func tweenBridge() -> void:
+	if bridge_node == null: return
+	var hedef_aci = deg_to_rad(90.0);
+	var tween = create_tween()
+	tween.tween_property(bridge_node, \"rotation\", hedef_aci, 3.5).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUART)
+	
+func _on_body_entered(incoming_body):
+	if incoming_body.name == \"Player\" and not triggered:
+		triggered = true
+		tweenBridge()
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_setfl"]
 size = Vector2(20, 17)
 
 [node name="Trigger" type="Area2D" unique_id=1505523513]
-script = ExtResource("1_r7rtx")
+script = SubResource("GDScript_w1vxf")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=161254635]
 position = Vector2(0, -1.5)

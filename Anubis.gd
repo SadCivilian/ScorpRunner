@@ -274,12 +274,15 @@ func Die() -> void:
 	Animator.play(&"Defeated");
 	HPBar.visible = false;
 	Player.addScore(100);
-	await Global.wait(0.3);
-	var curr = Model.modulate;
-	var tweener = create_tween().tween_property(Model, "modulate:a", 0, 0.2).set_ease(Tween.EASE_IN);
-	tweener.finished.connect(func():
-		queue_free();	
-	)
+	MarkerReached.connect(func(anim_name):
+		if anim_name == &"Defeated":
+			var curr = Model.modulate;
+			var tweener = create_tween().tween_property(Model, "modulate:a", 0, 0.2).set_ease(Tween.EASE_IN);
+			tweener.finished.connect(func():
+				queue_free();	
+			)			
+	, CONNECT_ONE_SHOT);
+
 	
 
 	

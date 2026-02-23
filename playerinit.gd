@@ -14,6 +14,7 @@ extends CharacterBody2D
 @export var gravityprone = true; # controls gravity
 @export var iframes = false; # controls if char has iframes
 @export var dead = false;
+@export var facing : int = 1 # An alternative to direction which is statically changed instead of being reliant on inputs.
 @onready var sprite : Sprite2D = $Model;
 @onready var HurtBox = $Model/HurtArea/Hurtbox;
 @onready var HurtArea = $Model/HurtArea;
@@ -33,7 +34,6 @@ var onfloor : bool;
 var jumpedfromvalid : bool = false; # if the player jumped from a surface (aka they can bypass the check to see if they're on a surface to double jump)
 var beingKnockedBack : bool = false;
 var currentKnockbackForce : Vector2 = Vector2.ZERO;
-var facing : int = 1 # An alternative to direction which is statically changed instead of being reliant on inputs.
 
 func connectListeners() -> void:
 	DeathZone.area_entered.connect(area_entered_clbk);
@@ -66,13 +66,8 @@ func onAttackCooldownFinished() -> void:
 func _ready() -> void:
 	add_to_group(&"Player");
 	connectListeners();	
-	# FadeTransition.transition(FadeTransition.TransitionType.OTHER);
 	
-	# Cam.setSteppedclbk(func(): print("this is from the clbk"));
-	# await get_tree().create_timer(2.0).timeout;
-	# Cam.clearSteppedclbk();
-	# print("cleared clbk now!");
-
+	
 # Gives character iframes.
 func enableIFrames(timeout : float = 2.0) -> void:
 	self.iframes = true;

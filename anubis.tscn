@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dhoum4ggwbb16" path="res://assets/sprites/Anubis/DieFrame2.png" id="3_stmck"]
 [ext_resource type="Texture2D" uid="uid://ci4qjbu3wvcxh" path="res://assets/sprites/Anubis/StompFrame2.png" id="3_yl54q"]
 [ext_resource type="Texture2D" uid="uid://d2u3pmmen11wf" path="res://assets/sprites/Anubis/WalkFrame2.png" id="3_ypou6"]
+[ext_resource type="Texture2D" uid="uid://cvglj041j5weu" path="res://assets/sprites/Anubis/DieFrame3.png" id="4_8yvmi"]
 [ext_resource type="Texture2D" uid="uid://byd4dqw4286y8" path="res://assets/sprites/Anubis/StompFrame3.png" id="4_aln7m"]
 [ext_resource type="Texture2D" uid="uid://d3i2poj620xdd" path="res://assets/sprites/Anubis/OverheadFrame3.png" id="4_mvaxl"]
 [ext_resource type="Texture2D" uid="uid://clulxt5dhnkpp" path="res://assets/sprites/Anubis/StaffFrame3.png" id="4_rj615"]
@@ -58,10 +59,24 @@ tracks/0/path = NodePath("Model:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [ExtResource("2_rteri"), ExtResource("3_stmck")]
+"values": [ExtResource("2_rteri"), ExtResource("3_stmck"), ExtResource("4_8yvmi")]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.9),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"Defeated"],
+"method": &"onMarkerReached"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_4l6wv"]

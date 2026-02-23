@@ -13,13 +13,13 @@ func onMarkerReached(anim_name : StringName) -> void:
 signal onStateChanged(state);
 enum state {WANDER, CHARGING, DEAD, CHASE};
 const WanderSpeed : int = 20;
-const ChaseSpeed : int = 10;
+const ChaseSpeed : int = 30;
 const PunchVelocity = 200;
 var isonfloor = true;
 var isdying = false;
 var RNG : RandomNumberGenerator = RandomNumberGenerator.new();
 @export var IgnorePlayer : bool = false;
-@export var DrawRaycasts : bool = false;
+@export var DrawRaycasts : bool = true;
 @export var CurrentSpeed : int = 20;
 @export var gravityprone : bool = true; 
 @export var gravity : int = 300;
@@ -41,8 +41,8 @@ var RNG : RandomNumberGenerator = RandomNumberGenerator.new();
 
 # target_position (x,y)/position (x,y)
 const GROUND_RIGHT_FLIP_VEC_POS = [30.0, 22.0, 0.0, 0.0];
-const GROUND_LEFT_FLIP_VEC_POS = [-30.0, 22.0, 0.0, 0.0];
-const SIGHT_LEFT_FLIP_VEC_POS = [-60.0, 0.0, 0.0, 0.0];
+const GROUND_LEFT_FLIP_VEC_POS = [-30.0, 22.0, -5.0, 0.0];
+const SIGHT_LEFT_FLIP_VEC_POS = [-60.0, 0.0, -5.0, 0.0];
 const SIGHT_RIGHT_FLIP_VEC_POS = [60.0, 0.0, 0.0, 0.0];
 
 func _ready() -> void:
@@ -103,15 +103,7 @@ func lookforCliff() -> bool:
 		return false
 		
 func isPlayerBehind() -> bool:
-	var selfPos = self.global_position;
-	var playerPos = player.global_position;
-	var signed = -sign(selfPos.x - playerPos.x);
-	match signed:
-		-1.0:
-			return true
-		1.0:
-			return false
-	return false # null guard
+	return player.facing == direction;
 			
 # This is where the match case for when the enemy is punching is initiated.
 func onHitboxEntered(area : Area2D) -> void:
@@ -149,19 +141,6 @@ func drawRays() -> void:
 func flipRays(lr : int) -> void:
 	match lr:
 		1:
-			var comp1 = SIGHT_LEFT_FLIP_VEC_POS[0]; 
-			var comp2 = SIGHT_LEFT_FLIP_VEC_POS[1]; 
-			var comp3 = SIGHT_LEFT_FLIP_VEC_POS[2]; 
-			var comp4 = SIGHT_LEFT_FLIP_VEC_POS[3]; 
-			var comp5 = GROUND_LEFT_FLIP_VEC_POS[0];
-			var comp6 = GROUND_LEFT_FLIP_VEC_POS[1];
-			var comp7 = GROUND_LEFT_FLIP_VEC_POS[2];
-			var comp8 = GROUND_LEFT_FLIP_VEC_POS[3];
-			SightRay.target_position = Vector2(comp1, comp2);
-			SightRay.position = Vector2(comp3, comp4);
-			GroundRay.target_position = Vector2(comp5, comp6);
-			GroundRay.position = Vector2(comp7, comp8);
-		-1:
 			var comp1 = SIGHT_RIGHT_FLIP_VEC_POS[0]; 
 			var comp2 = SIGHT_RIGHT_FLIP_VEC_POS[1]; 
 			var comp3 = SIGHT_RIGHT_FLIP_VEC_POS[2]; 
@@ -170,6 +149,19 @@ func flipRays(lr : int) -> void:
 			var comp6 = GROUND_RIGHT_FLIP_VEC_POS[1];
 			var comp7 = GROUND_RIGHT_FLIP_VEC_POS[2];
 			var comp8 = GROUND_RIGHT_FLIP_VEC_POS[3];
+			SightRay.target_position = Vector2(comp1, comp2);
+			SightRay.position = Vector2(comp3, comp4);
+			GroundRay.target_position = Vector2(comp5, comp6);
+			GroundRay.position = Vector2(comp7, comp8);
+		-1:
+			var comp1 = SIGHT_LEFT_FLIP_VEC_POS[0]; 
+			var comp2 = SIGHT_LEFT_FLIP_VEC_POS[1]; 
+			var comp3 = SIGHT_LEFT_FLIP_VEC_POS[2]; 
+			var comp4 = SIGHT_LEFT_FLIP_VEC_POS[3]; 
+			var comp5 = GROUND_LEFT_FLIP_VEC_POS[0];
+			var comp6 = GROUND_LEFT_FLIP_VEC_POS[1];
+			var comp7 = GROUND_LEFT_FLIP_VEC_POS[2];
+			var comp8 = GROUND_LEFT_FLIP_VEC_POS[3];
 			SightRay.target_position = Vector2(comp1, comp2);
 			SightRay.position = Vector2(comp3, comp4);
 			GroundRay.target_position = Vector2(comp5, comp6);
@@ -207,6 +199,7 @@ func punch() -> void:
 	
 	
 func chase() -> void:
+	print("chasing");
 	# Every frame while chasing, decide to do punch by rolling a 10% chance.
 	# Keep in mind the punch can still ricochet the guy off the cliff.
 	var rand = RNG.randi_range(1,10);
@@ -247,7 +240,8 @@ func _physics_process(delta: float) -> void:
 	elif self.CurrentState == state.CHASE:
 		chase();
 	
-	if not is_on_floor():
+	if not isonfloor:
+		print("affected");
 		velocity.y += gravity * delta;
 		
 	move_and_slide();
