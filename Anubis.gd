@@ -6,10 +6,12 @@ var mummyScene = preload("res://Mummy.tscn");
 var mummyScript = preload("res://MummyBrain.gd");
 var ShockwaveScene = preload("res://Shockwave.tscn");
 var BlastScene = preload("res://Blast.tscn");
+var PortalScene = preload("res://ending_portal.tscn");
+var HeartScene = preload("res://Heart.tscn");
 @onready var scene = get_tree().current_scene;
 
 # ANIMATION EVENT STUFF
-const AnimEvents : Array[StringName] = [&"Overhead", &"Staff", &"Stomp", &"Summoning"];
+const AnimEvents : Array[StringName] = [&"Overhead", &"Staff", &"Stomp", &"Summoning", &"Defeated"];
 signal MarkerReached(anim_name : StringName);
 
 func onMarkerReached(anim_name : StringName) -> void:
@@ -20,11 +22,13 @@ func onMarkerReached(anim_name : StringName) -> void:
 signal onStateChanged(state);
 enum state {FIGHT, DEAD, HIT};
 enum attacks {SUMMONING, STAFF, STOMP, OVERHEAD, NIL};
-const TimeBetweenAttacks : int = 5;
+const TimeBetweenAttacks : int = 10;
 var caninitiate = true;
 var isonfloor = true;
 var isdying = false;
 var closeEnoughtoOverhead = false;
+var isExecutingAttack = false;
+var isFlipping = false;
 @export var Health = 750;
 @export var IgnorePlayer = false;
 @export var CurrentSpeed = 20;
@@ -46,7 +50,6 @@ var closeEnoughtoOverhead = false;
 func _ready() -> void:
 	Hitbox.area_entered.connect(onSelfEntered);
 	CD.timeout.connect(func():
-		print("we're off move cooldown now");
 		caninitiate = true;	
 	)
 	Animator.animation_finished.connect(func(anim_name):
@@ -54,37 +57,44 @@ func _ready() -> void:
 			&"Summoning":
 				CurrentAttack = attacks.NIL;
 				LastUsedAttack = attacks.SUMMONING;
+				isExecutingAttack = false;
 			&"Overhead":
 				CurrentAttack = attacks.NIL;
 				LastUsedAttack = attacks.OVERHEAD;
+				isExecutingAttack = false;
 			&"Staff":
 				CurrentAttack = attacks.NIL;
 				LastUsedAttack = attacks.STAFF;
+				isExecutingAttack = false;
 			&"Stomp":
 				MarkerReached.disconnect(stompLambda);
 				CurrentAttack = attacks.NIL;
 				LastUsedAttack = attacks.STOMP;
+				isExecutingAttack = false;
 	);
 	add_to_group(&"AnubisBoss");
 	
 # Need to figure out turning logic? Or always face player?
 func _physics_process(delta : float) -> void:
+	var facingRight = isFacingPlayer();
+	if not facingRight and not isFlipping:
+		isFlipping = true;
+		await Global.wait(1);
+		flip();
+		isFlipping = false;
 	Model.flip_h = not Global.IntToBool(direction); # Normalize model I guess
-	if not IgnorePlayer:
+	if not IgnorePlayer and not isdying:
 		var playerPos = Player.global_position;
 		var selfPos = self.global_position;
 		var yDiff = abs(selfPos.y - playerPos.y);
 		var xDiff = abs(selfPos.x - playerPos.x);
-		var signed = sign(selfPos.x - playerPos.x);
-		var can : bool = yDiff < 3.0 and LastUsedAttack != attacks.OVERHEAD and sign(direction) == -signed and xDiff < abs(direction * 50)
+		var can : bool = yDiff < 3.0 and LastUsedAttack != attacks.OVERHEAD and facingRight and xDiff < abs(direction * 80)
 		# First, figure out if we can do the overhead if we're close enough, off cooldown, and facing the right dir
 		if can:
 			closeEnoughtoOverhead = true;
 		else:
 			closeEnoughtoOverhead = false;
-		if caninitiate and CurrentAttack == attacks.NIL:
-			print("not walk")
-			print(Animator.current_animation);
+		if caninitiate and CurrentAttack == attacks.NIL and isExecutingAttack == false:
 			var attack = DecideNextAttack();
 			call(attack);
 		else:
@@ -92,15 +102,21 @@ func _physics_process(delta : float) -> void:
 			
 		if not is_on_floor():
 			velocity.y += gravity * delta;
-			
-	move_and_slide();		
+		move_and_slide();		
 	
 			
 func walkLoop() -> void:
+	# sanity
+	if CurrentAttack != attacks.NIL:
+		return;
+		
 	if Animator.current_animation != &"Walk" and velocity != Vector2(0,0):
 		Animator.play(&"Walk");
 	velocity.x = CurrentSpeed * direction;
 
+func flip() -> void:
+	direction = -direction;
+	Model.flip_h = not Model.flip_h;
 		
 func Halt() -> void:
 	velocity.x = 0;
@@ -123,8 +139,10 @@ func onSelfEntered(area : Area2D) -> void:
 		takeDamage(Player.attackDMG);
 	elif area.get_parent().get_parent().is_in_group(&"Player"):
 		Player.takeDamage(1, 1.0, true);	
+		Player.applyKnockback(Vector2(1,2), 500);
 	elif area.get_parent().is_in_group(&"Player"):
 		Player.takeDamage(1, 1.0, true);
+		Player.applyKnockback(Vector2.ONE, 500);
 
 func updateHealthBar(hp : int) -> void:
 	create_tween().tween_property(HPBar, "value", hp, 0.2).set_ease(Tween.EASE_IN);
@@ -135,16 +153,23 @@ func takeDamage(amount : int) -> void:
 	updateHealthBar(new);
 	if new <= 0:
 		Die();
+		
+func isFacingPlayer() -> bool:
+	var selfPos = self.global_position;
+	var playerPos = Player.global_position;
+	var isPlayerInFront = Global.IntToBool(sign(selfPos.x - playerPos.x));
+	if isPlayerInFront:
+		return direction == 1
+	else:
+		return direction  == -1
 	
 func DecideNextAttack() -> StringName:
 	while true:
 		var random = randi_range(0,3);
-		if random == (LastUsedAttack as int):
-			print("SAME!");
+		if random == (LastUsedAttack as int) or (random == (attacks.OVERHEAD as int) and closeEnoughtoOverhead == false):
 			continue
 		else:
 			var attackName = attacks.find_key(random).capitalize();		
-			print("decided for " + attackName);
 			return attackName;
 	return &"";
 	
@@ -172,7 +197,7 @@ func checkIfPlayerHit(hitbox : Area2D) -> bool:
 # Summoning attack. Enemy is buffed.
 #TODO: fade it in
 func Summoning() -> void:
-	print("executing summon");
+	isExecutingAttack = true;
 	CurrentAttack = attacks.SUMMONING;
 	Animator.stop();
 	Halt();
@@ -182,7 +207,7 @@ func Summoning() -> void:
 		if anim_name == &"Summoning":
 			var newMummy = Global.Create(mummyScene);
 			newMummy.CurrentSpeed = 20;
-			newMummy.DrawRaycasts = false;
+			newMummy.DrawRaycasts = true;
 			newMummy.IgnorePlayer = false;
 			newMummy.gravityprone = true;
 			newMummy.gravity = 300;
@@ -191,7 +216,16 @@ func Summoning() -> void:
 			newMummy.punchCD = 5;
 			newMummy.onpunchCD = false;
 			newMummy.punching = false;
+			newMummy.Spawned = true;
 			newMummy.global_position = self.global_position; # hack, fix later
+			newMummy.killed.connect(func():
+				if randi_range(0, 1) == 0:
+					var hp = Global.Create(HeartScene);
+					hp.global_position = Vector2(newMummy.global_position.x, newMummy.global_position.y + 3);
+					hp.picked = false;
+					scene.add_child(hp);
+					print("hp spawned");
+			)
 			scene.add_child(newMummy);
 	, CONNECT_ONE_SHOT)
 	Animator.play(&"Summoning");
@@ -199,7 +233,6 @@ func Summoning() -> void:
 func stompLambda(anim_name : StringName) -> void:
 	if anim_name == &"Stomp":
 		for i in [-1, 1]:
-			print(i);
 			var vec;
 			var new = Global.Create(ShockwaveScene);
 			new.direct = i;
@@ -215,6 +248,7 @@ func stompLambda(anim_name : StringName) -> void:
 			
 # Stomping attack.
 func Stomp() -> void:
+	isExecutingAttack = true;
 	print("executing stomp");
 	CurrentAttack = attacks.STOMP;
 	MarkerReached.connect(stompLambda);
@@ -226,11 +260,12 @@ func Stomp() -> void:
 	
 
 func Overhead() -> void:
+	isExecutingAttack = true;
 	print("executing overhead");
-	var pos = self.global_position + Vector2(25 * direction, -3.5);
 	CurrentAttack = attacks.OVERHEAD;
 	MarkerReached.connect(func(anim_name):
 		if anim_name == &"Overhead":
+			var pos = self.global_position + Vector2(25 * direction, -3.5);
 			var newBox = Global.MakeHitbox(1, 40.0, 30.0, pos);
 			scene.add_child(newBox);
 			var visualizer = Global.visualizeArea(newBox);
@@ -249,6 +284,7 @@ func Overhead() -> void:
 	
 # Ranged attack.
 func Staff() -> void:
+	isExecutingAttack = true;
 	print("executing staff");
 	CurrentAttack = attacks.STAFF;
 	MarkerReached.connect(func(anim_name):
@@ -269,6 +305,7 @@ func Staff() -> void:
 
 # For when HP hits 0.
 func Die() -> void:
+	isdying = true;
 	changeState(state.DEAD);
 	Animator.stop();
 	Animator.play(&"Defeated");
@@ -282,7 +319,14 @@ func Die() -> void:
 				queue_free();	
 			)			
 	, CONNECT_ONE_SHOT);
-
+	# Only run if in ending scene
+	if Global.GetCurrentScene() == &"shn4":
+		var pos = get_tree().current_scene.find_child(&"PortalSpawn").global_position;
+		var portal = Global.Create(PortalScene);
+		portal.Model.modulate.a = 0;
+		portal.global_position = pos;
+		create_tween().tween_property(portal.Model, "modulate:a", 1.0, 0.5);
+		
 	
 
 	

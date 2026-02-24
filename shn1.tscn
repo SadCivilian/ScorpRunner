@@ -15,12 +15,12 @@
 [ext_resource type="PackedScene" uid="uid://dsr3vrh4sebyt" path="res://snake.tscn" id="13_2xn8o"]
 [ext_resource type="PackedScene" uid="uid://wngjkw8mu783" path="res://PlayerCamera.tscn" id="14_qytd6"]
 [ext_resource type="PackedScene" uid="uid://d3v672i3o8v2k" path="res://BG_Music_Player.tscn" id="15_7qw2m"]
-[ext_resource type="PackedScene" uid="uid://0irbyaoubumg" path="res://bridge.tscn" id="17_38gbn"]
 [ext_resource type="PackedScene" uid="uid://dxu50grlog0dv" path="res://assets/coins/Coin.tscn" id="17_w7x6o"]
 [ext_resource type="PackedScene" uid="uid://cxcxwjustky3m" path="res://assets/coins/Cointen.tscn" id="18_ynqkk"]
 [ext_resource type="PackedScene" uid="uid://fvgbkxswaebg" path="res://assets/coins/Coinfive.tscn" id="19_peo2a"]
+[ext_resource type="PackedScene" uid="uid://dpgtf6bhnq8xm" path="res://Heart.tscn" id="21_ynqkk"]
+[ext_resource type="PackedScene" uid="uid://oocei46ao6iw" path="res://checkpoint.tscn" id="22_ej03g"]
 [ext_resource type="PackedScene" uid="uid://d3uwg3kvod77e" path="res://chest.tscn" id="22_peo2a"]
-[ext_resource type="PackedScene" uid="uid://inednby1yotr" path="res://Mummy.tscn" id="23_a1d00"]
 [ext_resource type="PackedScene" uid="uid://cyveko28vppar" path="res://papar.tscn" id="23_ej03g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_272bh"]
@@ -488,7 +488,7 @@ shape = SubResource("RectangleShape2D_h2yge")
 mix_target = 2
 
 [node name="Player" parent="." unique_id=1041797437 instance=ExtResource("12_n7knr")]
-position = Vector2(20717, 773)
+position = Vector2(20109, 887)
 
 [node name="LevelEnd" type="Area2D" parent="." unique_id=595983499]
 position = Vector2(25088.611, 931.5922)
@@ -509,19 +509,13 @@ position = Vector2(20370, 893)
 position = Vector2(20381, 891)
 value = 5
 
-[node name="Bridge" parent="." unique_id=1996574672 instance=ExtResource("17_38gbn")]
-position = Vector2(20832, 693)
-
 [node name="Test" type="Node2D" parent="." unique_id=659662699]
-position = Vector2(20321, 888)
+position = Vector2(20321, 889)
 
 [node name="Enemies" type="Node" parent="." unique_id=1223594341]
 
 [node name="Snake" parent="Enemies" unique_id=1519851614 instance=ExtResource("13_2xn8o")]
 position = Vector2(20947, 890)
-
-[node name="Mummy" parent="Enemies" unique_id=1543909718 instance=ExtResource("23_a1d00")]
-position = Vector2(20095, 889)
 
 [node name="Chests" type="Node" parent="." unique_id=560478682]
 
@@ -530,3 +524,11 @@ position = Vector2(21379, 746)
 
 [node name="NoteUI" parent="." unique_id=1832806798 instance=ExtResource("23_ej03g")]
 position = Vector2(21379, 686)
+
+[node name="Hearts" type="Node" parent="." unique_id=1531288982]
+
+[node name="Root" parent="Hearts" unique_id=2033917418 instance=ExtResource("21_ynqkk")]
+position = Vector2(20340, 893)
+
+[node name="check1" parent="." unique_id=861267910 instance=ExtResource("22_ej03g")]
+position = Vector2(20283, 934)

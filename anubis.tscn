@@ -45,10 +45,10 @@
 [ext_resource type="Texture2D" uid="uid://bwtu0gau0yhko" path="res://assets/sprites/Anubis/SummonFrame6.png" id="23_gca8h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4l6wv"]
-size = Vector2(20, 45)
+size = Vector2(20, 44)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ebgrx"]
-size = Vector2(20, 45)
+size = Vector2(20, 44)
 
 [sub_resource type="Animation" id="Animation_pmcfo"]
 resource_name = "Defeated"
@@ -209,7 +209,7 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(1.1333333),
+"times": PackedFloat32Array(1.4666667),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [&"Summoning"],
@@ -249,13 +249,13 @@ _data = {
 script = ExtResource("1_ebgrx")
 
 [node name="Anubis_Hitbox" type="CollisionShape2D" parent="." unique_id=709217228]
-position = Vector2(0, -10.5)
+position = Vector2(0, -11)
 shape = SubResource("RectangleShape2D_4l6wv")
 
 [node name="Anubis_HitboxArea" type="Area2D" parent="." unique_id=577648181]
 
 [node name="Area" type="CollisionShape2D" parent="Anubis_HitboxArea" unique_id=297710812]
-position = Vector2(0, -10.5)
+position = Vector2(0, -11)
 shape = SubResource("RectangleShape2D_ebgrx")
 
 [node name="Animator" type="AnimationPlayer" parent="." unique_id=1724057311]
@@ -274,8 +274,8 @@ offset_left = -159.99998
 offset_top = -290.0
 offset_right = 179.99998
 offset_bottom = -270.0
-max_value = 250.0
-value = 250.0
+max_value = 750.0
+value = 750.0
 show_percentage = false
 
 [node name="CD" type="Timer" parent="." unique_id=897517077]

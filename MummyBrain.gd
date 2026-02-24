@@ -11,6 +11,8 @@ func onMarkerReached(anim_name : StringName) -> void:
 		MarkerReached.emit(anim_name);  
 
 signal onStateChanged(state);
+signal killed();
+
 enum state {WANDER, CHARGING, DEAD, CHASE};
 const WanderSpeed : int = 20;
 const ChaseSpeed : int = 30;
@@ -29,6 +31,7 @@ var RNG : RandomNumberGenerator = RandomNumberGenerator.new();
 @export var onpunchCD : bool = false; 
 @export var punching : bool = false;
 @export var Health : int = 60;
+@export var Spawned : bool = false; # Controls if the enemy is spawned, so it won't be added to the felled list
 @onready var HPBar : ProgressBar = $Model/ProgressBar;
 @onready var player: CharacterBody2D = get_tree().get_first_node_in_group("Player");
 @onready var SightRay : RayCast2D = $SightRay; 
@@ -49,14 +52,12 @@ func _ready() -> void:
 	SightRay.collision_mask = 1;
 	HitboxArea.area_entered.connect(onHitboxEntered);
 	Animator.animation_finished.connect(func(anim_name):
-		if anim_name == &"Dying":
+		if anim_name == &"Dying" and Spawned == false:
 			Global.FelledEnemies.append(self.name);
 			print("dying finished");
 			changeState(state.DEAD);
 		elif anim_name == &"Punching":
 			punching = false;
-			# After punching the mummy goes into wander? I probably will want to change this later.
-			changeState(state.WANDER);
 	)
 	onStateChanged.connect(func(newstate : state):
 		onstateChanged(newstate);
@@ -78,6 +79,7 @@ func onstateChanged(newstate : state) -> void:
 			onpunchCD = true;
 			CD.start(punchCD);
 		state.DEAD:
+			killed.emit();
 			player.addScore(25);
 			queue_free();
 			
@@ -172,9 +174,11 @@ func flip() -> void:
 		Model.flip_h = not Model.flip_h;
 		match direction:
 			1:
+				HPBar.global_position.x = HPBar.global_position.x - 5
 				flipRays(-1);
 				direction = -1;
 			-1:
+				HPBar.global_position.x = HPBar.global_position.x + 5
 				flipRays(1);
 				direction = 1;
 				
@@ -185,7 +189,7 @@ func punchLambda() -> void:
 func punch() -> void:
 	if punching: return;
 	
-	# Stop all velocity aafirst
+	# Stop all velocity first
 	velocity = Vector2(0.0, 0.0);
 	changeState(state.CHARGING);
 	
@@ -200,9 +204,9 @@ func punch() -> void:
 	
 func chase() -> void:
 	print("chasing");
-	# Every frame while chasing, decide to do punch by rolling a 10% chance.
+	# Every frame while chasing, decide to do punch by rolling a 1% chance.
 	# Keep in mind the punch can still ricochet the guy off the cliff.
-	var rand = RNG.randi_range(1,10);
+	var rand = RNG.randi_range(1,100);
 	if rand == 1 and onpunchCD == false:
 		punch();
 	var SeesCliff = lookforCliff();
@@ -241,7 +245,6 @@ func _physics_process(delta: float) -> void:
 		chase();
 	
 	if not isonfloor:
-		print("affected");
 		velocity.y += gravity * delta;
 		
 	move_and_slide();

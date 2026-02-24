@@ -6,11 +6,16 @@ extends CanvasLayer
 @onready var Score : RichTextLabel = $Score;
 @onready var Thanks : RichTextLabel = $Thanks;
 @onready var Logo : Sprite2D = $Logo;
+@onready var ReplayButton : Button = $ReplayButton;
 
 @onready var Player = get_tree().get_first_node_in_group(&"Player");
 @onready var PlayerData = Player.getUserData()
 
 func _ready() -> void:
+	ReplayButton.pressed.connect(func():
+		var packed = Global.GetSceneFromString(&"shn1");
+		get_tree().change_scene_to_packed(packed);		
+	);
 	ScoreLabel.text = "Score: ";
 	Score.text = str(PlayerData[&"Score"]);
 
@@ -24,4 +29,5 @@ func TriggerCutscene() -> void:
 		text_tween.tween_property(FinishLabel, "modulate:a", 1.0, 0.5); 
 		text_tween.tween_property(Thanks, "modulate:a", 1.0, 0.5);     
 		text_tween.tween_property(Logo, "modulate:a", 1.0, 0.5);
+		text_tween.tween_property(ReplayButton, "modulate:a", 1.0, 0.5);
 	)

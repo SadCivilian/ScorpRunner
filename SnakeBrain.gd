@@ -50,7 +50,7 @@ func onHeadEntered(area : Area2D) -> void:
 func onHitboxEntered(body : PhysicsBody2D) -> void:
 	if body.name == "Player":
 		player.takeDamage(1, true, 1.0);
-		if player.hasiframes == true: return;
+		if player.iframes == true: return;
 		match self.direction:
 			1:
 				player.applyKnockback(KNOCKBACK_VECTOR, -200.0);

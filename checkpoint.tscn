@@ -3,10 +3,12 @@
 [ext_resource type="Script" uid="uid://dmkdad1iuwel0" path="res://checkpoint.gd" id="1_luqgl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_njsvn"]
+size = Vector2(20, 60)
 
 [node name="checkpoint" type="Area2D" unique_id=861267910]
 script = ExtResource("1_luqgl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1130694562]
+position = Vector2(0, -20)
 shape = SubResource("RectangleShape2D_njsvn")
 debug_color = Color(1, 0, 0, 0.41960785)

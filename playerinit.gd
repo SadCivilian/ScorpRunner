@@ -144,10 +144,11 @@ func _input(keyevent : InputEvent) -> void:
 		attack();	
 	
 func takeDamage(amount : int, triggeriframes : bool = true, iframetime : float = 1.0) -> void:
-	if iframes == false:
+	if iframes == false or amount < 0:
 		self.Health -= amount;
-		Flasher.visible = true
-		DamagedAnimator.play(&"Damaged");
+		if triggeriframes == true:
+			Flasher.visible = true
+			DamagedAnimator.play(&"Damaged");
 		Global.emit_signal(&"PlayerHealthChanged");	
 		if self.Health <= 0:
 			GameOver();
@@ -192,6 +193,7 @@ func Disperse() -> void:
 	DisperseCollectedCoins();
 	DisperseOpenedChests();
 	DisperseKilledEnemies();
+	DisperseCollectedHearts();
 
 func DisperseKilledEnemies() -> void:
 	var enemiesNode = get_tree().current_scene.find_child(&"Enemies");
@@ -208,13 +210,20 @@ func DisperseCollectedCoins() -> void:
 			node.queue_free();
 		
 func DisperseOpenedChests() -> void:
-	var openTexture = load("res://assets/sprites/chestopen.jpeg")
-	var chestsNode = get_tree().current_scene.find_child(&"Chests")
+	var openTexture = load("res://assets/sprites/chestopen.jpeg");
+	var chestsNode = get_tree().current_scene.find_child(&"Chests");
 	for chestName in Global.OpenedChests:
 		var node = chestsNode.find_child(chestName);
 		if node:
-			node.opened = true
-			node.get_child(2).texture = openTexture
+			node.opened = true;
+			node.get_child(2).texture = openTexture;
+
+func DisperseCollectedHearts() -> void:
+	var heartsNode = get_tree().current_scene.find_child(&"Hearts");
+	for heartName in Global.TakenHearts:
+		var node = heartsNode.find_child(heartName);
+		if node:
+			node.queue_free();
 		
 func loadPlayerState() -> void:
 	var userData = getUserData();
@@ -243,6 +252,7 @@ func applyKnockback(direction : Vector2, strength : float) -> void:
 	
 func update_animations() -> void:
 	if isAttacking:
+		Animator.stop();
 		return;
 	
 	if not is_on_floor():

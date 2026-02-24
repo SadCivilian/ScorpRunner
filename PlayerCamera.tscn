@@ -88,6 +88,9 @@ _data = {
 &"fade_to_normal": SubResource("Animation_4c57u")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qqtj1"]
+bg_color = Color(0.35686275, 0, 0.12156863, 1)
+
 [node name="Camera2D" type="Camera2D" unique_id=1206915148]
 zoom = Vector2(3.5, 3.5)
 script = ExtResource("1_brkmr")
@@ -252,3 +255,13 @@ z_index = 4096
 position = Vector2(973, 459)
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("9_qqtj1")
+
+[node name="ReplayButton" type="Button" parent="GameWinUI" unique_id=1892056391]
+modulate = Color(1, 1, 1, 0)
+offset_left = 493.0
+offset_top = 52.0
+offset_right = 672.0
+offset_bottom = 99.0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_qqtj1")
+text = "Replay?"

@@ -11,6 +11,7 @@ var Debris : Array[Variant] = [];
 var CollectedCoins = []; # Coins which were collected.
 var FelledEnemies = []; # Killed enemies which will not respawn. 
 var OpenedChests = [] # Opened chests which will spawn open.
+var TakenHearts = [] # Hearts which have been collected and will not spawn.
 
 var SceneTransitions = {
 	&"shn1" : &"shn2",
@@ -132,6 +133,8 @@ func IntToBool(integer : int) -> bool:
 	match integer:
 		-1:
 			return true
+		0: 
+			return false
 		1:
 			return false
 		_:
@@ -143,7 +146,7 @@ func Create(loaded : Resource) -> Node:
 	return loaded.instantiate();
 
 func _GBOSSFIGHTVARS(boss : Node) -> void:
-	boss.Health = 250;
+	boss.Health = 750;
 	boss.IgnorePlayer = false;
 	boss.CurrentSpeed = 20;
 	boss.gravityprone = true;

@@ -472,7 +472,6 @@ texture = ExtResource("11_dis8u")
 
 [node name="Player" parent="." unique_id=261517677 instance=ExtResource("12_ns5jf")]
 position = Vector2(118, 334)
-collision_mask = 1
 floor_block_on_wall = false
 
 [node name="Placeholder" type="Sprite2D" parent="." unique_id=443283889]
@@ -503,3 +502,5 @@ shape = SubResource("RectangleShape2D_6l7wy")
 
 [node name="Root" parent="Chests" unique_id=145549212 instance=ExtResource("15_qodft")]
 position = Vector2(1907, 299)
+
+[node name="Hearts" type="Node" parent="." unique_id=415954800]

@@ -15,10 +15,10 @@ func _ready() -> void:
 	Player.loadPlayerState();
 	Player.Disperse();
 	FadeTransition.supply(FadeRect, FadePlayer);
-#	var anubisTest = load("res://anubis.tscn").instantiate()
-#	anubisTest.global_position = Test.global_position;
-#	Global._GBOSSFIGHTVARS(anubisTest);
-#	add_child(anubisTest);
+	#var anubisTest = load("res://anubis.tscn").instantiate()
+	#anubisTest.global_position = Test.global_position;
+	#Global._GBOSSFIGHTVARS(anubisTest);
+	#add_child(anubisTest);
 	LevelEnd.body_entered.connect(func(body):
 		if body.name == "Player":
 			var curr = Global.GetCurrentScene();

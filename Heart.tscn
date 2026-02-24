@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dpgtf6bhnq8xm"]
+
+[ext_resource type="Script" uid="uid://bcry44gg53rwq" path="res://Heart.gd" id="1_fhu63"]
+[ext_resource type="Texture2D" uid="uid://dcyq5naplofan" path="res://assets/images/fullHeartFinal.png" id="2_j5vpe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_okyln"]
+size = Vector2(20, 17.833334)
+
+[node name="Root" type="Area2D" unique_id=2033917418]
+script = ExtResource("1_fhu63")
+
+[node name="Model" type="Sprite2D" parent="." unique_id=879449440]
+position = Vector2(1.0000004, -4.4703484e-08)
+scale = Vector2(0.032, 0.031999998)
+texture = ExtResource("2_j5vpe")
+
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=1984881299]
+position = Vector2(0.49999988, 0.68750024)
+scale = Vector2(0.7, 0.7)
+shape = SubResource("RectangleShape2D_okyln")

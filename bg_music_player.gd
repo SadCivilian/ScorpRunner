@@ -26,7 +26,7 @@ func FadeOutTrack() -> void:
 	
 func FadeInTrack() -> void:
 	var fadeintween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO);
-	fadeintween.tween_property(BGMusicPlayer, "volume_db", 0.0, FADE_IN_TIME);
+	fadeintween.tween_property(BGMusicPlayer, "volume_db", -10.0, FADE_IN_TIME);
 
 	
 # Sets the background music 
@@ -38,7 +38,7 @@ func setBgMusic(Track : AudioStreamMP3, fade : bool) -> void:
 		fadeouttween.tween_property(BGMusicPlayer, "volume_db", -80.0, FADE_OUT_TIME);
 		BGMusicPlayer.stream = Track;
 		currentBGTrack = Track;
-		fadeintween.tween_property(BGMusicPlayer, "volume_db", 0, FADE_IN_TIME);
+		fadeintween.tween_property(BGMusicPlayer, "volume_db", -10.0, FADE_IN_TIME);
 	else: 
 		BGMusicPlayer.stream = Track;
 		currentBGTrack = Track;
