@@ -9,18 +9,19 @@ extends CanvasLayer
 @onready var ReplayButton : Button = $ReplayButton;
 
 @onready var Player = get_tree().get_first_node_in_group(&"Player");
-@onready var PlayerData = Player.getUserData()
 
 func _ready() -> void:
 	ReplayButton.pressed.connect(func():
+		Player.dead = true;
 		var packed = Global.GetSceneFromString(&"shn1");
-		get_tree().change_scene_to_packed(packed);		
+		get_tree().change_scene_to_packed(packed);
 	);
 	ScoreLabel.text = "Score: ";
-	Score.text = str(PlayerData[&"Score"]);
 
 func TriggerCutscene() -> void:
 	self.show();
+	Player.dead = true;
+	Score.text = str(Player.getUserData()[&"Score"]);
 	var tween = create_tween().tween_property(FadeOut, "modulate:a", 1.0, 0.5);
 	tween.finished.connect(func():
 		var text_tween = create_tween().set_parallel(true)

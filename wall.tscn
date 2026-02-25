@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://begnffrw2ke4r"]
+
+[ext_resource type="Texture2D" uid="uid://cry3sepcku3gv" path="res://assets/tiles/Rock.jpg" id="1_xxgf6"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y4f30"]
+texture = ExtResource("1_xxgf6")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_iuee5"]
+sources/0 = SubResource("TileSetAtlasSource_y4f30")
+
+[node name="Wall" type="Node2D" unique_id=1356200200]
+
+[node name="Map" type="TileMapLayer" parent="." unique_id=161919753]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_iuee5")

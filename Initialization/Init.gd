@@ -1,8 +1,8 @@
 extends Node
 
-@onready var FadeOutLayer = $Camera2D/FadeOutLayer;
-@onready var FadeRect = $Camera2D/FadeOutLayer/FadeRect;
-@onready var FadePlayer = $Camera2D/FadeOutLayer/FadePlayer;
+@onready var FadeOutLayer = $PlayerCamera/FadeOutLayer;
+@onready var FadeRect = $PlayerCamera/FadeOutLayer/FadeRect;
+@onready var FadePlayer = $PlayerCamera/FadeOutLayer/FadePlayer;
 @onready var Background = $Background;
 @onready var LevelEnd : Area2D = $LevelEnd;
 @onready var Player = get_tree().get_first_node_in_group(&"Player");

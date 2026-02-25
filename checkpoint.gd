@@ -6,7 +6,7 @@ extends Area2D
 
 func _ready() -> void:
 	Area.area_entered.connect(func(area):
-		if triggered == false and area.get_parent().get_parent().is_in_group(&"Player"):
+		if triggered == false and Global.isPlayerArea(area):
 			triggered = true;
 			Global.SaveData[&"Checkpoint"] = self.name;
 			Global.SaveData[&"Hearts"] = Player.Health;

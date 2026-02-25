@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var attackCD : float = 0.5;
+@export var attackCD : float = 1;
 @export var attackDMG : int = 20;
 @export var canAttack : bool = true;
 @export var isAttacking : bool = false;
@@ -19,7 +19,7 @@ extends CharacterBody2D
 @onready var HurtBox = $Model/HurtArea/Hurtbox;
 @onready var HurtArea = $Model/HurtArea;
 @onready var PlayerStomp = $Model/PlayerStomp;
-@onready var PlayerCamera = $"../Camera2D";
+@onready var PlayerCamera = $"../PlayerCamera";
 @onready var DeathZone : Area2D = $"../DeathZone";
 @onready var Animator : AnimationPlayer = $Animator;
 @onready var DamagedAnimator : AnimationPlayer = $DamagedAnimator;
@@ -75,7 +75,6 @@ func enableIFrames(timeout : float = 2.0) -> void:
 		get_tree().create_timer(timeout).timeout.connect(func(): self.iframes = false);
 		
 func bundleChecks(area : Area2D) -> Variant:
-	if dead: return;
 	var results = [];
 	# Check 10 times if there is anything intersecting, and append to an array
 	for i in range(10):
@@ -84,9 +83,9 @@ func bundleChecks(area : Area2D) -> Variant:
 		var currentPos = self.global_position;
 		match facing:
 			1:
-				area.global_position = Vector2(currentPos.x + 40.0, currentPos.y + 2.5);	
+				area.global_position = Vector2(currentPos.x + 30.0, currentPos.y + 2.5);	
 			-1:
-				area.global_position = Vector2(currentPos.x - 40.0, currentPos.y + 2.5);
+				area.global_position = Vector2(currentPos.x - 25.0, currentPos.y + 2.5);
 		var areas = area.get_overlapping_areas();
 		for v in areas:
 			if v == area or area.is_ancestor_of(self):
@@ -103,15 +102,13 @@ func attack() -> Variant:
 	if dead: return;
 	if isAttacking == false and canAttack == true:
 		var IntersectArray = [];
-		var currentPos : Vector2 = sprite.global_position;
+		var currentPos : Vector2 = self.global_position;
 		var areaPos : Vector2 = Vector2.ZERO;
 		match facing: 
 			1:
-				areaPos = Vector2(currentPos.x + 40.0, currentPos.y + 2.5);	
+				areaPos = Vector2(currentPos.x + 30.0, currentPos.y + 2.5);	
 			-1:
-				areaPos = Vector2(currentPos.x - 40.0, currentPos.y + 2.5);
-		AttackAnimator.stop();
-		AttackAnimator.play(&"Stinger");
+				areaPos = Vector2(currentPos.x - 30.0, currentPos.y + 2.5);
 		isAttacking = true;
 		canAttack = false;
 		CD.start(attackCD);
@@ -119,7 +116,7 @@ func attack() -> Variant:
 		var hitArea = Area2D.new();
 		var hitShape = CollisionShape2D.new();
 		var rect = RectangleShape2D.new();
-		rect.size = Vector2(45, 20);
+		rect.size = Vector2(25, 20);
 		
 		hitArea.add_child(hitShape);
 		hitArea.name = &"Stinger";
@@ -175,13 +172,7 @@ func useCoins(amount : int) -> bool:
 		return true
 
 func getUserData() -> Dictionary:
-	var dict = {}
-	dict[&"HasDoubleJump"] = Global.SaveData[&"HasDoubleJump"];
-	dict[&"Checkpoint"] = Global.SaveData[&"Checkpoint"];
-	dict[&"Coins"] = Global.SaveData[&"Coins"];
-	dict[&"Hearts"] =	Global.SaveData[&"Hearts"];
-	dict[&"Score"] = Global.SaveData[&"Score"];
-	return dict
+	return Global.SaveData;
 	
 func wipeUserData() -> void:
 	Global.SaveData[&"Hearts"] = 0;
@@ -210,7 +201,7 @@ func DisperseCollectedCoins() -> void:
 			node.queue_free();
 		
 func DisperseOpenedChests() -> void:
-	var openTexture = load("res://assets/sprites/chestopen.jpeg");
+	var openTexture = load("res://assets/sprites/Chest/chestopen.jpeg");
 	var chestsNode = get_tree().current_scene.find_child(&"Chests");
 	for chestName in Global.OpenedChests:
 		var node = chestsNode.find_child(chestName);
@@ -251,18 +242,31 @@ func applyKnockback(direction : Vector2, strength : float) -> void:
 	currentKnockbackForce = direction * strength;
 	
 func update_animations() -> void:
-	if isAttacking:
-		Animator.stop();
+	# Wait until physics has started (fixes jump anim at game start)
+	if Engine.get_physics_frames() < 2:
 		return;
-	
+
+	# Attack anim -> plays when clicking M1 and blocks ALL other anims until finished
+	if isAttacking:
+		if Animator.is_playing():
+			Animator.stop();
+		if AttackAnimator.current_animation != &"Stinger":
+			AttackAnimator.play(&"Stinger");
+		# Force stop main animator during attack
+		return;
+
+	# In air
 	if not is_on_floor():
-		if Animator.current_animation != &"Jump":
+		if velocity.y < 0:
 			Animator.play(&"Jump");
 	else:
-		if abs(velocity.x) > 1.0:
-			if Animator.current_animation != &"Walk":
-				Animator.play(&"Walk");
+		if Animator.current_animation == &"Jump":
+			Animator.play(&"RESET");
+		var direction := Input.get_axis("move_left", "move_right");
+		if direction != 0:
+			Animator.play(&"Walk");  # Always play walk when moving (no check)
 		else:
+			# No anim -> while no movement on tile 
 			if Animator.is_playing() and Animator.current_animation != &"RESET":
 				Animator.stop();
 	

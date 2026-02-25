@@ -49,13 +49,13 @@ func onHeadEntered(area : Area2D) -> void:
 		
 func onHitboxEntered(body : PhysicsBody2D) -> void:
 	if body.name == "Player":
-		player.takeDamage(1, true, 1.0);
 		if player.iframes == true: return;
+		player.takeDamage(1, true, 1.0);
 		match self.direction:
 			1:
-				player.applyKnockback(KNOCKBACK_VECTOR, -200.0);
+				player.applyKnockback(Vector2(1, -1), -1200.0);
 			-1:
-				player.applyKnockback(KNOCKBACK_VECTOR, 200.0);
+				player.applyKnockback(Vector2(1, -1), 1200.0);
 				
 # Signal clbk
 func onstateChanged(newstate : state) -> void:
@@ -104,11 +104,24 @@ func flipRays(lr : int) -> void:
 			SightRay.position = Vector2(comp3, comp4);
 			GroundRay.target_position = Vector2(comp5, comp6);
 			GroundRay.position = Vector2(comp7, comp8);
+
+func isClosetoWall() -> bool:
+	var collider = SightRay.get_collider();
+	if collider:
+		var pos = SightRay.get_collision_point();
+		if abs(self.global_position.x - pos.x) < 20 and collider.is_class(&"TileMapLayer"):
+			return true
+		return false
+	else:
+		return false
 			
 func drawRays() -> void:
 	Global.visualizeRays(self, SightRay, GroundRay);
 	
 func chase() -> void:
+	if isClosetoWall():
+		flip();
+		changeState(state.WANDER);
 	velocity.x = CurrentSpeed * -direction;
 
 # Use StringName for performance reasonsa
@@ -117,6 +130,7 @@ func wander() -> void:
 		Animator.play(&"Crawling");
 	elif isdying == true:
 		Animator.play(&"Dying");
+	var CloseToWall = isClosetoWall();
 	var SeesPlayer = lookforPlayer(); 
 	var SeesCliffOnWander = lookforCliff();
 	# Ignore player, the cliff is lowkey more important anyway
@@ -126,6 +140,8 @@ func wander() -> void:
 		if CurrentState != state.CHASE and IgnorePlayer == false: 
 			changeState(state.CHASE);
 	elif SeesPlayer == false and SeesCliffOnWander == true:
+		flip();
+	elif isClosetoWall():
 		flip();
 	else:
 		pass

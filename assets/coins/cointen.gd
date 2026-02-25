@@ -23,7 +23,7 @@ func _ready() -> void:
 	);
 	
 func collect(who : Area2D) -> void:
-	if collecting == false and who.get_parent().get_parent().is_in_group(&"Player"):
+	if collecting == false and Global.isPlayerArea(who):
 		collecting = true;
 		BaseSprite.visible = false;
 		SoundPlayer.play();

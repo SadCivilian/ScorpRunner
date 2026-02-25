@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://bwokii4vh0gmk"]
+
+[ext_resource type="Texture2D" uid="uid://ctgalvhiifown" path="res://assets/sprites/Misc/paper.png" id="1_dpwhn"]
+[ext_resource type="Script" uid="uid://c1s33aqgu3ftn" path="res://paper.gd" id="1_kq2bq"]
+[ext_resource type="FontFile" uid="uid://cnajn6ypftrdn" path="res://assets/fonts/Bitwise-m19x.ttf" id="2_kq2bq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rhp03"]
+size = Vector2(18.08, 20)
+
+[node name="Paper" type="Node2D" unique_id=1780009860]
+scale = Vector2(0.05, 0.05)
+script = ExtResource("1_kq2bq")
+
+[node name="PaperSprite" type="Sprite2D" parent="." unique_id=1846486014]
+position = Vector2(-35, 45.000015)
+scale = Vector2(0.86, 0.82)
+texture = ExtResource("1_dpwhn")
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=1184944080]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=465947118]
+visible = false
+position = Vector2(24, 0)
+scale = Vector2(50, 50)
+shape = SubResource("RectangleShape2D_rhp03")
+
+[node name="ReadLabel" type="Label" parent="." unique_id=2025688642]
+offset_left = -300.0
+offset_top = -400.00003
+offset_right = 381.0
+offset_bottom = -99.00003
+scale = Vector2(0.81, 0.81)
+theme_override_colors/font_color = Color(0.044336505, 0.010030891, 3.008172e-09, 1)
+theme_override_fonts/font = ExtResource("2_kq2bq")
+theme_override_font_sizes/font_size = 300
+text = "Read"
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1638482030]
+visible = false
+
+[node name="PaperPanel" type="TextureRect" parent="UI" unique_id=2111817166]
+offset_left = 253.0
+offset_top = 23.0
+offset_right = 753.0
+offset_bottom = 523.0
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("1_dpwhn")
+
+[node name="Label" type="Label" parent="UI/PaperPanel" unique_id=457917693]
+layout_mode = 0
+offset_left = 105.83333
+offset_top = 173.33333
+offset_right = 404.8333
+offset_bottom = 314.33334
+scale = Vector2(1.2, 1.2)
+theme_override_colors/font_color = Color(0.21890804, 0.2095021, 0, 1)
+theme_override_fonts/font = ExtResource("2_kq2bq")
+theme_override_font_sizes/font_size = 26
+text = "Go back to that 
+strange pyramid you 
+have already passed."

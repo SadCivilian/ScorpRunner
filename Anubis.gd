@@ -20,9 +20,10 @@ func onMarkerReached(anim_name : StringName) -> void:
 
 # OTHER SHIT
 signal onStateChanged(state);
+signal killed();
 enum state {FIGHT, DEAD, HIT};
 enum attacks {SUMMONING, STAFF, STOMP, OVERHEAD, NIL};
-const TimeBetweenAttacks : int = 10;
+const TimeBetweenAttacks : int = 5;
 var caninitiate = true;
 var isonfloor = true;
 var isdying = false;
@@ -88,7 +89,7 @@ func _physics_process(delta : float) -> void:
 		var selfPos = self.global_position;
 		var yDiff = abs(selfPos.y - playerPos.y);
 		var xDiff = abs(selfPos.x - playerPos.x);
-		var can : bool = yDiff < 3.0 and LastUsedAttack != attacks.OVERHEAD and facingRight and xDiff < abs(direction * 80)
+		var can : bool = yDiff < 3.0 and LastUsedAttack != attacks.OVERHEAD and facingRight and xDiff < abs(direction * 100)
 		# First, figure out if we can do the overhead if we're close enough, off cooldown, and facing the right dir
 		if can:
 			closeEnoughtoOverhead = true;
@@ -135,14 +136,12 @@ func onstateChanged(newstate : state) -> void:
 			queue_free();
 			
 func onSelfEntered(area : Area2D) -> void:
+	if isdying: return;
 	if area.name == &"Stinger":
 		takeDamage(Player.attackDMG);
-	elif area.get_parent().get_parent().is_in_group(&"Player"):
-		Player.takeDamage(1, 1.0, true);	
-		Player.applyKnockback(Vector2(1,2), 500);
-	elif area.get_parent().is_in_group(&"Player"):
-		Player.takeDamage(1, 1.0, true);
-		Player.applyKnockback(Vector2.ONE, 500);
+	elif Global.isPlayerArea(area):
+		Player.takeDamage(1, true, 1.0);
+		Player.applyKnockback((Player.global_position - self.global_position).normalized() + Vector2(0, -1.5), 600.0);
 
 func updateHealthBar(hp : int) -> void:
 	create_tween().tween_property(HPBar, "value", hp, 0.2).set_ease(Tween.EASE_IN);
@@ -207,24 +206,25 @@ func Summoning() -> void:
 		if anim_name == &"Summoning":
 			var newMummy = Global.Create(mummyScene);
 			newMummy.CurrentSpeed = 20;
-			newMummy.DrawRaycasts = true;
+			newMummy.DrawRaycasts = false;
 			newMummy.IgnorePlayer = false;
 			newMummy.gravityprone = true;
 			newMummy.gravity = 300;
 			newMummy.CurrentState = mummyScript.state.WANDER;
 			newMummy.direction = direction;
+			if direction == -1:
+				newMummy.get_child(0).flip_h = true
 			newMummy.punchCD = 5;
 			newMummy.onpunchCD = false;
 			newMummy.punching = false;
 			newMummy.Spawned = true;
-			newMummy.global_position = self.global_position; # hack, fix later
+			newMummy.global_position = self.global_position + Vector2(direction * 5, 0); 
 			newMummy.killed.connect(func():
 				if randi_range(0, 1) == 0:
 					var hp = Global.Create(HeartScene);
 					hp.global_position = Vector2(newMummy.global_position.x, newMummy.global_position.y + 3);
 					hp.picked = false;
 					scene.add_child(hp);
-					print("hp spawned");
 			)
 			scene.add_child(newMummy);
 	, CONNECT_ONE_SHOT)
@@ -249,7 +249,6 @@ func stompLambda(anim_name : StringName) -> void:
 # Stomping attack.
 func Stomp() -> void:
 	isExecutingAttack = true;
-	print("executing stomp");
 	CurrentAttack = attacks.STOMP;
 	MarkerReached.connect(stompLambda);
 	Animator.stop();
@@ -261,7 +260,6 @@ func Stomp() -> void:
 
 func Overhead() -> void:
 	isExecutingAttack = true;
-	print("executing overhead");
 	CurrentAttack = attacks.OVERHEAD;
 	MarkerReached.connect(func(anim_name):
 		if anim_name == &"Overhead":
@@ -285,7 +283,6 @@ func Overhead() -> void:
 # Ranged attack.
 func Staff() -> void:
 	isExecutingAttack = true;
-	print("executing staff");
 	CurrentAttack = attacks.STAFF;
 	MarkerReached.connect(func(anim_name):
 		if anim_name == &"Staff":
@@ -305,12 +302,14 @@ func Staff() -> void:
 
 # For when HP hits 0.
 func Die() -> void:
+	killed.emit();
 	isdying = true;
 	changeState(state.DEAD);
 	Animator.stop();
 	Animator.play(&"Defeated");
 	HPBar.visible = false;
 	Player.addScore(100);
+	Global.SaveData[&"Score"] = Player.Score; # write score to data
 	MarkerReached.connect(func(anim_name):
 		if anim_name == &"Defeated":
 			var curr = Model.modulate;
@@ -320,12 +319,6 @@ func Die() -> void:
 			)			
 	, CONNECT_ONE_SHOT);
 	# Only run if in ending scene
-	if Global.GetCurrentScene() == &"shn4":
-		var pos = get_tree().current_scene.find_child(&"PortalSpawn").global_position;
-		var portal = Global.Create(PortalScene);
-		portal.Model.modulate.a = 0;
-		portal.global_position = pos;
-		create_tween().tween_property(portal.Model, "modulate:a", 1.0, 0.5);
 		
 	
 

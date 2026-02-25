@@ -9,7 +9,7 @@ extends Node2D
 
 func _ready() -> void:
 	Collision.area_entered.connect(func(who):
-		if who.get_parent().get_parent().is_in_group(&"Player"):
+		if Global.isPlayerArea(who):
 			Player.takeDamage(1, true, 2.0);
 			queue_free();
 	);

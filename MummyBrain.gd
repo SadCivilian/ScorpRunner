@@ -21,7 +21,7 @@ var isonfloor = true;
 var isdying = false;
 var RNG : RandomNumberGenerator = RandomNumberGenerator.new();
 @export var IgnorePlayer : bool = false;
-@export var DrawRaycasts : bool = true;
+@export var DrawRaycasts : bool = false;
 @export var CurrentSpeed : int = 20;
 @export var gravityprone : bool = true; 
 @export var gravity : int = 300;
@@ -30,7 +30,7 @@ var RNG : RandomNumberGenerator = RandomNumberGenerator.new();
 @export var punchCD : int = 10; # SECONDS, obviously  
 @export var onpunchCD : bool = false; 
 @export var punching : bool = false;
-@export var Health : int = 60;
+@export var Health : int = 80;
 @export var Spawned : bool = false; # Controls if the enemy is spawned, so it won't be added to the felled list
 @onready var HPBar : ProgressBar = $Model/ProgressBar;
 @onready var player: CharacterBody2D = get_tree().get_first_node_in_group("Player");
@@ -54,7 +54,6 @@ func _ready() -> void:
 	Animator.animation_finished.connect(func(anim_name):
 		if anim_name == &"Dying" and Spawned == false:
 			Global.FelledEnemies.append(self.name);
-			print("dying finished");
 			changeState(state.DEAD);
 		elif anim_name == &"Punching":
 			punching = false;
@@ -96,6 +95,16 @@ func lookforPlayer() -> bool:
 		return true
 	else:
 		return false
+		
+func isClosetoWall() -> bool:
+	var collider = SightRay.get_collider();
+	if collider:
+		var pos = SightRay.get_collision_point();
+		if abs(self.global_position.x - pos.x) < 20 and (collider.is_class(&"TileMapLayer") or (collider.is_class(&"CharacterBody2D") and collider != player)):
+			return true
+		return false
+	else:
+		return false
 
 func lookforCliff() -> bool:
 	var collider = GroundRay.get_collider();
@@ -109,14 +118,14 @@ func isPlayerBehind() -> bool:
 			
 # This is where the match case for when the enemy is punching is initiated.
 func onHitboxEntered(area : Area2D) -> void:
-	if area.get_parent().get_parent().is_in_group(&"Player"):
+	if Global.isPlayerArea(area):
 		match punching:
 			true:
 				player.takeDamage(2, true, 2.0);
-				player.applyKnockback(Vector2.ONE, 800.0);
+				player.applyKnockback(Vector2(1, -1), 800.0);
 			false:
 				player.takeDamage(1, true, 1.0);
-				player.applyKnockback(Vector2.ONE, 300.0);
+				player.applyKnockback(Vector2(1, -1), 300.0);
 	elif area.name == &"Stinger":
 		if isPlayerBehind() == true:
 			flip();
@@ -184,7 +193,6 @@ func flip() -> void:
 				
 func punchLambda() -> void:
 	velocity = Vector2(PunchVelocity * direction, 0);
-	
 
 func punch() -> void:
 	if punching: return;
@@ -199,19 +207,27 @@ func punch() -> void:
 		MarkerReached.connect(func(anim_name):
 			if anim_name == &"Punching":
 				get_tree().physics_frame.connect(punchLambda);
-		, CONNECT_ONE_SHOT);
-	
-	
+				await Global.wait(1);
+				get_tree().physics_frame.disconnect(punchLambda);	
+				var sees = lookforPlayer();
+				if sees:
+					changeState(state.CHASE);
+				else:
+					changeState(state.WANDER);
+		)
+		
 func chase() -> void:
-	print("chasing");
 	# Every frame while chasing, decide to do punch by rolling a 1% chance.
 	# Keep in mind the punch can still ricochet the guy off the cliff.
 	var rand = RNG.randi_range(1,100);
-	if rand == 1 and onpunchCD == false:
+	if rand == 1 and onpunchCD == false and lookforPlayer() != null: # the last check is to make sure we're atleast in raycast range to avoid incidens where we punch air.
 		punch();
 	var SeesCliff = lookforCliff();
+	var CloseToWall = isClosetoWall();
 	# Drop the chase if we see a cliff.
 	if SeesCliff:
+		loseChase();
+	elif CloseToWall:
 		loseChase();
 	velocity.x = direction * CurrentSpeed;
 
@@ -221,6 +237,7 @@ func wander() -> void:
 		Animator.play(&"Walking");
 	elif isdying == true:
 		Animator.play(&"Dying");
+	var CloseToWall = isClosetoWall();
 	var SeesPlayer = lookforPlayer(); 
 	var SeesCliffOnWander = lookforCliff();
 	# Ignore player, the cliff is lowkey more important anyway
@@ -231,14 +248,25 @@ func wander() -> void:
 			changeState(state.CHASE);
 	elif SeesPlayer == false and SeesCliffOnWander == true:
 		flip();
+	elif CloseToWall == true:
+		flip();
 	else:
 		pass
 	velocity.x = CurrentSpeed * direction;
 
+func validateDirection() -> void:
+	match direction:
+		-1:
+			flipRays(-1)
+		1:
+			flipRays(1)
+
 func _physics_process(delta: float) -> void:
+	validateDirection();
 	if DrawRaycasts == true and is_instance_valid(self):
 		drawRays();
 	isonfloor = self.is_on_floor();
+	if punching: return;
 	if self.CurrentState == state.WANDER:
 		wander();
 	elif self.CurrentState == state.CHASE:

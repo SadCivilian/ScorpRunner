@@ -5,7 +5,7 @@ extends Area2D
 
 func _ready() -> void:
 	self.area_entered.connect(func(area):
-		if picked == false and area.get_parent().get_parent().is_in_group(&"Player") and Player.Health != 3:
+		if picked == false and Global.isPlayerArea(area) and Player.Health != 3:
 			picked = true;
 			Player.takeDamage(-1, false, 0.0);	
 			Global.TakenHearts.append(self.name);

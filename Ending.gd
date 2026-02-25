@@ -7,8 +7,8 @@ extends Area2D
 
 func _ready() -> void:
 	Area.area_entered.connect(func(area):
-		if area.get_parent().get_parent().is_in_group(&"Player"):
-			EndGame()	
+		if Global.isPlayerArea(area):
+			EndGame();
 	)
 	
 func EndGame() -> void:

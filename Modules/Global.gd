@@ -30,8 +30,6 @@ var SaveData = {
 
 var CurrentLevel = &"shn1"
 
-var __TEMP_FADE_IN = false;
-
 signal PlayerCoinsChanged(newCoins);
 signal PlayerHealthChanged(newHealth);
 
@@ -59,7 +57,15 @@ func delay(seconds : float, function : Callable) -> Variant:
 func wait(time : float) -> void:
 	await get_tree().create_timer(time).timeout
 	return
-	
+
+func isPlayerArea(area : Area2D) -> bool:
+	var firstParent = area.get_parent();
+	var secondParent = firstParent.get_parent();
+	if firstParent.is_in_group(&"Player") or secondParent.is_in_group(&"Player"):
+		return true;
+	else:
+		return false;
+		
 func BlurImage(spr2d : Sprite2D) -> Sprite2D:
 	var newimgblurred : Image = Image.new();
 	var img = spr2d.texture.get_image();
@@ -146,7 +152,7 @@ func Create(loaded : Resource) -> Node:
 	return loaded.instantiate();
 
 func _GBOSSFIGHTVARS(boss : Node) -> void:
-	boss.Health = 750;
+	boss.Health = 500;
 	boss.IgnorePlayer = false;
 	boss.CurrentSpeed = 20;
 	boss.gravityprone = true;
