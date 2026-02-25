@@ -487,7 +487,7 @@ scale = Vector2(0.23076084, 0.28549927)
 texture = ExtResource("13_7oaja")
 
 [node name="Player" parent="." unique_id=1773314479 instance=ExtResource("14_70ft8")]
-position = Vector2(17955, 345)
+position = Vector2(17778, 342)
 floor_block_on_wall = false
 
 [node name="Placeholder" type="Sprite2D" parent="." unique_id=1397514574]
@@ -655,4 +655,4 @@ position = Vector2(-17649, 167.75)
 shape = SubResource("RectangleShape2D_512em")
 
 [node name="Paper" parent="." unique_id=1780009860 instance=ExtResource("18_nft1n")]
-position = Vector2(18107, 375)
+position = Vector2(18109, 376)

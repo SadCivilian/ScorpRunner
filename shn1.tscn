@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://dxu50grlog0dv" path="res://assets/coins/Coin.tscn" id="17_w7x6o"]
 [ext_resource type="PackedScene" uid="uid://cxcxwjustky3m" path="res://assets/coins/Cointen.tscn" id="18_ynqkk"]
 [ext_resource type="PackedScene" uid="uid://fvgbkxswaebg" path="res://assets/coins/Coinfive.tscn" id="19_peo2a"]
+[ext_resource type="PackedScene" uid="uid://cwc71osybbmbr" path="res://paper2.tscn" id="22_ej03g"]
 [ext_resource type="PackedScene" uid="uid://d3uwg3kvod77e" path="res://chest.tscn" id="22_peo2a"]
 [ext_resource type="PackedScene" uid="uid://dqbtp78tk7j3w" path="res://secret_place.tscn" id="23_a1d00"]
 [ext_resource type="PackedScene" uid="uid://oocei46ao6iw" path="res://checkpoint.tscn" id="24_a1d00"]
@@ -550,3 +551,6 @@ position = Vector2(21277, 746)
 
 [node name="SecretPlace" parent="." unique_id=1163736557 instance=ExtResource("23_a1d00")]
 position = Vector2(20531, 205)
+
+[node name="Paper" parent="." unique_id=1780009860 instance=ExtResource("22_ej03g")]
+position = Vector2(21365, 679)
