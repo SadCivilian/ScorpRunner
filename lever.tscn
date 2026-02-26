@@ -9,16 +9,20 @@ size = Vector2(2.553885, 13.118554)
 [node name="Lever" type="Node2D" unique_id=1235347298]
 script = ExtResource("1_0ohsc")
 
-[node name="Model" type="Sprite2D" parent="." unique_id=542988722]
-position = Vector2(0.9999999, -1.9999998)
+[node name="CD" type="Timer" parent="." unique_id=1320695504]
+
+[node name="Pivot" type="Node2D" parent="." unique_id=1730786146]
+position = Vector2(1, 6.5)
+
+[node name="Model" type="Sprite2D" parent="Pivot" unique_id=542988722]
+position = Vector2(-1.1920929e-07, -8.5)
 scale = Vector2(0.04, 0.038)
 texture = ExtResource("2_1btnt")
 
-[node name="ActivationArea" type="Area2D" parent="." unique_id=754834966]
+[node name="ActivationArea" type="Area2D" parent="Pivot" unique_id=754834966]
+position = Vector2(-1, -6.5)
 
-[node name="Hitbox" type="CollisionShape2D" parent="ActivationArea" unique_id=1000928188]
-position = Vector2(1.0113175, 0.96584845)
+[node name="Hitbox" type="CollisionShape2D" parent="Pivot/ActivationArea" unique_id=1000928188]
+position = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_7uavd")
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
-
-[node name="CD" type="Timer" parent="." unique_id=1320695504]

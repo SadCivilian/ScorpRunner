@@ -56,6 +56,7 @@ func _ready() -> void:
 			Global.FelledEnemies.append(self.name);
 			changeState(state.DEAD);
 		elif anim_name == &"Punching":
+			await Global.wait(0.2);
 			punching = false;
 	)
 	onStateChanged.connect(func(newstate : state):
@@ -98,9 +99,10 @@ func lookforPlayer() -> bool:
 		
 func isClosetoWall() -> bool:
 	var collider = SightRay.get_collider();
+	print(collider);
 	if collider:
 		var pos = SightRay.get_collision_point();
-		if abs(self.global_position.x - pos.x) < 20 and (collider.is_class(&"TileMapLayer") or (collider.is_class(&"CharacterBody2D") and collider != player)):
+		if abs(self.global_position.x - pos.x) < 20 and (collider.is_class(&"TileMapLayer") or (collider.is_class(&"CharacterBody2D") and collider != player) or collider.is_class(&"StaticBody2D")):
 			return true
 		return false
 	else:
@@ -122,10 +124,10 @@ func onHitboxEntered(area : Area2D) -> void:
 		match punching:
 			true:
 				player.takeDamage(2, true, 2.0);
-				player.applyKnockback(Vector2(1, -1), 800.0);
+				player.applyKnockback((player.global_position - global_position).normalized() + Vector2(0, -1.5), 800.0);
 			false:
 				player.takeDamage(1, true, 1.0);
-				player.applyKnockback(Vector2(1, -1), 300.0);
+				player.applyKnockback((player.global_position - global_position).normalized() + Vector2(0, -1.5), 400.0);
 	elif area.name == &"Stinger":
 		if isPlayerBehind() == true:
 			flip();

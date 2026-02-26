@@ -17,9 +17,10 @@ signal stateChanged(newState); # For levers that can be switched on and off.
 @export var CurrentState : LeverState = LeverState.IDLE; 
 
 # onreadies
-@onready var Model : Sprite2D = $Model;
-@onready var ActivationArea : Area2D = $ActivationArea;
+@onready var Model : Sprite2D = $Pivot/Model;
+@onready var ActivationArea : Area2D = $Pivot/ActivationArea;
 @onready var CD : Timer = $CD;
+@onready var Pivot : Node2D = $Pivot;
 
 
 
@@ -34,7 +35,7 @@ func _ready() -> void:
 	self.activated.connect(run.bind("activated"));
 
 func selfEntered(area : Area2D) -> void:
-	if area.name == "Stinger": # This is the player "attack" area, which is also used for interactions 
+	if area.name == &"Stinger": # This is the player "attack" area, which is also used for interactions 
 		match self.CurrentState:
 			LeverState.IDLE:
 				activate();
@@ -79,11 +80,8 @@ func updateRot(state : LeverState) -> void:
 			targetRot = -45;
 		LeverState.IDLE:
 			targetRot = 0;
+	var _HitboxTween = get_tree().create_tween().tween_property(Pivot, "rotation_degrees", targetRot, 0.2).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE);
 			
-	var _leftTween = get_tree().create_tween().tween_property(self.Model, "rotation_degrees", targetRot, 0.2).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE);
-	var _AreaTween = get_tree().create_tween().tween_property(self.ActivationArea, "rotation_degrees", targetRot, 0.2).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE);
-	var _HitboxTween = get_tree().create_tween().tween_property(self.ActivationArea.get_child(0), "rotation_degrees", targetRot, 0.2).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE);
-	
 # runs all callbacks attached to the lever depending on the type.
 func run(type : String) -> void:
 	match type:

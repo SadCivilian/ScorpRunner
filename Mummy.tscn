@@ -111,7 +111,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0wpy"]
-size = Vector2(14, 21)
+size = Vector2(16, 23)
 
 [node name="Mummy" type="CharacterBody2D" unique_id=1543909718]
 script = ExtResource("1_105sr")

@@ -6,7 +6,6 @@ extends Node
 @onready var Background = $Background;
 @onready var LevelEnd : Area2D = $LevelEnd;
 @onready var Player = get_tree().get_first_node_in_group(&"Player");
-@onready var Test = $Test;
 @onready var Camera = get_tree().get_first_node_in_group(&"Camera");
 @onready var GameWin = Camera.get_child(3);
 var anubisScript = preload("res://Anubis.gd")

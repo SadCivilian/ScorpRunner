@@ -152,7 +152,7 @@ func Create(loaded : Resource) -> Node:
 	return loaded.instantiate();
 
 func _GBOSSFIGHTVARS(boss : Node) -> void:
-	boss.Health = 500;
+	boss.Health = 1;
 	boss.IgnorePlayer = false;
 	boss.CurrentSpeed = 20;
 	boss.gravityprone = true;

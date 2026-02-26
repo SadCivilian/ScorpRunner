@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://cea8mlbp16o3r"]
+[gd_scene format=4 uid="uid://dbikpb6p3plr"]
 
 [ext_resource type="Script" uid="uid://qoxurnncpy1s" path="res://Initialization/Init.gd" id="1_h3rxv"]
 [ext_resource type="Texture2D" uid="uid://cmqvgo12irw6c" path="res://New/Solaria Demo Tiles.png" id="2_w3cr1"]
@@ -21,7 +21,6 @@
 [ext_resource type="PackedScene" uid="uid://cwc71osybbmbr" path="res://paper2.tscn" id="22_ej03g"]
 [ext_resource type="PackedScene" uid="uid://d3uwg3kvod77e" path="res://chest.tscn" id="22_peo2a"]
 [ext_resource type="PackedScene" uid="uid://dqbtp78tk7j3w" path="res://secret_place.tscn" id="23_a1d00"]
-[ext_resource type="PackedScene" uid="uid://dpgtf6bhnq8xm" path="res://Heart.tscn" id="23_ej03g"]
 [ext_resource type="PackedScene" uid="uid://oocei46ao6iw" path="res://checkpoint.tscn" id="24_a1d00"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7r35f"]
@@ -453,7 +452,7 @@ sources/9 = SubResource("TileSetAtlasSource_qpwat")
 sources/3 = SubResource("TileSetAtlasSource_qytd6")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
-size = Vector2(7913.5, 141.25)
+size = Vector2(7913.5, 172.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w3cr1"]
 size = Vector2(46, 31.5)
@@ -484,7 +483,7 @@ position = Vector2(148, 33)
 [node name="DeathZone" type="Area2D" parent="." unique_id=2107347836]
 
 [node name="BBox" type="CollisionShape2D" parent="DeathZone" unique_id=1005500275]
-position = Vector2(21223.25, 1138.625)
+position = Vector2(21223.25, 1123)
 shape = SubResource("RectangleShape2D_h2yge")
 
 [node name="PlayerCamera" parent="." unique_id=1781630124 instance=ExtResource("14_qytd6")]
@@ -496,7 +495,7 @@ mix_target = 2
 position = Vector2(25088.611, 931.5922)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelEnd" unique_id=945549586]
-position = Vector2(-255.611, 1.4077606)
+position = Vector2(-5120.6113, -47.592224)
 shape = SubResource("RectangleShape2D_w3cr1")
 
 [node name="Coins" type="Node" parent="." unique_id=967519725]
@@ -519,15 +518,6 @@ position = Vector2(22176, 556)
 
 [node name="Root6" parent="Coins" unique_id=1346715107 instance=ExtResource("17_w7x6o")]
 position = Vector2(23101, 840)
-
-[node name="Root7" parent="Coins" unique_id=1018544288 instance=ExtResource("18_ynqkk")]
-position = Vector2(21090, 893)
-
-[node name="Root8" parent="Coins" unique_id=1694003983 instance=ExtResource("19_peo2a")]
-position = Vector2(24399, 651)
-
-[node name="Test" type="Node2D" parent="." unique_id=659662699]
-position = Vector2(20320.215, 892.59503)
 
 [node name="Enemies" type="Node" parent="." unique_id=1223594341]
 
@@ -554,27 +544,10 @@ position = Vector2(24211, 874)
 [node name="Checkpoints" type="Node" parent="." unique_id=511166372]
 
 [node name="Check1" parent="Checkpoints" unique_id=861267910 instance=ExtResource("24_a1d00")]
-position = Vector2(21102, 761)
-
-[node name="Before Snake6" parent="Checkpoints" unique_id=616636270 instance=ExtResource("24_a1d00")]
-position = Vector2(23729, 602)
-
-[node name="Pyramid\'s Top" parent="Checkpoints" unique_id=631625479 instance=ExtResource("24_a1d00")]
-position = Vector2(22177, 602)
+position = Vector2(21277, 746)
 
 [node name="SecretPlace" parent="." unique_id=1163736557 instance=ExtResource("23_a1d00")]
 position = Vector2(20531, 205)
 
 [node name="Paper" parent="." unique_id=1780009860 instance=ExtResource("22_ej03g")]
 position = Vector2(21365, 679)
-
-[node name="Hearts" type="Node" parent="." unique_id=1331824905]
-
-[node name="Root" parent="Hearts" unique_id=2033917418 instance=ExtResource("23_ej03g")]
-position = Vector2(21135, 989)
-
-[node name="Root2" parent="Hearts" unique_id=1573326895 instance=ExtResource("23_ej03g")]
-position = Vector2(23223, 893)
-
-[node name="Root3" parent="Hearts" unique_id=1821559213 instance=ExtResource("23_ej03g")]
-position = Vector2(24448, 797)

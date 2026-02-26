@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://bvgv3whd8snyu"]
+[gd_scene format=4 uid="uid://di4vgkjil7nao"]
 
 [ext_resource type="Script" uid="uid://ce058qpg18oun" path="res://Initialization/Init2.gd" id="1_08e0c"]
 [ext_resource type="Texture2D" uid="uid://cmqvgo12irw6c" path="res://New/Solaria Demo Tiles.png" id="2_qodft"]
@@ -19,9 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://d3uwg3kvod77e" path="res://chest.tscn" id="15_qodft"]
 [ext_resource type="PackedScene" uid="uid://fvgbkxswaebg" path="res://assets/coins/Coinfive.tscn" id="15_sekqp"]
 [ext_resource type="PackedScene" uid="uid://inednby1yotr" path="res://Mummy.tscn" id="16_sekqp"]
-[ext_resource type="PackedScene" uid="uid://dxu50grlog0dv" path="res://assets/coins/Coin.tscn" id="17_t0id6"]
 [ext_resource type="PackedScene" uid="uid://oocei46ao6iw" path="res://checkpoint.tscn" id="18_t0id6"]
-[ext_resource type="PackedScene" uid="uid://dpgtf6bhnq8xm" path="res://Heart.tscn" id="22_n2vv5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dis8u"]
 texture = ExtResource("2_qodft")
@@ -499,7 +497,7 @@ position = Vector2(3, -6)
 position = Vector2(9302, 218)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelEnd" unique_id=1163630435]
-position = Vector2(832, 29)
+position = Vector2(-9227, 126)
 shape = SubResource("RectangleShape2D_6l7wy")
 
 [node name="Coins" type="Node" parent="." unique_id=128757841]
@@ -518,18 +516,6 @@ position = Vector2(3322, 92)
 
 [node name="Root5" parent="Coins" unique_id=502472948 instance=ExtResource("15_sekqp")]
 position = Vector2(3335.4282, 92.187164)
-
-[node name="Root6" parent="Coins" unique_id=1245001442 instance=ExtResource("15_sekqp")]
-position = Vector2(9613, 315)
-
-[node name="Root7" parent="Coins" unique_id=806188920 instance=ExtResource("17_t0id6")]
-position = Vector2(9678, 315)
-
-[node name="Root8" parent="Coins" unique_id=1512767112 instance=ExtResource("14_il7no")]
-position = Vector2(2236, 349)
-
-[node name="Root9" parent="Coins" unique_id=353677064 instance=ExtResource("15_sekqp")]
-position = Vector2(5710, 139)
 
 [node name="Enemies" type="Node" parent="." unique_id=13699482]
 
@@ -588,14 +574,3 @@ position = Vector2(8719, 107)
 
 [node name="After10" parent="." unique_id=694465311 instance=ExtResource("18_t0id6")]
 position = Vector2(6655, 251)
-
-[node name="beginning" parent="." unique_id=467953759 instance=ExtResource("18_t0id6")]
-position = Vector2(1466, 347)
-
-[node name="middle point" parent="." unique_id=492307073 instance=ExtResource("18_t0id6")]
-position = Vector2(5253, 267)
-
-[node name="Hearts" type="Node" parent="." unique_id=731853395]
-
-[node name="Root" parent="Hearts" unique_id=2033917418 instance=ExtResource("22_n2vv5")]
-position = Vector2(1833, 302)

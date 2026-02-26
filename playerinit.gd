@@ -49,7 +49,7 @@ func connectListeners() -> void:
 	
 func GameOver() -> void:
 	var current_color = sprite.modulate
-	create_tween().tween_property(sprite, "modulate", Color(current_color.r, current_color.b, current_color.g, 0), 0.2).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUINT);
+	create_tween().tween_property(sprite, "modulate:a", 0, 0.2).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUINT);
 	dead = true;
 	GameOverUIRenderer.show();
 	
@@ -242,11 +242,7 @@ func applyKnockback(direction : Vector2, strength : float) -> void:
 	currentKnockbackForce = direction * strength;
 	
 func update_animations() -> void:
-	# Wait until physics has started (fixes jump anim at game start)
-	if Engine.get_physics_frames() < 2:
-		return;
-
-	# Attack anim -> plays when clicking M1 and blocks ALL other anims until finished
+	# Attack anim plays when clicking M1 and blocks ALL other anims until finished
 	if isAttacking:
 		if Animator.is_playing():
 			Animator.stop();
@@ -257,7 +253,7 @@ func update_animations() -> void:
 
 	# In air
 	if not is_on_floor():
-		if velocity.y < 0:
+		if velocity.y != 0:
 			Animator.play(&"Jump");
 	else:
 		if Animator.current_animation == &"Jump":

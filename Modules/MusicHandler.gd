@@ -4,8 +4,8 @@ var currentBGTrack : AudioStreamMP3;
 var CurrentTrackLength : float;
 var InitTrack : AudioStreamMP3;
 var FadeRan : bool = false;
-const FADE_OUT_TIME = 0.5;
-const FADE_IN_TIME = 0.5;
+const FADE_OUT_TIME = 2.5;
+const FADE_IN_TIME = 2.5;
 @onready var BGMusicPlayer : AudioStreamPlayer = $".";
 
 func _ready() -> void:

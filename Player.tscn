@@ -147,7 +147,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_tdg3f")]
+"values": [ExtResource("2_kpjcp")]
 }
 
 [sub_resource type="Animation" id="Animation_5ncpa"]
@@ -179,7 +179,7 @@ script = ExtResource("1_kpjcp")
 clip_children = 2
 position = Vector2(6.454618, 0.21690911)
 scale = Vector2(-0.10669066, 0.04528893)
-texture = ExtResource("3_tdg3f")
+texture = ExtResource("2_kpjcp")
 flip_h = true
 
 [node name="HurtArea" type="Area2D" parent="Model" unique_id=294332429]

@@ -42,20 +42,19 @@ func onPlayerJumpedOn() -> void:
 		
 		
 func onHeadEntered(area : Area2D) -> void:
-	if area.name == "PlayerStomp":
+	if area.name == &"PlayerStomp":
 		onPlayerJumpedOn(); 
-	elif area.name == "Hurtbox":
-		player.takeDamage(1, true, 1.0);
 		
 func onHitboxEntered(body : PhysicsBody2D) -> void:
-	if body.name == "Player":
+	if body.name == &"Player":
+		if isdying: return;
 		if player.iframes == true: return;
 		player.takeDamage(1, true, 1.0);
 		match self.direction:
 			1:
-				player.applyKnockback(Vector2(1, -1), -1200.0);
+				player.applyKnockback((player.global_position - global_position).normalized() + Vector2(0, -1.5), 500.0);
 			-1:
-				player.applyKnockback(Vector2(1, -1), 1200.0);
+				player.applyKnockback((player.global_position - global_position).normalized() + Vector2(0, -1.5), -500.0);
 				
 # Signal clbk
 func onstateChanged(newstate : state) -> void:
@@ -109,7 +108,7 @@ func isClosetoWall() -> bool:
 	var collider = SightRay.get_collider();
 	if collider:
 		var pos = SightRay.get_collision_point();
-		if abs(self.global_position.x - pos.x) < 20 and collider.is_class(&"TileMapLayer"):
+		if abs(self.global_position.x - pos.x) < 20 and collider.is_class(&"TileMapLayer") or collider.is_class(&"StaticBody2D"):
 			return true
 		return false
 	else:
@@ -175,7 +174,6 @@ func lookforCliff() -> bool:
 		return false
 
 func _ready() -> void:
-	DrawRaycasts = true;
 	SightRay.collision_mask = 1;
 	CurrentSpeed = 40; # Var keeps nulling for some reason.
 	HeadArea.area_entered.connect(onHeadEntered);
