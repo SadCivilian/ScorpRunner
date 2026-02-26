@@ -494,7 +494,7 @@ scale = Vector2(0.23141679, 0.285765)
 texture = ExtResource("11_1plf6")
 
 [node name="Player" parent="." unique_id=2115676443 instance=ExtResource("12_omjff")]
-position = Vector2(-1442, 386)
+position = Vector2(-6632, 393)
 floor_block_on_wall = false
 
 [node name="Placeholder" type="Sprite2D" parent="." unique_id=1266466449]
