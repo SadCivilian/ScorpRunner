@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://wngjkw8mu783" path="res://PlayerCamera.tscn" id="14_htg8y"]
 [ext_resource type="PackedScene" uid="uid://cxcxwjustky3m" path="res://assets/coins/Cointen.tscn" id="14_il7no"]
 [ext_resource type="PackedScene" uid="uid://dsr3vrh4sebyt" path="res://snake.tscn" id="15_ft66h"]
+[ext_resource type="Texture2D" uid="uid://rviohoih3ppr" path="res://New/PNG (Transparent)/light_03.png" id="15_mal1w"]
 [ext_resource type="PackedScene" uid="uid://d3uwg3kvod77e" path="res://chest.tscn" id="15_qodft"]
 [ext_resource type="PackedScene" uid="uid://fvgbkxswaebg" path="res://assets/coins/Coinfive.tscn" id="15_sekqp"]
 [ext_resource type="PackedScene" uid="uid://inednby1yotr" path="res://Mummy.tscn" id="16_sekqp"]
@@ -502,33 +503,38 @@ position = Vector2(9302, 218)
 position = Vector2(832, 29)
 shape = SubResource("RectangleShape2D_6l7wy")
 
+[node name="Sprite2D" type="Sprite2D" parent="LevelEnd/CollisionShape2D" unique_id=674070267]
+position = Vector2(0.9996934, 0.8749921)
+scale = Vector2(0.06713747, 0.05810549)
+texture = ExtResource("15_mal1w")
+
 [node name="Coins" type="Node" parent="." unique_id=128757841]
 
-[node name="Root" parent="Coins" unique_id=1018544288 instance=ExtResource("14_il7no")]
+[node name="2_Root" parent="Coins" unique_id=1018544288 instance=ExtResource("14_il7no")]
 position = Vector2(6529, 158)
 
-[node name="Root2" parent="Coins" unique_id=1164839247 instance=ExtResource("15_sekqp")]
+[node name="2_Root2" parent="Coins" unique_id=1164839247 instance=ExtResource("15_sekqp")]
 position = Vector2(3213, 92)
 
-[node name="Root3" parent="Coins" unique_id=421846652 instance=ExtResource("15_sekqp")]
+[node name="2_Root3" parent="Coins" unique_id=421846652 instance=ExtResource("15_sekqp")]
 position = Vector2(3226.4282, 92.187164)
 
-[node name="Root4" parent="Coins" unique_id=1557467404 instance=ExtResource("15_sekqp")]
+[node name="2_Root4" parent="Coins" unique_id=1557467404 instance=ExtResource("15_sekqp")]
 position = Vector2(3322, 92)
 
-[node name="Root5" parent="Coins" unique_id=502472948 instance=ExtResource("15_sekqp")]
+[node name="2_Root5" parent="Coins" unique_id=502472948 instance=ExtResource("15_sekqp")]
 position = Vector2(3335.4282, 92.187164)
 
-[node name="Root6" parent="Coins" unique_id=1245001442 instance=ExtResource("15_sekqp")]
+[node name="2_Root6" parent="Coins" unique_id=1245001442 instance=ExtResource("15_sekqp")]
 position = Vector2(9613, 315)
 
-[node name="Root7" parent="Coins" unique_id=806188920 instance=ExtResource("17_t0id6")]
+[node name="2_Root7" parent="Coins" unique_id=806188920 instance=ExtResource("17_t0id6")]
 position = Vector2(9678, 315)
 
-[node name="Root8" parent="Coins" unique_id=1512767112 instance=ExtResource("14_il7no")]
+[node name="2_Root8" parent="Coins" unique_id=1512767112 instance=ExtResource("14_il7no")]
 position = Vector2(2236, 349)
 
-[node name="Root9" parent="Coins" unique_id=353677064 instance=ExtResource("15_sekqp")]
+[node name="2_Root9" parent="Coins" unique_id=353677064 instance=ExtResource("15_sekqp")]
 position = Vector2(5710, 139)
 
 [node name="Enemies" type="Node" parent="." unique_id=13699482]

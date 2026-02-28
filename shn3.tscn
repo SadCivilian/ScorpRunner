@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://d3uwg3kvod77e" path="res://chest.tscn" id="21_es3f4"]
 [ext_resource type="PackedScene" uid="uid://cxcxwjustky3m" path="res://assets/coins/Cointen.tscn" id="21_sjquc"]
 [ext_resource type="PackedScene" uid="uid://piujtwli0wtf" path="res://lever.tscn" id="22_sjquc"]
+[ext_resource type="Texture2D" uid="uid://rviohoih3ppr" path="res://New/PNG (Transparent)/light_03.png" id="25_qotwa"]
 [ext_resource type="PackedScene" uid="uid://oocei46ao6iw" path="res://checkpoint.tscn" id="26_sjquc"]
 [ext_resource type="PackedScene" uid="uid://dpgtf6bhnq8xm" path="res://Heart.tscn" id="27_imrr3"]
 
@@ -491,7 +492,7 @@ scale = Vector2(0.23076084, 0.28549927)
 texture = ExtResource("13_7oaja")
 
 [node name="Player" parent="." unique_id=1773314479 instance=ExtResource("14_70ft8")]
-position = Vector2(17778, 342)
+position = Vector2(96, 277)
 floor_block_on_wall = false
 
 [node name="Placeholder" type="Sprite2D" parent="." unique_id=1397514574]
@@ -638,37 +639,37 @@ position = Vector2(6004, 345)
 
 [node name="Chests" type="Node" parent="." unique_id=1178069660]
 
-[node name="Root" parent="Chests" unique_id=1479002803 instance=ExtResource("21_es3f4")]
+[node name="3_Root" parent="Chests" unique_id=1479002803 instance=ExtResource("21_es3f4")]
 position = Vector2(2147, -166)
 
-[node name="Root2" parent="Chests" unique_id=489967651 instance=ExtResource("21_es3f4")]
+[node name="3_Root2" parent="Chests" unique_id=489967651 instance=ExtResource("21_es3f4")]
 position = Vector2(13267, 281)
 
-[node name="Root4" parent="Chests" unique_id=1211216285 instance=ExtResource("21_es3f4")]
+[node name="3_Root4" parent="Chests" unique_id=1211216285 instance=ExtResource("21_es3f4")]
 position = Vector2(13283, 281)
 
-[node name="Root6" parent="Chests" unique_id=1872148741 instance=ExtResource("21_es3f4")]
+[node name="3_Root6" parent="Chests" unique_id=1872148741 instance=ExtResource("21_es3f4")]
 position = Vector2(13300, 281)
 
-[node name="Root7" parent="Chests" unique_id=304573417 instance=ExtResource("21_es3f4")]
+[node name="3_Root7" parent="Chests" unique_id=304573417 instance=ExtResource("21_es3f4")]
 position = Vector2(13316, 281)
 
-[node name="Root8" parent="Chests" unique_id=408635098 instance=ExtResource("21_es3f4")]
+[node name="3_Root8" parent="Chests" unique_id=408635098 instance=ExtResource("21_es3f4")]
 position = Vector2(13235, 281)
 
-[node name="Root9" parent="Chests" unique_id=1402625533 instance=ExtResource("21_es3f4")]
+[node name="3_Root9" parent="Chests" unique_id=1402625533 instance=ExtResource("21_es3f4")]
 position = Vector2(13219, 281)
 
-[node name="Root5" parent="Chests" unique_id=1378723252 instance=ExtResource("21_es3f4")]
+[node name="3_Root5" parent="Chests" unique_id=1378723252 instance=ExtResource("21_es3f4")]
 position = Vector2(13251, 281)
 
-[node name="Root3" parent="Chests" unique_id=452856019 instance=ExtResource("21_es3f4")]
+[node name="3_Root3" parent="Chests" unique_id=452856019 instance=ExtResource("21_es3f4")]
 position = Vector2(17381, 346)
 
-[node name="Root10" parent="Chests" unique_id=190779974 instance=ExtResource("21_es3f4")]
+[node name="3_Root10" parent="Chests" unique_id=190779974 instance=ExtResource("21_es3f4")]
 position = Vector2(16515, 138)
 
-[node name="Root11" parent="Chests" unique_id=1693229700 instance=ExtResource("21_es3f4")]
+[node name="3_Root11" parent="Chests" unique_id=1693229700 instance=ExtResource("21_es3f4")]
 position = Vector2(9523, 122)
 
 [node name="Door" type="TileMapLayer" parent="." unique_id=1892563420]
@@ -687,6 +688,11 @@ position = Vector2(17702, 171)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelEnd" unique_id=940293947]
 position = Vector2(507, 199)
 shape = SubResource("RectangleShape2D_512em")
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelEnd/CollisionShape2D" unique_id=2051450097]
+position = Vector2(0.0006465912, 1.9999886)
+scale = Vector2(0.09668222, 0.0771484)
+texture = ExtResource("25_qotwa")
 
 [node name="Paper" parent="." unique_id=1780009860 instance=ExtResource("18_nft1n")]
 position = Vector2(18109, 376)

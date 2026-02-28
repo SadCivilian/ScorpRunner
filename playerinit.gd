@@ -116,7 +116,7 @@ func attack() -> Variant:
 		var hitArea = Area2D.new();
 		var hitShape = CollisionShape2D.new();
 		var rect = RectangleShape2D.new();
-		rect.size = Vector2(25, 20);
+		rect.size = Vector2(40, 20);
 		
 		hitArea.add_child(hitShape);
 		hitArea.name = &"Stinger";

@@ -537,22 +537,22 @@ position = Vector2(-5180, 378)
 
 [node name="Coins" type="Node" parent="." unique_id=1815526521]
 
-[node name="Root" parent="Coins" unique_id=1018544288 instance=ExtResource("19_148tb")]
+[node name="4_Root" parent="Coins" unique_id=1018544288 instance=ExtResource("19_148tb")]
 position = Vector2(-4835, 395)
 
-[node name="Root2" parent="Coins" unique_id=1757578356 instance=ExtResource("20_5iol7")]
+[node name="4_Root2" parent="Coins" unique_id=1757578356 instance=ExtResource("20_5iol7")]
 position = Vector2(-2080, 394)
 
-[node name="Root3" parent="Coins" unique_id=798043875 instance=ExtResource("19_148tb")]
+[node name="4_Root3" parent="Coins" unique_id=798043875 instance=ExtResource("19_148tb")]
 position = Vector2(-1943, 395)
 
-[node name="Root4" parent="Coins" unique_id=1930239148 instance=ExtResource("19_148tb")]
+[node name="4_Root4" parent="Coins" unique_id=1930239148 instance=ExtResource("19_148tb")]
 position = Vector2(-5377, 347)
 
-[node name="Root5" parent="Coins" unique_id=1796360273 instance=ExtResource("19_148tb")]
+[node name="4_Root5" parent="Coins" unique_id=1796360273 instance=ExtResource("19_148tb")]
 position = Vector2(-5345, 347)
 
-[node name="Root6" parent="Coins" unique_id=954556860 instance=ExtResource("19_148tb")]
+[node name="4_Root6" parent="Coins" unique_id=954556860 instance=ExtResource("19_148tb")]
 position = Vector2(-4450, 346)
 
 [node name="BossFightTrigger" type="Area2D" parent="." unique_id=459369127]

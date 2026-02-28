@@ -60,4 +60,16 @@ func _ready() -> void:
 			);
 			# override bossfight music
 	);
-	
+
+	var clbk1 = func():
+		var player = get_tree().get_first_node_in_group("Player");
+		player.speed = 0;
+		await Global.wait(0.5);
+		player.speed = 85;	
+	var clbk2 = func():
+		var player = get_tree().get_first_node_in_group("Player");
+		player.speed = 0;
+		await Global.wait(0.5);
+		player.speed = 85;	
+	FadeTransition.changeclbk(FadeTransition.TransitionType.OTHER, clbk1);
+	FadeTransition.changeclbk(FadeTransition.TransitionType.ROOM_TRANSITION, clbk2);

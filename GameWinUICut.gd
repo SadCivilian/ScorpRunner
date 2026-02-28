@@ -13,6 +13,7 @@ extends CanvasLayer
 func _ready() -> void:
 	ReplayButton.pressed.connect(func():
 		Player.dead = true;
+		Player.wipeUserData();
 		var packed = Global.GetSceneFromString(&"shn1");
 		get_tree().change_scene_to_packed(packed);
 	);
