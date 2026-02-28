@@ -108,7 +108,8 @@ func isClosetoWall() -> bool:
 	var collider = SightRay.get_collider();
 	if collider:
 		var pos = SightRay.get_collision_point();
-		if abs(self.global_position.x - pos.x) < 20 and collider.is_class(&"TileMapLayer") or collider.is_class(&"StaticBody2D"):
+		var distance = abs(self.global_position.x - pos.x) - 40;
+		if distance < 30 and collider.is_class(&"TileMapLayer") or collider.is_class(&"StaticBody2D") or (collider.is_class(&"CharacterBody2D") and collider != player):
 			return true
 		return false
 	else:

@@ -126,7 +126,6 @@ func attack() -> Variant:
 		hitArea.monitoring = true;
 		hitArea.priority = 1e4;
 		hitShape.shape = rect
-		var Rect = Global.visualizeArea(hitArea);
 		self.get_tree().current_scene.add_child(hitArea);
 		await get_tree().physics_frame;
 		IntersectArray = await bundleChecks(hitArea);
@@ -218,21 +217,21 @@ func DisperseCollectedHearts() -> void:
 		
 func loadPlayerState() -> void:
 	var userData = getUserData();
-	if userData[&"Checkpoint"] == &"Checkpoint":
+	var SpawnPoint : Area2D = get_tree().current_scene.find_child(userData[&"Checkpoint"]);
+	if userData[&"Checkpoint"] == &"Checkpoint" or SpawnPoint == null:
 		self.Score = userData[&"Score"];
 		self.Coins = userData[&"Coins"];
 		self.Health = userData[&"Hearts"];
+		self.hasDoubleJump = userData[&"HasDoubleJump"];
 		Global.emit_signal(&"PlayerCoinsChanged");
 		Global.emit_signal(&"PlayerHealthChanged");
 	else:
-		var SpawnPoint : Area2D = get_tree().current_scene.find_child(userData[&"Checkpoint"]);
-		if Global.TypeString(SpawnPoint) != &"Area2D":
-			push_error("false spawnpoint");
 		# First pos
 		self.global_position = SpawnPoint.global_position;
 		self.Score = userData[&"Score"];
 		self.Coins = userData[&"Coins"];
 		self.Health = userData[&"Hearts"];
+		self.hasDoubleJump = userData[&"HasDoubleJump"];
 		Global.emit_signal(&"PlayerCoinsChanged");
 		Global.emit_signal(&"PlayerHealthChanged");
 	

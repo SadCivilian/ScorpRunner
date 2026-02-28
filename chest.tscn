@@ -44,6 +44,9 @@ _data = {
 &"RESET": SubResource("Animation_trlyu")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bp1or"]
+size = Vector2(15.5, 15.5)
+
 [node name="Root" type="Area2D" unique_id=145549212]
 script = ExtResource("1_8uwsg")
 
@@ -58,3 +61,9 @@ libraries/ = SubResource("AnimationLibrary_x7mpe")
 position = Vector2(-2.0000005, 2)
 scale = Vector2(0.01, 0.01)
 texture = ExtResource("3_bp1or")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=220676679]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=59169285]
+position = Vector2(-2, 2)
+shape = SubResource("RectangleShape2D_bp1or")

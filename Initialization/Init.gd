@@ -20,6 +20,10 @@ func _ready() -> void:
 	#add_child(anubisTest);
 	LevelEnd.body_entered.connect(func(body):
 		if body.name == "Player":
+			Global.SaveData[&"Coins"] = Player.Coins;
+			Global.SaveData[&"Score"] = Player.Score;
+			Global.SaveData[&"Hearts"] = Player.Health;
+			Global.SaveData[&"HasDoubleJump"] = Player.hasDoubleJump;
 			var curr = Global.GetCurrentScene();
 			var scene = Global.GetSceneFromString(Global.SceneTransitions[curr]);
 			Global.CurrentLevel = Global.SceneTransitions[curr];
