@@ -8,7 +8,7 @@ func _ready() -> void:
 		if picked == false and Global.isPlayerArea(area) and Player.Health != 3:
 			picked = true;
 			Player.takeDamage(-1, false, 0.0);	
-			Global.TakenHearts.append(self.name);
+			Global.TempTakenHearts.append(self.name);
 			print(Player.Health);
 			queue_free();	
 	);

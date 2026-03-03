@@ -53,7 +53,7 @@ func _ready() -> void:
 	HitboxArea.area_entered.connect(onHitboxEntered);
 	Animator.animation_finished.connect(func(anim_name):
 		if anim_name == &"Dying" and Spawned == false:
-			Global.FelledEnemies.append(self.name);
+			Global.TempFelledEnemies.append(self.name);
 			changeState(state.DEAD);
 		elif anim_name == &"Punching":
 			await Global.wait(0.2);

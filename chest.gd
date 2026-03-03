@@ -13,6 +13,6 @@ func _ready() -> void:
 	Area.area_entered.connect(func(area):
 		if area.name == &"Stinger" and opened == false:
 			opened = true;
-			Global.OpenedChests.append(self.name);
+			Global.TempOpenedChests.append(self.name);
 			Animator.play(&"Open");
 	);

@@ -35,7 +35,7 @@ func onPlayerJumpedOn() -> void:
 	# Stop the fucker first
 	CurrentSpeed = 0;
 	isdying = true;
-	Global.FelledEnemies.append(self.name);
+	Global.TempFelledEnemies.append(self.name);
 	if Animator.is_playing():
 		Animator.stop();
 		Animator.play(&"Dying");

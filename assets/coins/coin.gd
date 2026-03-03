@@ -30,7 +30,7 @@ func collect(who : Area2D) -> void:
 		collected.emit(self.value);
 		Player.addCoins(self.value);
 		ParticleEmitter.emitting = true;
-		Global.CollectedCoins.append(self.name);
+		Global.TempCollectedCoins.append(self.name);
 
 
 	
