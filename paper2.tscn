@@ -38,11 +38,11 @@ text = "Read"
 [node name="UI" type="CanvasLayer" parent="." unique_id=1638482030]
 
 [node name="PaperPanel" type="TextureRect" parent="UI" unique_id=2111817166]
-offset_left = 253.0
-offset_top = 23.0
-offset_right = 753.0
-offset_bottom = 523.0
-scale = Vector2(1.2, 1.2)
+offset_left = 455.0
+offset_top = 37.0
+offset_right = 955.0
+offset_bottom = 537.0
+scale = Vector2(2, 2)
 texture = ExtResource("2_v57um")
 
 [node name="Label" type="Label" parent="UI/PaperPanel" unique_id=457917693]
