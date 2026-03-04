@@ -10,11 +10,12 @@ Small game project from Scorpions 7672! Meant to be played **on an arcade**, but
 | ----------- | ------------------ |
 | Yusuf Erdem | Programmer, UI/UX | 
 | Emir Efe Ay | Lead Programmer |
-| Kudret Dalkıranoğlu | Programmer, Game Design |
+| Kudret Dalkıranoğlu | Programmer, Game Design, Art |
 | Hüseyin Kaptan | Music Artist |
 | Metehan Çelik | Map Designer |
 | Alper Berat | Map Designer |
-| Nisan Uzunoğlu | Art |
+| Nisan Uzunali | Art |
+
 
 
 
