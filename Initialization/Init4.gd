@@ -9,12 +9,16 @@ extends Node
 @onready var Blockade2 = $Blockade2;
 @onready var Hitbox = $Blockade/Hitbox;
 @onready var Hitbox2 = $Blockade2/Hitbox;
+@onready var BGMusicPlayer = get_tree().get_first_node_in_group(&"BGMusicPlayer");
+@onready var BossMusic = preload("res://assets/songs/bossFight.mp3") as AudioStreamMP3;
 
 var PortalScene = preload("res://ending_portal.tscn");
 var AnubisScene = preload("res://anubis.tscn");
 var BossfightTriggered = false;
 
 func _ready() -> void:
+	Player.loadPlayerState();
+	Player.Disperse();
 	BossFightTrigger.area_entered.connect(func(area : Area2D):
 		if Global.isPlayerArea(area) and BossfightTriggered == false:
 			Blockade.area_entered.connect(func(who : Area2D):
@@ -23,7 +27,6 @@ func _ready() -> void:
 					Player.applyKnockback((Player.global_position - Blockade.global_position).normalized() + Vector2(0, -2.5), -400.0)
 			);
 			Blockade2.area_entered.connect(func(who : Area2D):
-				print("sure");
 				if Global.isPlayerArea(who):
 					Player.takeDamage(1, 1.0, true);
 					Player.applyKnockback((Player.global_position - Blockade2.global_position).normalized() + Vector2(0, -2.5), 400.0)
@@ -40,6 +43,7 @@ func _ready() -> void:
 			anubis.global_position = AnubisSpawnPos;
 			Global._GBOSSFIGHTVARS(anubis);
 			add_child(anubis);
+			BGMusicPlayer.setBgMusic(BossMusic, true);
 			anubis.killed.connect(func():
 				var pos = get_tree().current_scene.find_child(&"PortalSpawn").global_position;
 				var portal = Global.Create(PortalScene);
@@ -55,12 +59,11 @@ func _ready() -> void:
 				create_tween().tween_property(Lava2, "modulate:a", 0, 1.5);
 				Blockade.monitoring = false;
 				Blockade2.monitoring = false;
-				Hitbox.disabled = true;
-				Hitbox2.disabled = true;
+				Hitbox.set_deferred(&"disabled", true);
+				Hitbox2.set_deferred(&"disabled", true);
+				BGMusicPlayer.FadeOutTrackPerm();
 			);
-			# override bossfight music
 	);
-
 	var clbk1 = func():
 		var player = get_tree().get_first_node_in_group("Player");
 		player.speed = 0;

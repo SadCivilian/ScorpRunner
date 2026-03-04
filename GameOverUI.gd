@@ -4,24 +4,23 @@ extends CanvasLayer
 @onready var RetryLevel : Button = $RetryLevel;
 @onready var QuitGame : Button = $QuitGame;
 @onready var ContinueText : RichTextLabel = $ContinueText;
-@onready var GameOver : RichTextLabel = $GameOver;
 @onready var Player : CharacterBody2D = get_tree().get_first_node_in_group(&"Player");
+@onready var mainMenuScene = Global.GetSceneFromString(&"MainMenu");
 
-		
 func getUILayer() -> CanvasLayer:
 	return get_tree().get_first_node_in_group(&"GameOverUIRenderer");
 
 func WireFunctionality() -> void:
 	RetryLevel.pressed.connect(func():
-		FadeTransition.transition(FadeTransition.TransitionType.OTHER)
 		hide();
 		get_tree().reload_current_scene();
 	);
 	QuitGame.pressed.connect(func():
-		get_tree().quit(0);
+		get_tree().change_scene_to_packed(mainMenuScene);
 	);
 
 func style(button : Button, color : Color) -> void:
+	# this was painful
 	var style = StyleBoxFlat.new()
 	style.bg_color = color
 	style.border_color = color.darkened(0.3)
@@ -33,21 +32,17 @@ func style(button : Button, color : Color) -> void:
 	style.corner_radius_top_right = 8
 	style.corner_radius_bottom_left = 8
 	style.corner_radius_bottom_right = 8
-	
-	# Set for all states
+
 	button.add_theme_stylebox_override("normal", style)
 	
-	# Hover state (lighter)
 	var hover_style = style.duplicate()
 	hover_style.bg_color = color.lightened(0.2)
 	button.add_theme_stylebox_override("hover", hover_style)
 	
-	# Pressed state (darker)
 	var pressed_style = style.duplicate()
 	pressed_style.bg_color = color.darkened(0.2)
 	button.add_theme_stylebox_override("pressed", pressed_style)
 	
-	# Disabled state (gray)
 	var disabled_style = style.duplicate()
 	disabled_style.bg_color = Color.GRAY
 	button.add_theme_stylebox_override("disabled", disabled_style)	

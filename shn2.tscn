@@ -457,7 +457,7 @@ sources/8 = SubResource("TileSetAtlasSource_au60f")
 sources/10 = SubResource("TileSetAtlasSource_sr1ni")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0pyyb"]
-size = Vector2(9678, 172.5)
+size = Vector2(10941, 172.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6l7wy"]
 size = Vector2(36.75, 26)
@@ -473,9 +473,9 @@ tile_set = SubResource("TileSet_xi7w5")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1160884326]
 z_index = -1
-position = Vector2(5.265545, -6)
+position = Vector2(4.0023108, -6.357533)
 rotation = -1.5707964
-scale = Vector2(0.23250002, 0.28660005)
+scale = Vector2(0.38660622, 0.47616035)
 texture = ExtResource("11_dis8u")
 
 [node name="Player" parent="." unique_id=261517677 instance=ExtResource("12_ns5jf")]
@@ -488,7 +488,7 @@ position = Vector2(148, 33)
 [node name="DeathZone" type="Area2D" parent="." unique_id=1530869277]
 
 [node name="BBox" type="CollisionShape2D" parent="DeathZone" unique_id=345963313]
-position = Vector2(4311, 568.75)
+position = Vector2(4942.5, 568.75)
 shape = SubResource("RectangleShape2D_0pyyb")
 
 [node name="BGMusicPlayer" parent="." unique_id=1700569638 instance=ExtResource("13_65524")]
@@ -504,8 +504,8 @@ position = Vector2(832, 29)
 shape = SubResource("RectangleShape2D_6l7wy")
 
 [node name="Sprite2D" type="Sprite2D" parent="LevelEnd/CollisionShape2D" unique_id=674070267]
-position = Vector2(0.9996934, 0.8749921)
-scale = Vector2(0.06713747, 0.05810549)
+position = Vector2(0.9996934, -6.624997)
+scale = Vector2(0.06713747, 0.08740232)
 texture = ExtResource("15_mal1w")
 
 [node name="Coins" type="Node" parent="." unique_id=128757841]
@@ -605,3 +605,9 @@ position = Vector2(5253, 267)
 
 [node name="Root" parent="Hearts" unique_id=2033917418 instance=ExtResource("22_n2vv5")]
 position = Vector2(1833, 302)
+
+[node name="Root3" parent="Hearts" unique_id=689047659 instance=ExtResource("22_n2vv5")]
+position = Vector2(6958, 318)
+
+[node name="Root2" parent="Hearts" unique_id=74439407 instance=ExtResource("22_n2vv5")]
+position = Vector2(6927, 318)

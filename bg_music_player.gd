@@ -4,11 +4,12 @@ var currentBGTrack : AudioStreamMP3;
 var CurrentTrackLength : float;
 var InitTrack : AudioStreamMP3;
 var FadeRan : bool = false;
-const FADE_OUT_TIME = 0.5;
-const FADE_IN_TIME = 0.5;
-@onready var BGMusicPlayer : AudioStreamPlayer2D = $".";
+const FADE_OUT_TIME = 1;
+const FADE_IN_TIME = 1;
+@onready var BGMusicPlayer : AudioStreamPlayer = $".";
 
 func _ready() -> void:
+	add_to_group(&"BGMusicPlayer");
 	BGMusicPlayer.finished.connect(FadeOutTrack);
 	CurrentTrackLength = BGMusicPlayer.stream.get_length();
 	await get_tree().create_timer(1.0).timeout;
@@ -26,19 +27,24 @@ func FadeOutTrack() -> void:
 	
 func FadeInTrack() -> void:
 	var fadeintween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO);
-	fadeintween.tween_property(BGMusicPlayer, "volume_db", -10.0, FADE_IN_TIME);
+	fadeintween.tween_property(BGMusicPlayer, "volume_db", -0.0, FADE_IN_TIME);
 
 	
 # Sets the background music 
 func setBgMusic(Track : AudioStreamMP3, fade : bool) -> void:
-	if fade == true:	
+	if fade == true:
+		print("test");
 		print("Transitioning track with fade");
 		var fadeouttween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO);
 		var fadeintween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO);
-		fadeouttween.tween_property(BGMusicPlayer, "volume_db", -80.0, FADE_OUT_TIME);
+		var tweener = fadeouttween.tween_property(BGMusicPlayer, "volume_db", -80.0, FADE_OUT_TIME);
 		BGMusicPlayer.stream = Track;
 		currentBGTrack = Track;
-		fadeintween.tween_property(BGMusicPlayer, "volume_db", -10.0, FADE_IN_TIME);
+		CurrentTrackLength = Track.get_length();
+		tweener.finished.connect(func():
+			fadeintween.tween_property(BGMusicPlayer, "volume_db", 0.0, FADE_IN_TIME);
+		);
+		BGMusicPlayer.play();
 	else: 
 		BGMusicPlayer.stream = Track;
 		currentBGTrack = Track;

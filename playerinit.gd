@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var attackDMG : int = 20;
 @export var canAttack : bool = true;
 @export var isAttacking : bool = false;
-@export var speed : int = 85;
+@export var speed : int = 95; 
 @export var gravity : int = 300;
 @export var jumpforce : int = 200;
 @export var hasDoubleJump : bool = false; 
@@ -116,7 +116,7 @@ func attack() -> Variant:
 		var hitArea = Area2D.new();
 		var hitShape = CollisionShape2D.new();
 		var rect = RectangleShape2D.new();
-		rect.size = Vector2(40, 20);
+		rect.size = Vector2(45, 20);
 		
 		hitArea.add_child(hitShape);
 		hitArea.name = &"Stinger";
@@ -174,26 +174,27 @@ func getUserData() -> Dictionary:
 	return Global.SaveData;
 	
 func wipeUserData() -> void:
-	Global.SaveData[&"Hearts"] = 0;
+	Global.SaveData[&"Hearts"] = 3;
 	Global.SaveData[&"Coins"] = 0;
 	Global.SaveData[&"Score"] = 0;
 	Global.SaveData[&"HasDoubleJump"] = false;
 	
 func Disperse() -> void:
+	DisperseUsedCheckpoints();
 	DisperseCollectedCoins();
 	DisperseOpenedChests();
 	DisperseKilledEnemies();
 	DisperseCollectedHearts();
 
 func DisperseKilledEnemies() -> void:
-	var enemiesNode = get_tree().current_scene.find_child(&"Enemies");
+	var enemiesNode = get_tree().current_scene.find_child(&"Enemies", false);
 	for enemyName in Global.FelledEnemies:
 		var node = enemiesNode.find_child(enemyName);
 		if node:
 			node.queue_free();
 
 func DisperseCollectedCoins() -> void:
-	var coinsNode = get_tree().current_scene.find_child(&"Coins");
+	var coinsNode = get_tree().current_scene.find_child(&"Coins", false);
 	for coinName in Global.CollectedCoins:
 		var node = coinsNode.find_child(coinName);
 		if node:
@@ -201,7 +202,7 @@ func DisperseCollectedCoins() -> void:
 		
 func DisperseOpenedChests() -> void:
 	var openTexture = load("res://assets/sprites/Chest/chestopen.jpeg");
-	var chestsNode = get_tree().current_scene.find_child(&"Chests");
+	var chestsNode = get_tree().current_scene.find_child(&"Chests", false);
 	for chestName in Global.OpenedChests:
 		var node = chestsNode.find_child(chestName);
 		if node:
@@ -209,9 +210,16 @@ func DisperseOpenedChests() -> void:
 			node.get_child(2).texture = openTexture;
 
 func DisperseCollectedHearts() -> void:
-	var heartsNode = get_tree().current_scene.find_child(&"Hearts");
+	var heartsNode = get_tree().current_scene.find_child(&"Hearts", false);
 	for heartName in Global.TakenHearts:
 		var node = heartsNode.find_child(heartName);
+		if node:
+			node.queue_free();
+			
+func DisperseUsedCheckpoints() -> void:
+	var root = get_tree().current_scene;
+	for checkName in Global.UsedCheckpoints:
+		var node = root.find_child(checkName);
 		if node:
 			node.queue_free();
 		

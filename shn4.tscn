@@ -488,13 +488,13 @@ tile_set = SubResource("TileSet_qk0v6")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1582778923]
 z_index = -1
-position = Vector2(0.065835, -0.015268192)
+position = Vector2(0.0026633441, -0.024356848)
 rotation = -1.5707964
-scale = Vector2(0.23141679, 0.285765)
+scale = Vector2(0.38565674, 0.47618577)
 texture = ExtResource("11_1plf6")
 
 [node name="Player" parent="." unique_id=2115676443 instance=ExtResource("12_omjff")]
-position = Vector2(-6632, 393)
+position = Vector2(-6612, 393)
 floor_block_on_wall = false
 
 [node name="Placeholder" type="Sprite2D" parent="." unique_id=1266466449]
@@ -507,6 +507,7 @@ position = Vector2(-3607, 666)
 shape = SubResource("RectangleShape2D_pwsq2")
 
 [node name="BGMusicPlayer" parent="." unique_id=1700569638 instance=ExtResource("16_uiois")]
+volume_db = 0.0
 
 [node name="PlayerCamera" parent="." unique_id=1206915148 instance=ExtResource("16_2lxvh")]
 

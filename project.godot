@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="ScorpRunner"
-run/main_scene="uid://cea8mlbp16o3r"
+run/main_scene="uid://b08nraswymhg0"
 config/features=PackedStringArray("4.6", "Mobile")
 boot_splash/image="uid://bmyvsejo7dn2a"
 config/icon="res://icon.svg"
@@ -36,6 +36,7 @@ gdscript/warnings/unsafe_cast=1
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=3
 
 [dotnet]
 

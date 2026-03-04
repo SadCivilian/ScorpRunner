@@ -8,14 +8,16 @@ var LineCache : Array[Line2D] = [];
 var Debris : Array[Variant] = [];
 
 # Save Data
-var TempCollectedCoins = []
-var TempFelledEnemies = []
-var TempOpenedChests = []
-var TempTakenHearts = []
+var TempCollectedCoins = [];
+var TempFelledEnemies = [];
+var TempOpenedChests = [];
+var TempTakenHearts = [];
 var CollectedCoins = []; # Coins which were collected.
 var FelledEnemies = []; # Killed enemies which will not respawn. 
-var OpenedChests = [] # Opened chests which will spawn open.
-var TakenHearts = [] # Hearts which have been collected and will not spawn.
+var OpenedChests = []; # Opened chests which will spawn open.
+var TakenHearts = []; # Hearts which have been collected and will not spawn.
+var UsedCheckpoints = [];
+var ContinueScene = null;
 
 var SceneTransitions = {
 	&"shn1" : &"shn2",

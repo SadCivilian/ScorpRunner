@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://br2ovl53d25r1"]
+
+[ext_resource type="Script" uid="uid://cuctyyi1fwxbr" path="res://MainMenu.gd" id="1_i26rj"]
+[ext_resource type="Texture2D" uid="uid://bmyvsejo7dn2a" path="res://assets/images/scorpions logo tişört.png" id="2_eiy7p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eiy7p"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="MainMenuLayer" type="CanvasLayer" unique_id=604323931]
+script = ExtResource("1_i26rj")
+
+[node name="Control" type="Control" parent="." unique_id=427488125]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FadeRect" type="ColorRect" parent="Control" unique_id=198593173]
+modulate = Color(1, 1, 1, 0)
+z_index = 999
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
+
+[node name="StartAdventure" type="Button" parent="Control" unique_id=1457788566]
+layout_mode = 0
+offset_left = 533.0
+offset_top = 514.0
+offset_right = 728.0
+offset_bottom = 522.0
+
+[node name="QuitGame" type="Button" parent="Control" unique_id=1925925211]
+layout_mode = 0
+offset_left = 976.0
+offset_top = 510.0
+offset_right = 1155.0
+offset_bottom = 518.0
+
+[node name="VolumeSlider" type="HSlider" parent="Control" unique_id=589909570]
+layout_mode = 0
+offset_left = 722.0
+offset_top = 324.0
+offset_right = 822.0
+offset_bottom = 340.0
+value = 80.0
+rounded = true
+
+[node name="Volume" type="Label" parent="Control/VolumeSlider" unique_id=848914100]
+layout_mode = 0
+offset_left = 38.0
+offset_top = -21.0
+offset_right = 78.0
+offset_bottom = 2.0
+text = "80"
+
+[node name="Logo" type="Sprite2D" parent="Control" unique_id=108731803]
+top_level = true
+z_index = 20
+position = Vector2(1723, 872)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_eiy7p")
+
+[node name="SettingsButton" type="Button" parent="Control" unique_id=319669181]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="CreditsButton" type="Button" parent="Control" unique_id=1885179262]
+layout_mode = 0
+offset_left = 880.0
+offset_top = 399.0
+offset_right = 1246.0
+offset_bottom = 455.0
+
+[node name="CreditsPanel" type="Panel" parent="Control" unique_id=755495893]
+layout_mode = 0
+offset_left = 130.0
+offset_top = 362.0
+offset_right = 356.0
+offset_bottom = 481.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_eiy7p")
+
+[node name="ContinueButton" type="Button" parent="Control" unique_id=696677396]
+layout_mode = 0
+offset_left = 536.0
+offset_top = 427.0
+offset_right = 782.0
+offset_bottom = 470.0

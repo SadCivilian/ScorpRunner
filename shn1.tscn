@@ -491,6 +491,7 @@ shape = SubResource("RectangleShape2D_h2yge")
 [node name="PlayerCamera" parent="." unique_id=1781630124 instance=ExtResource("14_qytd6")]
 
 [node name="BGMusicPlayer" parent="." unique_id=1863265657 instance=ExtResource("15_7qw2m")]
+volume_db = 0.0
 mix_target = 2
 
 [node name="LevelEnd" type="Area2D" parent="." unique_id=595983499]
@@ -560,7 +561,7 @@ position = Vector2(24211, 874)
 position = Vector2(21102, 761)
 
 [node name="Before Snake6" parent="Checkpoints" unique_id=616636270 instance=ExtResource("24_a1d00")]
-position = Vector2(23729, 602)
+position = Vector2(23664, 682)
 
 [node name="Pyramid\'s Top" parent="Checkpoints" unique_id=631625479 instance=ExtResource("24_a1d00")]
 position = Vector2(22177, 602)

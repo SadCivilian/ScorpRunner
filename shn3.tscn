@@ -473,7 +473,7 @@ sources/10 = SubResource("TileSetAtlasSource_x6q56")
 size = Vector2(21541, 172.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_512em"]
-size = Vector2(48, 35.5)
+size = Vector2(39, 35.5)
 
 [node name="Node2D" type="Node2D" unique_id=1461140568]
 script = ExtResource("1_ayvjx")
@@ -486,9 +486,9 @@ tile_set = SubResource("TileSet_yasrw")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=40083538]
 z_index = -1
-position = Vector2(-58, 10.000001)
+position = Vector2(-59.09882, 10.930712)
 rotation = -1.5707964
-scale = Vector2(0.23076084, 0.28549927)
+scale = Vector2(0.38554642, 0.4760026)
 texture = ExtResource("13_7oaja")
 
 [node name="Player" parent="." unique_id=1773314479 instance=ExtResource("14_70ft8")]
@@ -686,12 +686,12 @@ rotation = 3.1415927
 position = Vector2(17702, 171)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelEnd" unique_id=940293947]
-position = Vector2(507, 199)
+position = Vector2(511, 199)
 shape = SubResource("RectangleShape2D_512em")
 
 [node name="Sprite2D" type="Sprite2D" parent="LevelEnd/CollisionShape2D" unique_id=2051450097]
-position = Vector2(0.0006465912, 1.9999886)
-scale = Vector2(0.09668222, 0.0771484)
+position = Vector2(-3.874642, -8.125005)
+scale = Vector2(0.08154438, 0.11669915)
 texture = ExtResource("25_qotwa")
 
 [node name="Paper" parent="." unique_id=1780009860 instance=ExtResource("18_nft1n")]

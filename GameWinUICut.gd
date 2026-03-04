@@ -23,7 +23,7 @@ func TriggerCutscene() -> void:
 	self.show();
 	Player.dead = true;
 	Score.text = str(Player.getUserData()[&"Score"]);
-	var tween = create_tween().tween_property(FadeOut, "modulate:a", 1.0, 0.5);
+	var tween = create_tween().tween_property(FadeOut, "modulate:a", 1.0, 1.0);
 	tween.finished.connect(func():
 		var text_tween = create_tween().set_parallel(true)
 		text_tween.tween_property(ScoreLabel, "modulate:a", 1.0, 0.5);

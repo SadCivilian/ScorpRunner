@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dcyq5naplofan" path="res://assets/images/fullHeartFinal.png" id="4_3y4og"]
 [ext_resource type="Texture2D" uid="uid://da4x2ncotxq24" path="res://assets/images/EmptyCoin.png" id="5_qqtj1"]
 [ext_resource type="Script" uid="uid://dbhyqhc8n3oxg" path="res://GameOverUI.gd" id="6_ibo1c"]
+[ext_resource type="Texture2D" uid="uid://cn42wm70ctudf" path="res://assets/images/rebuilt.png" id="7_1u4fj"]
 [ext_resource type="Texture2D" uid="uid://w3j0iql20sp" path="res://assets/images/GameOver.png" id="7_ri33b"]
 [ext_resource type="Script" uid="uid://dwfgqoc84eq12" path="res://GameWinUICut.gd" id="8_3y4og"]
 [ext_resource type="Texture2D" uid="uid://bmyvsejo7dn2a" path="res://assets/images/scorpions logo tişört.png" id="9_qqtj1"]
@@ -15,26 +16,26 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("FadeRect:modulate")
+tracks/0/path = NodePath("FadeRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("FadeRect:color")
+tracks/1/path = NodePath("FadeRect:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_5vw27"]
@@ -43,7 +44,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("FadeRect:modulate")
+tracks/0/path = NodePath("FadeRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -55,7 +56,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("FadeRect:color")
+tracks/1/path = NodePath("FadeRect:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -162,30 +163,44 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Logo2" type="Sprite2D" parent="UIRenderer" unique_id=2058425534]
+top_level = true
+z_index = 4096
+position = Vector2(950, 66)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("9_qqtj1")
+
+[node name="Rebuilt" type="Sprite2D" parent="UIRenderer" unique_id=62904960]
+position = Vector2(66.000015, 991)
+scale = Vector2(0.2074074, 0.20602679)
+texture = ExtResource("7_1u4fj")
+
 [node name="GameOverUI" type="CanvasLayer" parent="." unique_id=921467969]
 visible = false
 script = ExtResource("6_ibo1c")
 
 [node name="RetryLevel" type="Button" parent="GameOverUI" unique_id=1664878932]
 modulate = Color(1.6197081, 1.6197081, 1.6197081, 1)
-offset_left = 978.0
-offset_top = 543.0
-offset_right = 1200.0
-offset_bottom = 574.0
+offset_left = 842.0
+offset_top = 527.0
+offset_right = 1104.0
+offset_bottom = 584.0
 text = "Retry From Last Checkpoint"
 
 [node name="QuitGame" type="Button" parent="GameOverUI" unique_id=1536263054]
-offset_left = 800.0
+visible = false
+offset_left = 774.0
 offset_top = 543.0
-offset_right = 892.0
+offset_right = 930.0
 offset_bottom = 574.0
-text = "Quit Game"
+text = "Quit To Main Menu"
 
 [node name="ContinueText" type="RichTextLabel" parent="GameOverUI" unique_id=1799761735]
-offset_left = 827.0
-offset_top = 491.0
-offset_right = 1082.0
-offset_bottom = 533.0
+offset_left = 694.0
+offset_top = 476.0
+offset_right = 969.0
+offset_bottom = 499.5
+scale = Vector2(2, 2)
 bbcode_enabled = true
 text = "[center][b][i]Continue?[/i][/b][/center]"
 
@@ -202,20 +217,21 @@ text = "[center][b][i]Game Over![/i][/b][/center]"
 
 [node name="GameOverSprite" type="Sprite2D" parent="GameOverUI" unique_id=1739243788]
 texture_filter = 1
-position = Vector2(967, 449)
-scale = Vector2(3.1599998, 2.7200003)
+position = Vector2(990, 417)
+scale = Vector2(5, 4.304)
 texture = ExtResource("7_ri33b")
 
 [node name="GameWinUI" type="CanvasLayer" parent="." unique_id=518580378]
-visible = false
 script = ExtResource("8_3y4og")
 
 [node name="FadeOut" type="ColorRect" parent="GameWinUI" unique_id=1276571112]
+modulate = Color(1, 1, 1, 0)
 offset_right = 1921.0
 offset_bottom = 1081.0
 color = Color(0, 0, 0, 1)
 
 [node name="FinishLabel" type="RichTextLabel" parent="GameWinUI" unique_id=1752818028]
+modulate = Color(1, 1, 1, 0)
 texture_filter = 2
 offset_left = 580.00006
 offset_top = 257.0
@@ -227,30 +243,34 @@ bbcode_enabled = true
 text = "To Be Continued..."
 
 [node name="ScoreLabel" type="RichTextLabel" parent="GameWinUI" unique_id=380968593]
-offset_left = 763.0
-offset_top = 477.0
-offset_right = 1318.6667
-offset_bottom = 569.6667
+modulate = Color(1, 1, 1, 0)
+offset_left = 797.0
+offset_top = 443.0
+offset_right = 1352.6667
+offset_bottom = 535.6667
 theme_override_font_sizes/normal_font_size = 64
 text = "Score:"
 
 [node name="Score" type="RichTextLabel" parent="GameWinUI" unique_id=2096431646]
-offset_left = 977.0
-offset_top = 476.0
-offset_right = 1213.0
-offset_bottom = 572.0
+modulate = Color(1, 1, 1, 0)
+offset_left = 1011.0
+offset_top = 442.0
+offset_right = 1247.0
+offset_bottom = 538.0
 theme_override_font_sizes/normal_font_size = 64
 text = "(score)"
 
 [node name="Thanks" type="RichTextLabel" parent="GameWinUI" unique_id=705492287]
-offset_left = 629.0
-offset_top = 631.0
-offset_right = 1294.0
-offset_bottom = 942.0
+modulate = Color(1, 1, 1, 0)
+offset_left = 674.0
+offset_top = 654.0
+offset_right = 1339.0
+offset_bottom = 965.0
 theme_override_font_sizes/normal_font_size = 64
 text = "Thanks For Playing!"
 
 [node name="Logo" type="Sprite2D" parent="GameWinUI" unique_id=922811610]
+modulate = Color(1, 1, 1, 0)
 top_level = true
 z_index = 4096
 position = Vector2(1723, 872)
@@ -258,9 +278,10 @@ scale = Vector2(0.15, 0.15)
 texture = ExtResource("9_qqtj1")
 
 [node name="ReplayButton" type="Button" parent="GameWinUI" unique_id=1892056391]
-offset_left = 834.0
+modulate = Color(1, 1, 1, 0)
+offset_left = 868.0
 offset_top = 886.0
-offset_right = 1013.0
+offset_right = 1047.0
 offset_bottom = 933.0
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_qqtj1")

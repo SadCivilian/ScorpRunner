@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dmkdad1iuwel0" path="res://checkpoint.gd" id="1_luqgl"]
 [ext_resource type="Texture2D" uid="uid://dfis2hc5gpfgc" path="res://New/PNG (Transparent)/dirt_03.png" id="2_r6hke"]
+[ext_resource type="AudioStream" uid="uid://daceicjelv6xw" path="res://assets/sounds/Wind.mp3" id="3_tnhlw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_njsvn"]
 size = Vector2(20, 60)
@@ -18,3 +19,6 @@ debug_color = Color(1, 0, 0, 0.41960785)
 position = Vector2(0, -19)
 scale = Vector2(0.0390625, 0.041015625)
 texture = ExtResource("2_r6hke")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1769079320]
+stream = ExtResource("3_tnhlw")
