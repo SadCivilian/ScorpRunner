@@ -222,6 +222,7 @@ scale = Vector2(5, 4.304)
 texture = ExtResource("7_ri33b")
 
 [node name="GameWinUI" type="CanvasLayer" parent="." unique_id=518580378]
+visible = false
 script = ExtResource("8_3y4og")
 
 [node name="FadeOut" type="ColorRect" parent="GameWinUI" unique_id=1276571112]
