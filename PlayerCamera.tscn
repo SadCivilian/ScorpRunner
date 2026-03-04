@@ -166,7 +166,7 @@ vertical_alignment = 1
 [node name="Logo2" type="Sprite2D" parent="UIRenderer" unique_id=2058425534]
 top_level = true
 z_index = 4096
-position = Vector2(950, 66)
+position = Vector2(1867, 1016)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("9_qqtj1")
 

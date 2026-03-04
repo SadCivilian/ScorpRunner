@@ -24,17 +24,23 @@ func _process(delta: float) -> void:
 # Fades out the current track right before replaying it.
 func FadeOutTrack() -> void:
 	var fadeouttween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO);	
-	fadeouttween.tween_property(BGMusicPlayer, "volume_linear", 0.0, FADE_OUT_TIME);
-	FadeInTrack()
+	var tweener = fadeouttween.tween_property(BGMusicPlayer, "volume_linear", 0.0, FADE_OUT_TIME);
+	tweener.finished.connect(func():
+		FadeInTrack();	
+	);
 	
 func FadeOutTrackPerm() -> void:
 	var fadeouttween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO);	
 	fadeouttween.tween_property(BGMusicPlayer, "volume_linear", 0.0, FADE_OUT_TIME);
 	
 func FadeInTrack() -> void:
+	BGMusicPlayer.volume_linear = 0;
+	BGMusicPlayer.play();
 	var fadeintween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO);
-	fadeintween.tween_property(BGMusicPlayer, "volume_linear", 1.0, FADE_IN_TIME);
-	FadeRan = false;
+	var tweener = fadeintween.tween_property(BGMusicPlayer, "volume_linear", 1.0, FADE_IN_TIME);
+	tweener.finished.connect(func():
+		FadeRan = false;	
+	);
 
 	
 # Sets the background music 
