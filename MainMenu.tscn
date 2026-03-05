@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://br2ovl53d25r1"]
 
-[ext_resource type="Script" uid="uid://cuctyyi1fwxbr" path="res://MainMenu.gd" id="1_i26rj"]
+[ext_resource type="Script" uid="uid://cuctyyi1fwxbr" path="res://Archive/MainMenu.gd" id="1_i26rj"]
 [ext_resource type="Texture2D" uid="uid://bmyvsejo7dn2a" path="res://assets/images/scorpions logo tişört.png" id="2_eiy7p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eiy7p"]

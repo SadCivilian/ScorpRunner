@@ -1,3 +1,4 @@
+#paper code which re made for 4. time
 extends Node2D
 
 @onready var ReadLabel = $ReadLabel 

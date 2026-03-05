@@ -1,5 +1,6 @@
+#well,it was better to not use this thing actually
 extends CanvasLayer
-
+#onreadies
 var bus_id = AudioServer.get_bus_index(&"Master");
 @onready var StartAdventure = $Control/StartAdventure;
 @onready var QuitGame = $Control/QuitGame;

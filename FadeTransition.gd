@@ -1,3 +1,4 @@
+#Fade Transatiton code
 extends CanvasLayer
 
 var faderect;

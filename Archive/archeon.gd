@@ -1,3 +1,4 @@
+#We didnt use this sceene in our game 
 extends Node2D
 
 @export var direct = 1;

@@ -1,3 +1,4 @@
+#game win code,made for to show the texts
 extends CanvasLayer
 
 @onready var FadeOut : ColorRect = $FadeOut;

@@ -1,3 +1,4 @@
+#code for the bridge which changed for 3 serious times :/
 extends Node2D
 
 @onready var bridge_node : Control = $Control;
@@ -11,6 +12,7 @@ func _ready():
 			tweenBridge();
 	);
 	
+#the bridge animiation
 func tweenBridge() -> void:
 	triggered = true;
 	if bridge_node == null: return

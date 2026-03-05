@@ -1,5 +1,6 @@
+#A part of anubis attack
 extends Node2D
-
+#setup
 @export var direct : int = 1;
 @export var moving : bool = true;
 @export var speed : int = 100;

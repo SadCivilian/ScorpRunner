@@ -1,10 +1,11 @@
+#ending code
 extends Area2D
-
+#onreadies
 @onready var Camera = get_tree().get_first_node_in_group(&"Camera");
 @onready var GameWinUI = Camera.get_child(3);
 @onready var Area = $".";
 @onready var MusicPlayer = get_tree().get_first_node_in_group(&"BGMusicPlayer");
-
+#codes
 func _ready() -> void:
 	Area.area_entered.connect(func(area):
 		if Global.isPlayerArea(area):

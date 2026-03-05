@@ -1,3 +1,4 @@
+#music player
 extends Node
 
 var currentBGTrack : AudioStreamMP3;

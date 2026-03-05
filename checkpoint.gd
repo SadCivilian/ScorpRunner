@@ -1,5 +1,6 @@
+#checkpoint code,which one was harder to complete
 extends Area2D
-
+#onreadies
 @export var triggered = false;
 @onready var Area = $".";
 @onready var Player = get_tree().get_first_node_in_group(&"Player")

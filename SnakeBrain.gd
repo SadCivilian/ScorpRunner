@@ -1,3 +1,4 @@
+#snake code
 extends CharacterBody2D
 
 signal onStateChanged(state);
@@ -32,7 +33,7 @@ const KNOCKBACK_VECTOR = Vector2(1.0, 1.0); # Base vector for knockback which is
 
 
 func onPlayerJumpedOn() -> void:
-	# Stop the fucker first
+	# Stop the killer first
 	CurrentSpeed = 0;
 	isdying = true;
 	Global.TempFelledEnemies.append(self.name);

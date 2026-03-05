@@ -18,7 +18,7 @@ func onMarkerReached(anim_name : StringName) -> void:
 	if AnimEvents.has(anim_name):
 		MarkerReached.emit(anim_name);  
 
-# OTHER SHIT
+# OTHER Stuffs
 signal onStateChanged(state);
 signal killed();
 enum state {FIGHT, DEAD, HIT};

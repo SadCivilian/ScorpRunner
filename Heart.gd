@@ -1,3 +1,4 @@
+#code for heart as may be seem
 extends Area2D
 
 @onready var Player = get_tree().get_first_node_in_group(&"Player");

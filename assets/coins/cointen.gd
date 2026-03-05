@@ -1,9 +1,10 @@
+#Duplicated version of coin.gd , changed for x5 money
 extends Area2D
 
 @export var value : int = 10;
 
 signal collected(value : int);
-
+#onreadiess
 @onready var BaseSprite : Sprite2D = $Model;
 @onready var Area : Area2D = $".";
 @onready var Animator : AnimationPlayer = $Animator;
@@ -21,7 +22,7 @@ func _ready() -> void:
 	Area.area_entered.connect(func(who):
 		collect(who);
 	);
-	
+#geting the coinn
 func collect(who : Area2D) -> void:
 	if collecting == false and Global.isPlayerArea(who):
 		collecting = true;

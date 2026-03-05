@@ -1,3 +1,4 @@
+#The code for game ending screen,caused by the UI is not okey by itself
 extends CanvasLayer
 
 @onready var Renderer : CanvasLayer = $".";

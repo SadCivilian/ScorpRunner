@@ -1,3 +1,4 @@
+#A part of paper actually
 extends Area2D
 
 @export var note_node: CanvasLayer 

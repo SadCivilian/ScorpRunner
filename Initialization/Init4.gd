@@ -1,3 +1,4 @@
+#4. level's code , most important of all init codes
 extends Node
 
 @onready var Player = get_tree().get_first_node_in_group(&"Player");

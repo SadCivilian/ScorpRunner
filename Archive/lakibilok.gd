@@ -1,3 +1,4 @@
+#Actually we wanted to do this however we did chest instead
 extends Node2D
 
 @onready var Bottom = $Realblok/Alt

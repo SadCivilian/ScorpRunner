@@ -532,6 +532,7 @@ position = Vector2(21090, 893)
 
 [node name="Root8" parent="Coins" unique_id=1694003983 instance=ExtResource("19_peo2a")]
 position = Vector2(24399, 651)
+value = 5
 
 [node name="Enemies" type="Node" parent="." unique_id=1223594341]
 

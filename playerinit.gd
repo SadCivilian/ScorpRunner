@@ -1,5 +1,6 @@
+#player code
 extends CharacterBody2D
-
+#setup (33 lines lol)
 @export var attackCD : float = 1;
 @export var attackDMG : int = 20;
 @export var canAttack : bool = true;

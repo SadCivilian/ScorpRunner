@@ -1,3 +1,4 @@
+#Double jump code which you can get from first levels secret place which has paper
 extends Area2D
 
 @onready var Player = get_tree().get_first_node_in_group(&"Player");

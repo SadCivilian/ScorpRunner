@@ -1,5 +1,6 @@
+#2. level'S codee
 extends Node2D
-
+#onreadies part
 @onready var LevelEnd : Area2D = $LevelEnd;
 @onready var Player = get_tree().get_first_node_in_group(&"Player");
 @onready var FadeRect = $PlayerCamera/FadeOutLayer/FadeRect;

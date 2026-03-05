@@ -1,3 +1,4 @@
+#first level's general codes
 extends Node
 
 @onready var FadeOutLayer = $PlayerCamera/FadeOutLayer;

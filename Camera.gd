@@ -1,3 +1,4 @@
+#camera code
 extends Camera2D
 
 signal CameraStepped;
